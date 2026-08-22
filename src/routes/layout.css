@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@plugin '@tailwindcss/typography';
+
+/* 1. Shiki Multi-Theme Syntax Variables */
+.shiki {
+	background-color: #f8fafc !important;
+}
+
+.shiki span {
+	color: var(--shiki-light);
+}
+
+[data-theme='dark'] .shiki {
+	background-color: #020617 !important;
+}
+
+[data-theme='dark'] .shiki span {
+	color: var(--shiki-dark);
+}
+
+@layer utilities {
+	.prose :where(code):not(:where([class~='not-prose'] *))::before,
+	.prose :where(code):not(:where([class~='not-prose'] *))::after {
+		content: '' !important;
+	}
+}
