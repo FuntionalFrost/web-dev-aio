@@ -2,7 +2,11 @@
 	import { page } from '$app/state';
 	import { curriculum } from '$lib/data/curriculum';
 
-	let currentIndex = $derived(curriculum.findIndex((m) => m.href === page.url.pathname));
+	const cleanPath = (p: string) => p.replace(/\/$/, '');
+
+	let currentIndex = $derived(
+		curriculum.findIndex((m) => cleanPath(m.href) === cleanPath(page.url.pathname))
+	);
 	let prevModule = $derived(currentIndex > 0 ? curriculum[currentIndex - 1] : null);
 	let nextModule = $derived(
 		currentIndex >= 0 && currentIndex < curriculum.length - 1 ? curriculum[currentIndex + 1] : null

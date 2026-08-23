@@ -1,6 +1,6 @@
 # Web Engine 2026: Modern Web Engineering Guide & Interactive Labs
 
-An interactive, zero-server educational portal and reference architecture for modern full-stack web development. Built with **SvelteKit 2**, **Svelte 5 (Runes)**, **Tailwind CSS v4**, and **TypeScript 6**, covering 21 hands-on modules across 6 curriculum tracks.
+An interactive, zero-server educational portal and reference architecture for modern full-stack web development. Built with **SvelteKit 2**, **Svelte 5 (Runes)**, **Tailwind CSS v4**, and **TypeScript 6**, covering 21 hands-on engineering modules across 6 curriculum tracks.
 
 ---
 
@@ -11,13 +11,12 @@ An interactive, zero-server educational portal and reference architecture for mo
 - **Type System:** [TypeScript 6](https://www.typescriptlang.org/) (Strict modules, type-safe RPCs, Standard Schema)
 - **Code Highlighting:** [Shiki](https://shiki.style/) (Prerendered dual dark/light themes at build time, 0 client bundle cost)
 - **Adapter:** [`@sveltejs/adapter-static`](https://kit.svelte.dev/docs/adapter-static) (100% precompressed static HTML/CSS/JS output)
-- **State Persistence:** Local-first reactive progress tracking via Svelte 5 runes and browser storage
 
 ---
 
 ## Curriculum Overview
 
-The 21 interactive modules are structured across 6 core tracks:
+The 21 interactive engineering modules are structured across 6 core tracks:
 
 | Track                      | Modules | Key Technologies & Concepts                                                                                                                                           |
 | :------------------------- | :------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -32,35 +31,7 @@ The 21 interactive modules are structured across 6 core tracks:
 
 ## Key Features
 
-- **Client-Side Interactive Sandboxes:** Live emulators for sliding-window rate limiters, biometric passkey registrations, HMAC signers, reactive runes, and query compilers—running entirely in-browser without backend dependencies.
+- **Interactive Architecture Simulators:** Client-side visualizers for sliding-window rate limiters, biometric passkey registrations, HMAC signers, reactive runes, and query compilers—running entirely in-browser.
 - **Build-Time Syntax Highlighting:** Code samples are parsed and highlighted during static build generation using Shiki, shipping zero parser JavaScript to the client.
-- **Progress Tracking & Verification:** Stateful progress tracker with local browser persistence.
-- **Exportable Mastery Certificate:** Dynamic SVG certificate generation upon completing all 21 modules with client-side SVG/PNG export.
+- **Full-Spectrum Search & Keyboard Navigation:** Global command palette (`⌘K`) for rapid navigation across all 21 modules and architectural topics.
 - **Dual Edge Deployment Ready:** Pre-configured security headers and immutable cache policies for Cloudflare Pages (`_headers`) and Vercel (`vercel.json`).
-
----
-
-## Project Structure
-
-```text
-├── .github/workflows/         # Automated GitHub Pages CI/CD pipeline
-├── src/
-│   ├── lib/
-│   │   ├── components/        # LabShell, CodeBlock, CommandPalette, Certificate
-│   │   ├── data/              # Master curriculum metadata & route definitions
-│   │   ├── server/            # Shiki syntax highlighting engine (prerender-only)
-│   │   └── state/             # Reactive progress engine via Svelte 5 runes
-│   └── routes/
-│       ├── +layout.svelte     # Pinned responsive sidebar, track navigation & search
-│       ├── +page.svelte       # 21-module interactive filter & telemetry dashboard
-│       ├── foundations/       # HTML5, Tailwind v4, TS6, Icon systems
-│       ├── module-[1..5]/     # Advanced ES2026 platform labs
-│       ├── frameworks/        # Svelte 5, shadcn-svelte, Vue 3.5, Nuxt 4
-│       ├── apis/              # Schema validation, Hono RPC, SSE, Webhooks
-│       ├── infra/             # Drizzle/Neon, Redis Rate Limiting, Better Auth, Edge
-│       └── services/          # Resend/Polar.sh, S3 Presigned Uploads/Inngest
-├── static/
-│   └── _headers               # Cloudflare Pages security headers & cache rules
-├── svelte.config.js           # Static adapter & strict prerender config
-└── vercel.json                # Vercel Edge security headers & routing config
-```

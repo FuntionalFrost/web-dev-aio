@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { curriculum } from '$lib/data/curriculum';
+	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
 
 	let open = $state(false);
 	let search = $state('');
+	let selectedIndex = $state(0);
+	let inputEl = $state<HTMLInputElement | null>(null);
 
 	let filtered = $derived(
 		search.trim() === ''
@@ -16,13 +18,40 @@
 				)
 	);
 
+	$effect(() => {
+		if (open) {
+			selectedIndex = 0;
+			setTimeout(() => inputEl?.focus(), 15);
+		}
+	});
+
+	$effect(() => {
+		// Keep selection within bounds when filtered results change
+		if (selectedIndex >= filtered.length) {
+			selectedIndex = Math.max(0, filtered.length - 1);
+		}
+	});
+
 	function handleKeydown(e: KeyboardEvent) {
 		if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
 			e.preventDefault();
 			open = !open;
+			return;
 		}
-		if (e.key === 'Escape' && open) {
+
+		if (!open) return;
+
+		if (e.key === 'Escape') {
 			open = false;
+		} else if (e.key === 'ArrowDown') {
+			e.preventDefault();
+			selectedIndex = (selectedIndex + 1) % filtered.length;
+		} else if (e.key === 'ArrowUp') {
+			e.preventDefault();
+			selectedIndex = (selectedIndex - 1 + filtered.length) % filtered.length;
+		} else if (e.key === 'Enter' && filtered[selectedIndex]) {
+			e.preventDefault();
+			navigateTo(filtered[selectedIndex].href);
 		}
 	}
 
@@ -65,24 +94,48 @@
 		>
 			<div class="border-b border-slate-200 p-3 dark:border-slate-800">
 				<input
+					bind:this={inputEl}
 					type="text"
-					placeholder="Search modules, technologies..."
+					placeholder="Type a module or technology (e.g., Redis, Passkeys, Svelte 5)..."
 					bind:value={search}
 					class="w-full bg-transparent font-mono text-xs text-slate-900 placeholder-slate-400 focus:outline-none dark:text-slate-100"
 				/>
 			</div>
 			<div class="max-h-72 overflow-y-auto p-2">
-				{#each filtered as mod (mod.id)}
+				{#each filtered as mod, idx (mod.id)}
 					<button
 						onclick={() => navigateTo(mod.href)}
-						class="flex w-full items-center justify-between rounded-lg p-2 text-left font-mono text-xs transition hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
+						onmouseenter={() => (selectedIndex = idx)}
+						class="flex w-full items-center justify-between rounded-lg p-2.5 text-left font-mono text-xs transition {selectedIndex ===
+						idx
+							? 'bg-indigo-600 text-white'
+							: 'text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'}"
 					>
-						<span class="font-semibold text-slate-800 dark:text-slate-200">{mod.title}</span>
-						<span class="text-[10px] text-slate-400">{mod.category}</span>
+						<div class="flex flex-col gap-0.5">
+							<span
+								class="font-semibold {selectedIndex === idx
+									? 'text-white'
+									: 'text-slate-900 dark:text-slate-100'}"
+							>
+								{mod.title}
+							</span>
+							<span
+								class="text-[10px] {selectedIndex === idx ? 'text-indigo-200' : 'text-slate-400'}"
+							>
+								{mod.tech.join(' · ')}
+							</span>
+						</div>
+						<span
+							class="text-[10px] uppercase {selectedIndex === idx
+								? 'text-indigo-200'
+								: 'text-slate-400'}"
+						>
+							{mod.category}
+						</span>
 					</button>
 				{:else}
-					<div class="p-4 text-center font-mono text-xs text-slate-400">
-						No matching modules found.
+					<div class="p-6 text-center font-mono text-xs text-slate-400">
+						No matching labs found.
 					</div>
 				{/each}
 			</div>
