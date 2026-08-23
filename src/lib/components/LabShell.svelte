@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
+	import { MetaTags, JsonLd } from 'svelte-meta-tags';
 	import LabPagination from '$lib/components/LabPagination.svelte';
 	import { progress } from '$lib/state/progress.svelte';
 
@@ -18,16 +19,48 @@
 		sandbox: Snippet;
 	} = $props();
 
+	const siteUrl = 'https://web-engine26.pages.dev';
+	let canonicalUrl = $derived(`${siteUrl}${page.url.pathname}`);
 	let completed = $derived(progress.isComplete(moduleId));
 </script>
 
-<svelte:head>
-	<title>{title} | Web Engine 2026</title>
-	<meta name="description" content={description} />
-	<meta property="og:title" content="{title} | Web Engine 2026" />
-	<meta property="og:description" content={description} />
-	<meta property="og:url" content={page.url.href} />
-</svelte:head>
+<!-- Structured Data for Search Engine Rich Snippets -->
+<JsonLd
+	schema={{
+		'@context': 'https://schema.org',
+		'@type': 'TechArticle',
+		mainEntityOfPage: {
+			'@type': 'WebPage',
+			'@id': canonicalUrl
+		},
+		headline: title,
+		description: description,
+		inLanguage: 'en-US',
+		author: {
+			'@type': 'Organization',
+			name: 'Web Engine 2026',
+			url: siteUrl
+		},
+		publisher: {
+			'@type': 'Organization',
+			name: 'Web Engine 2026',
+			url: siteUrl
+		}
+	}}
+/>
+
+<!-- Deep-merged Metadata with Root Layout -->
+<MetaTags
+	{title}
+	{description}
+	canonical={canonicalUrl}
+	openGraph={{
+		title: `${title} | Web Engine 2026`,
+		description: description,
+		url: canonicalUrl,
+		type: 'article'
+	}}
+/>
 
 <div class="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-2">
 	<!-- Left Column: Guide / Code Walkthrough -->
@@ -48,8 +81,10 @@
 			</button>
 		</div>
 
-		<h2>{title}</h2>
-		<p>{description}</p>
+		<h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-white">
+			{title}
+		</h1>
+		<p class="text-sm text-slate-600 dark:text-slate-400">{description}</p>
 
 		{@render guide()}
 	</div>

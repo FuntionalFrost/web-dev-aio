@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { MetaTags } from 'svelte-meta-tags';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
@@ -28,6 +29,8 @@
 	});
 
 	let percentComplete = $derived(Math.round((progress.count / curriculum.length) * 100) || 0);
+	const siteUrl = 'https://web-engine26.pages.dev';
+	let currentCanonical = $derived(`${siteUrl}${page.url.pathname}`);
 	let activeModule = $derived(curriculum.find((m) => m.href === page.url.pathname));
 
 	let mobileDrawerOpen = $state(false);
@@ -43,6 +46,48 @@
 		});
 	});
 </script>
+
+<!-- Global SEO Baseline with Deep Merge Support -->
+<MetaTags
+	title={activeModule ? activeModule.title : 'Modern Web Engineering Guide'}
+	titleTemplate="%s | Web Engine 2026"
+	description={activeModule?.description ??
+		'Interactive reference architecture and 21 hands-on labs covering modern TypeScript, Svelte 5, Tailwind v4, Drizzle, Neon, and Edge runtimes.'}
+	canonical={currentCanonical}
+	openGraph={{
+		type: 'website',
+		url: currentCanonical,
+		title: activeModule
+			? `${activeModule.title} | Web Engine 2026`
+			: 'Web Engine 2026 | Full-Stack Architecture Guide',
+		description:
+			activeModule?.description ?? 'Master full-stack engineering across 21 interactive sandboxes.',
+		siteName: 'Web Engine 2026',
+		images: [
+			{
+				url: `${siteUrl}/og-card.png`,
+				width: 1200,
+				height: 630,
+				alt: 'Web Engine 2026 Architecture'
+			}
+		]
+	}}
+	twitter={{
+		cardType: 'summary_large_image',
+		title: activeModule ? activeModule.title : 'Web Engine 2026',
+		description: activeModule?.description ?? 'Modern Web Engineering Guide & Interactive Labs',
+		image: `${siteUrl}/og-card.png`
+	}}
+	additionalMetaTags={[
+		{ name: 'theme-color', content: '#4f46e5' },
+		{ name: 'author', content: 'Web Engine 2026 Team' },
+		{
+			name: 'keywords',
+			content:
+				'Svelte 5, Tailwind CSS v4, TypeScript 6, Drizzle ORM, Neon Postgres, Better Auth, Hono, Upstash, Edge Isolates'
+		}
+	]}
+/>
 
 <div
 	class="flex min-h-screen bg-slate-50 text-slate-900 transition-colors duration-150 dark:bg-slate-950 dark:text-slate-100"
