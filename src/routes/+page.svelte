@@ -1,18 +1,19 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
 	import { progress } from '$lib/state/progress.svelte';
 
 	let searchQuery = $state('');
 	let selectedTrack = $state<string>('All');
 
+	// Updated to match all 6 tracks in CurriculumModule['track']
 	const tracks: Array<CurriculumModule['track'] | 'All'> = [
 		'All',
 		'Foundations',
 		'Modern ECMAScript',
 		'UI & Frameworks',
-		'APIs, Schema & Realtime',
-		'Data, Auth & Infrastructure'
+		'APIs & Real-Time',
+		'Data, Caching & Auth',
+		'Infrastructure & Monetization'
 	];
 
 	let filteredModules = $derived(
@@ -54,7 +55,7 @@
 			class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-50 px-3 py-1 font-mono text-xs text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300"
 		>
 			<span class="h-1.5 w-1.5 animate-pulse rounded-full bg-indigo-500"></span>
-			<span>Comprehensive 18-Module Engineering Roadmap</span>
+			<span>Comprehensive 21-Module Engineering Roadmap</span>
 		</div>
 		<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
 			Modern Web Engineering <span
@@ -117,7 +118,7 @@
 			<input
 				type="text"
 				bind:value={searchQuery}
-				placeholder="Filter 18 modules..."
+				placeholder="Filter 21 modules..."
 				class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 font-mono text-xs text-slate-900 placeholder-slate-400 shadow-sm focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500"
 			/>
 			{#if searchQuery}
@@ -197,7 +198,7 @@
 							</div>
 
 							<a
-								href="{base}{mod.href}"
+								href={mod.href}
 								class="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-900 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-indigo-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-indigo-600 dark:hover:text-white"
 							>
 								Launch Sandbox →

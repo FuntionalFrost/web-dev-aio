@@ -4,7 +4,6 @@
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
-	import { base } from '$app/paths';
 	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
 	import { progress } from '$lib/state/progress.svelte';
 
@@ -14,8 +13,9 @@
 		'Foundations',
 		'Modern ECMAScript',
 		'UI & Frameworks',
-		'APIs, Schema & Realtime',
-		'Data, Auth & Infrastructure'
+		'APIs & Real-Time',
+		'Data, Caching & Auth',
+		'Infrastructure & Monetization'
 	];
 
 	let groupedTracks = $derived.by(() => {
@@ -54,7 +54,7 @@
 		<!-- Independently Scrollable Track Navigation List -->
 		<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
 			<!-- Brand Header -->
-			<a href="{base}/" class="flex shrink-0 items-center gap-2.5">
+			<a href="/" class="flex shrink-0 items-center gap-2.5">
 				<div
 					class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-sm font-bold text-white shadow-md shadow-indigo-500/20"
 				>
@@ -68,7 +68,7 @@
 				</div>
 			</a>
 
-			<!-- Dynamic Navigation Tracks (All 5 Tracks) -->
+			<!-- Dynamic Navigation Tracks (All 6 Tracks) -->
 			<nav class="space-y-5">
 				{#each groupedTracks as group, i (group.track)}
 					<div class="space-y-1">
@@ -82,7 +82,7 @@
 								{@const active = page.url.pathname === mod.href}
 								{@const done = progress.isComplete(mod.id)}
 								<a
-									href="{base}{mod.href}"
+									href={mod.href}
 									class="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs font-medium transition {active
 										? 'bg-indigo-50 font-semibold text-indigo-950 dark:bg-indigo-950/50 dark:text-indigo-200'
 										: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200'}"
@@ -114,7 +114,7 @@
 			</div>
 			<div class="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
 				<div
-					class="h-full rounded-full bg-gradient-to-r from-indigo-500 to-cyan-400 transition-all duration-300"
+					class="h-full rounded-full bg-linear-to-r from-indigo-500 to-cyan-400 transition-all duration-300"
 					style="width: {percentComplete}%"
 				></div>
 			</div>
@@ -154,7 +154,7 @@
 		<nav class="mt-4 max-h-[calc(100vh-8rem)] space-y-4 overflow-y-auto">
 			{#each curriculum as mod (mod.id)}
 				<a
-					href="{base}{mod.href}"
+					href={mod.href}
 					class="block py-1.5 text-xs text-slate-600 hover:text-indigo-500 dark:text-slate-400"
 				>
 					{mod.title}
@@ -180,7 +180,7 @@
 				<div
 					class="hidden items-center gap-2 font-mono text-xs text-slate-500 sm:flex dark:text-slate-400"
 				>
-					<a href="{base}/" class="transition hover:text-slate-900 dark:hover:text-white">Home</a>
+					<a href="/" class="transition hover:text-slate-900 dark:hover:text-white">Home</a>
 					{#if activeModule}
 						<span>/</span>
 						<span>{activeModule.track}</span>

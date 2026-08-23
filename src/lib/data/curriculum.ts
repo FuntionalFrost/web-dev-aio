@@ -5,8 +5,9 @@ export interface CurriculumModule {
 		| 'Foundations'
 		| 'Modern ECMAScript'
 		| 'UI & Frameworks'
-		| 'APIs, Schema & Realtime'
-		| 'Data, Auth & Infrastructure';
+		| 'APIs & Real-Time'
+		| 'Data, Caching & Auth'
+		| 'Infrastructure & Monetization';
 	title: string;
 	category:
 		| 'HTML5'
@@ -17,14 +18,16 @@ export interface CurriculumModule {
 		| 'Vue / Nuxt'
 		| 'API Architecture'
 		| 'Backend & Data'
-		| 'DevOps & Edge';
+		| 'Auth & Security'
+		| 'Cloud & Edge'
+		| 'Services & Billing';
 	tech: string[];
 	description: string;
 }
 
 export const curriculum: CurriculumModule[] = [
 	// ==========================================
-	// TRACK 1: FOUNDATIONS & SYSTEM DESIGN
+	// TRACK 1: FOUNDATIONS & DESIGN SYSTEMS
 	// ==========================================
 	{
 		id: 'foundation-html',
@@ -181,60 +184,99 @@ export const curriculum: CurriculumModule[] = [
 	{
 		id: 'api-schema-rpc',
 		href: '/apis/schema-rpc',
-		track: 'APIs, Schema & Realtime',
-		title: '14. Schema Validation (Standard Schema) & RPCs',
+		track: 'APIs & Real-Time',
+		title: '14. Schema Validation (Standard Schema) & Hono RPC',
 		category: 'API Architecture',
-		tech: ['Zod / Valibot', '@standard-schema/spec', 'tRPC / Hono RPC', 'OpenAPI (OAS 3.1)'],
+		tech: ['Zod / Valibot', '@standard-schema/spec', 'Hono RPC', 'OpenAPI OAS 3.1'],
 		description:
-			'Enforce runtime boundaries with Standard Schema, generate client types via OpenAPI/Scalar, and build end-to-end type-safe RPC pipelines.'
+			'Enforce runtime boundaries with Standard Schema, generate client types via OpenAPI, and build end-to-end type-safe RPC pipelines.'
 	},
 	{
 		id: 'api-realtime-webhooks',
 		href: '/apis/realtime-webhooks',
-		track: 'APIs, Schema & Realtime',
-		title: '15. Real-Time Streaming & Webhooks',
+		track: 'APIs & Real-Time',
+		title: '15. Real-Time Streaming (SSE/WS) & Webhook Signatures',
 		category: 'API Architecture',
-		tech: ['Server-Sent Events (SSE)', 'WebSockets', 'HMAC SHA-256 Signatures', 'Idempotency Keys'],
+		tech: ['Server-Sent Events (SSE)', 'WebSockets', 'HMAC SHA-256', 'Idempotency Keys'],
 		description:
 			'Choose between unidirectional HTTP streaming and bidirectional sockets; verify incoming webhooks with timing-safe HMAC signatures.'
 	},
 
 	// ==========================================
-	// TRACK 5: DATA, AUTH & DEPLOYMENT RUNTIMES
+	// TRACK 5: MODERN DATA, CACHING & AUTH
 	// ==========================================
 	{
 		id: 'infra-databases-orm',
 		href: '/infra/databases-orm',
-		track: 'Data, Auth & Infrastructure',
-		title: '16. Modern Databases, ORMs & Migrations',
+		track: 'Data, Caching & Auth',
+		title: '16. PostgreSQL on Neon, SQLite & Drizzle ORM',
 		category: 'Backend & Data',
-		tech: ['Drizzle ORM / Prisma', 'PostgreSQL / SQLite', 'Connection Pooling', 'Vector Indexes'],
+		tech: ['Drizzle ORM', 'Neon Serverless Postgres', 'SQLite / LibSQL', 'Connection Pooling'],
 		description:
-			'Schema-first database design, zero-overhead TypeScript queries, schema migrations, and handling serverless connection limits with proxy poolers.'
+			'Schema-first database design, zero-overhead TypeScript queries, migrations, and handling serverless connection limits with proxy poolers.'
 	},
 	{
-		id: 'infra-auth-security',
-		href: '/infra/auth-security',
-		track: 'Data, Auth & Infrastructure',
-		title: '17. Modern Auth: Passkeys, Sessions & OAuth',
+		id: 'infra-redis-ratelimit',
+		href: '/infra/redis-ratelimit',
+		track: 'Data, Caching & Auth',
+		title: '17. Serverless Redis & Sliding Window Rate Limiting',
 		category: 'Backend & Data',
-		tech: ['WebAuthn / Passkeys', 'HttpOnly Cookie Sessions', 'OAuth2 / PKCE', 'CSRF & Nonces'],
+		tech: ['@upstash/redis', '@upstash/ratelimit', 'Sliding Window Counter', 'Distributed Locks'],
 		description:
-			'Implement passwordless WebAuthn flows, secure server-side session rotation, PKCE token exchanges, and bulletproof XSS/CSRF defenses.'
+			'Deploy stateless HTTP Redis caching, mitigate brute force/DDoS attacks with sliding window algorithms, and manage ephemeral state at the edge.'
 	},
+	{
+		id: 'infra-better-auth',
+		href: '/infra/better-auth',
+		track: 'Data, Caching & Auth',
+		title: '18. Modern Auth: Better Auth, Passkeys & Sessions',
+		category: 'Auth & Security',
+		tech: ['Better Auth', 'WebAuthn / Passkeys', 'HttpOnly Cookies', '2FA / TOTP'],
+		description:
+			'Implement passwordless WebAuthn registration, secure session cookie rotation, multi-tenant organization plugins, and PKCE OAuth flows.'
+	},
+
+	// ==========================================
+	// TRACK 6: INFRASTRUCTURE, SERVICES & MONETIZATION
+	// ==========================================
 	{
 		id: 'infra-deployment-edge',
 		href: '/infra/deployment-edge',
-		track: 'Data, Auth & Infrastructure',
-		title: '18. Deployment: Edge Isolates vs Serverless vs Node',
-		category: 'DevOps & Edge',
+		track: 'Infrastructure & Monetization',
+		title: '19. Deployment: Cloudflare Workers vs Serverless Node',
+		category: 'Cloud & Edge',
 		tech: [
 			'Cloudflare Workers / Pages',
 			'Vercel / Netlify Edge',
-			'V8 Isolates vs Node Runtimes',
+			'V8 Isolates vs Node.js',
 			'Cold Starts'
 		],
 		description:
 			'Compare V8 isolate execution, Node.js containerized serverless functions, globally distributed edge caching, and runtime API compatibility limits.'
+	},
+	{
+		id: 'services-billing-email',
+		href: '/services/billing-email',
+		track: 'Infrastructure & Monetization',
+		title: '20. Resend Transactional Email & Polar.sh Billing',
+		category: 'Services & Billing',
+		tech: ['Resend API', 'Polar.sh MoR', 'Subscription Webhooks', 'DKIM / SPF Verification'],
+		description:
+			'Orchestrate transactional emails with React/HTML templates, accept global payments via Polar.sh Merchant of Record, and handle webhook events.'
+	},
+	{
+		id: 'services-storage-jobs',
+		href: '/services/storage-jobs',
+		track: 'Infrastructure & Monetization',
+		title: '21. Direct S3/R2 Presigned Uploads & Inngest Jobs',
+		category: 'Cloud & Edge',
+		tech: [
+			'Cloudflare R2 / S3',
+			'Presigned PUT URLs',
+			'Inngest Background Queues',
+			'Durable Workflows'
+		],
+		description:
+			'Bypass serverless memory limits with direct client-to-storage presigned uploads and execute durable, long-running background tasks with automatic retries.'
 	}
 ];
