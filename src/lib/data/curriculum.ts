@@ -27,7 +27,7 @@ export interface CurriculumModule {
 
 export const curriculum: CurriculumModule[] = [
 	// ==========================================
-	// TRACK 1: FOUNDATIONS & DESIGN SYSTEMS
+	// TRACK 1: FOUNDATIONS
 	// ==========================================
 	{
 		id: 'foundation-html',
@@ -76,7 +76,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 2: ADVANCED ECMASCRIPT & PLATFORM APIS
+	// TRACK 2: MODERN ECMASCRIPT
 	// ==========================================
 	{
 		id: 'module-1',
@@ -130,7 +130,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 3: COMPONENT FRAMEWORKS & HEADLESS UI
+	// TRACK 3: UI & FRAMEWORKS
 	// ==========================================
 	{
 		id: 'framework-svelte5',
@@ -179,7 +179,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 4: APIS, SCHEMA VALIDATION & REALTIME
+	// TRACK 4: APIS & REAL-TIME
 	// ==========================================
 	{
 		id: 'api-schema-rpc',
@@ -203,7 +203,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 5: MODERN DATA, CACHING & AUTH
+	// TRACK 5: DATA, CACHING & AUTH
 	// ==========================================
 	{
 		id: 'infra-databases-orm',
@@ -237,7 +237,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 6: INFRASTRUCTURE, SERVICES & MONETIZATION
+	// TRACK 6: INFRASTRUCTURE & MONETIZATION
 	// ==========================================
 	{
 		id: 'infra-deployment-edge',

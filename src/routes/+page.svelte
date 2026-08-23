@@ -1,11 +1,11 @@
 <script lang="ts">
+	import CompletionCertificate from '$lib/components/CompletionCertificate.svelte.svelte';
 	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
 	import { progress } from '$lib/state/progress.svelte';
 
 	let searchQuery = $state('');
 	let selectedTrack = $state<string>('All');
 
-	// Updated to match all 6 tracks in CurriculumModule['track']
 	const tracks: Array<CurriculumModule['track'] | 'All'> = [
 		'All',
 		'Foundations',
@@ -97,9 +97,11 @@
 		</div>
 	</div>
 
+	<!-- 100% Mastery Certificate Generator -->
+	<CompletionCertificate />
+
 	<!-- Interactive Search & Track Filters -->
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<!-- Filter Pills -->
 		<div class="flex flex-wrap gap-1.5">
 			{#each tracks as track (track)}
 				<button
@@ -113,7 +115,6 @@
 			{/each}
 		</div>
 
-		<!-- Search Input -->
 		<div class="relative w-full sm:w-72">
 			<input
 				type="text"
@@ -197,6 +198,7 @@
 								</div>
 							</div>
 
+							<!-- Direct standard href -->
 							<a
 								href={mod.href}
 								class="mt-5 inline-flex items-center justify-center rounded-xl bg-slate-900 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-indigo-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-indigo-600 dark:hover:text-white"

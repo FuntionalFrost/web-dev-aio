@@ -5,8 +5,11 @@
 
 	let { data }: { data: PageData } = $props();
 
+	const variants = ['default', 'outline', 'destructive'] as const;
+	type Variant = (typeof variants)[number];
+
 	// Simulated CVA & headless UI state
-	let activeVariant = $state<'default' | 'outline' | 'destructive'>('default');
+	let activeVariant = $state<Variant>('default');
 	let isModalOpen = $state(false);
 	let toggleActive = $state(true);
 </script>
@@ -63,7 +66,7 @@
 					>Select CVA Button Variant:</span
 				>
 				<div class="flex gap-2">
-					{#each ['default', 'outline', 'destructive'] as const as v}
+					{#each variants as v (v)}
 						<button
 							onclick={() => (activeVariant = v)}
 							class="rounded-lg border px-3 py-1.5 font-mono text-xs transition {activeVariant === v

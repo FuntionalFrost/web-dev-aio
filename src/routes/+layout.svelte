@@ -47,11 +47,10 @@
 <div
 	class="flex min-h-screen bg-slate-50 text-slate-900 transition-colors duration-150 dark:bg-slate-950 dark:text-slate-100"
 >
-	<!-- Desktop Fixed Sticky Sidebar (w-80, h-screen pinned) -->
+	<!-- Desktop Fixed Sticky Sidebar -->
 	<aside
 		class="sticky top-0 hidden h-screen w-80 shrink-0 flex-col justify-between border-r border-slate-200 bg-white/80 backdrop-blur-xl md:flex dark:border-slate-800/80 dark:bg-slate-900/40"
 	>
-		<!-- Independently Scrollable Track Navigation List -->
 		<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
 			<!-- Brand Header -->
 			<a href="/" class="flex shrink-0 items-center gap-2.5">
@@ -68,7 +67,7 @@
 				</div>
 			</a>
 
-			<!-- Dynamic Navigation Tracks (All 6 Tracks) -->
+			<!-- Dynamic Navigation Tracks -->
 			<nav class="space-y-5">
 				{#each groupedTracks as group, i (group.track)}
 					<div class="space-y-1">
