@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -50,16 +50,8 @@
 	}
 </script>
 
-<LabShell moduleId="foundation-ts" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock
-				codeHtml={data.codeHtml}
-				rawCode={data.rawCode}
-				filename="unions-and-satisfies.ts"
-			/>
-		</div>
-
 		<h3>Core Advantages</h3>
 		<ul>
 			<li>
@@ -76,25 +68,8 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Union State Machine Visualizer
-				</span>
-				<span
-					class="rounded bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-700 dark:bg-slate-800 dark:text-slate-400"
-				>
-					status: <code class="text-indigo-600 dark:text-indigo-300">"{currentState.status}"</code>
-				</span>
-			</div>
-
+	{#snippet lab()}
+		<LabCard title="Union State Machine Visualizer" badge={`status: "${currentState.status}"`}>
 			<div class="flex flex-wrap gap-2 font-mono text-xs">
 				<button
 					onclick={setIdle}
@@ -184,6 +159,6 @@
 					</div>
 				{/if}
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

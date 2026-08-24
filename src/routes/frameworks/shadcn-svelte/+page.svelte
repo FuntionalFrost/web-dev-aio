@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -14,20 +14,8 @@
 	let toggleActive = $state(true);
 </script>
 
-<LabShell
-	moduleId="framework-shadcn-svelte"
-	title={data.meta.title}
-	description={data.meta.description}
->
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock
-				codeHtml={data.codeHtml}
-				rawCode={data.rawCode}
-				filename="ButtonAndDialog.svelte"
-			/>
-		</div>
-
 		<h3>Architectural Principles</h3>
 		<ul>
 			<li>
@@ -45,22 +33,8 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Component Variance Authority (CVA)
-				</span>
-				<span class="font-mono text-[10px] text-slate-500">Atomic Variants</span>
-			</div>
-
-			<!-- Variant Controls -->
+	{#snippet lab()}
+		<LabCard title="Component Variance Authority (CVA)" badge="Atomic Variants">
 			<div class="space-y-2">
 				<span class="font-mono text-xs text-slate-600 dark:text-slate-400"
 					>Select CVA Button Variant:</span
@@ -124,7 +98,7 @@
 					></span>
 				</button>
 			</div>
-		</div>
+		</LabCard>
 
 		<!-- Simulated Accessible Modal Overlay -->
 		{#if isModalOpen}

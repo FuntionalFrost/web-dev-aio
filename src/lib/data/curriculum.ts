@@ -25,9 +25,18 @@ export interface CurriculumModule {
 	description: string;
 }
 
+export const TRACK_ORDER: Array<CurriculumModule['track']> = [
+	'Foundations',
+	'Modern ECMAScript',
+	'UI & Frameworks',
+	'APIs & Real-Time',
+	'Data, Caching & Auth',
+	'Infrastructure & Monetization'
+];
+
 export const curriculum: CurriculumModule[] = [
 	// ==========================================
-	// TRACK 1: FOUNDATIONS
+	// Track 1: Foundations
 	// ==========================================
 	{
 		id: 'foundation-html',
@@ -76,11 +85,11 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 2: MODERN ECMASCRIPT
+	// Track 2: Modern ECMAScript
 	// ==========================================
 	{
-		id: 'module-1',
-		href: '/module-1',
+		id: 'ecma-math-maps',
+		href: '/ecmascript/math-and-maps',
 		track: 'Modern ECMAScript',
 		title: '05. Precision Math & Modern Maps',
 		category: 'ECMAScript',
@@ -89,8 +98,8 @@ export const curriculum: CurriculumModule[] = [
 			'Eliminate IEEE-754 floating-point accumulation bugs and remove dictionary fallback boilerplate using native ES2026 collection primitives.'
 	},
 	{
-		id: 'module-2',
-		href: '/module-2',
+		id: 'ecma-binary-streams',
+		href: '/ecmascript/binary-streams',
 		track: 'Modern ECMAScript',
 		title: '06. Binary Streams & Container Layouts',
 		category: 'ECMAScript',
@@ -99,8 +108,8 @@ export const curriculum: CurriculumModule[] = [
 			'Execute native browser-level Base64 byte conversions and stream promise aggregation inside modular, container-responsive cards.'
 	},
 	{
-		id: 'module-3',
-		href: '/module-3',
+		id: 'ecma-discrete-transitions',
+		href: '/ecmascript/discrete-transitions',
 		track: 'Modern ECMAScript',
 		title: '07. Modern DOM & Discrete Transitions',
 		category: 'HTML5',
@@ -109,8 +118,8 @@ export const curriculum: CurriculumModule[] = [
 			'Orchestrate zero-JavaScript dialog entry transitions from display: none and isolate background accessibility trees natively.'
 	},
 	{
-		id: 'module-4',
-		href: '/module-4',
+		id: 'ecma-resource-scopes',
+		href: '/ecmascript/resource-scopes',
 		track: 'Modern ECMAScript',
 		title: '08. Resource Scopes & Async Resolvers',
 		category: 'TypeScript 6',
@@ -119,8 +128,8 @@ export const curriculum: CurriculumModule[] = [
 			'Manage deterministic lifecycle teardowns upon block-scope exit and decouple promise resolutions from constructor callbacks.'
 	},
 	{
-		id: 'module-5',
-		href: '/module-5',
+		id: 'ecma-anchors-popovers',
+		href: '/ecmascript/anchors-and-popovers',
 		track: 'Modern ECMAScript',
 		title: '09. Native Anchors, Popovers & Iterator Pipelines',
 		category: 'ECMAScript',
@@ -130,7 +139,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 3: UI & FRAMEWORKS
+	// Track 3: UI & Frameworks
 	// ==========================================
 	{
 		id: 'framework-svelte5',
@@ -179,7 +188,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 4: APIS & REAL-TIME
+	// Track 4: APIs & Real-Time
 	// ==========================================
 	{
 		id: 'api-schema-rpc',
@@ -203,7 +212,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 5: DATA, CACHING & AUTH
+	// Track 5: Data, Caching & Auth
 	// ==========================================
 	{
 		id: 'infra-databases-orm',
@@ -237,7 +246,7 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// TRACK 6: INFRASTRUCTURE & MONETIZATION
+	// Track 6: Infrastructure & Monetization
 	// ==========================================
 	{
 		id: 'infra-deployment-edge',
@@ -280,3 +289,10 @@ export const curriculum: CurriculumModule[] = [
 			'Bypass serverless memory limits with direct client-to-storage presigned uploads and execute durable, long-running background tasks with automatic retries.'
 	}
 ];
+
+export function getCurriculumByTrack(moduleList: CurriculumModule[] = curriculum) {
+	return TRACK_ORDER.map((track) => ({
+		track,
+		modules: moduleList.filter((m) => m.track === track)
+	})).filter((group) => group.modules.length > 0);
+}

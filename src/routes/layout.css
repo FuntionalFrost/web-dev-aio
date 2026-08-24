@@ -4,23 +4,56 @@
 
 @plugin '@tailwindcss/typography';
 
-/* 1. Shiki Multi-Theme Syntax Variables */
+/* 1. Shiki Syntax Highlighting & Typography */
 .shiki {
-	background-color: #f8fafc !important;
+	background-color: transparent !important;
+	font-family: var(
+		--font-mono,
+		ui-monospace,
+		SFMono-Regular,
+		Menlo,
+		Monaco,
+		Consolas,
+		monospace
+	) !important;
+	font-size: 0.84rem !important; /* Crisp ~13.5px font size */
+	line-height: 1.7 !important;
+}
+
+.shiki code {
+	font-family: inherit !important;
+	font-size: inherit !important;
+	line-height: inherit !important;
 }
 
 .shiki span {
 	color: var(--shiki-light);
 }
 
-[data-theme='dark'] .shiki {
-	background-color: #020617 !important;
-}
-
 [data-theme='dark'] .shiki span {
 	color: var(--shiki-dark);
 }
 
+/* 2. Global Interactive Primitives & Validation States */
+summary::-webkit-details-marker {
+	display: none;
+}
+summary {
+	list-style: none;
+}
+
+/* Post-interaction CSS constraint validation */
+input:user-valid {
+	border-color: rgb(16 185 129 / 0.8) !important;
+	background-color: rgb(16 185 129 / 0.08) !important;
+}
+
+input:user-invalid {
+	border-color: rgb(244 63 94 / 0.8) !important;
+	background-color: rgb(244 63 94 / 0.08) !important;
+}
+
+/* 3. Strip Tailwind Typography backticks around inline <code> */
 @layer utilities {
 	.prose :where(code):not(:where([class~='not-prose'] *))::before,
 	.prose :where(code):not(:where([class~='not-prose'] *))::after {

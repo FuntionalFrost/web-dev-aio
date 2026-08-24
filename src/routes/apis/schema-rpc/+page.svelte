@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -11,7 +11,7 @@
 	let role = $state<'admin' | 'member' | 'viewer'>('admin');
 	let consent = $state(true);
 
-	// Runtime validation engine simulation (Zod/Standard Schema behavior)
+	// Runtime validation engine simulation (Standard Schema / Zod behavior)
 	let validationErrors = $derived.by(() => {
 		const errors: Record<string, string> = {};
 		if (username.length < 3) errors.username = 'Username must be at least 3 characters.';
@@ -55,56 +55,30 @@
 	}
 </script>
 
-<LabShell moduleId="api-schema-rpc" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock
-				codeHtml={data.codeHtml}
-				rawCode={data.rawCode}
-				filename="schema-rpc-pipeline.ts"
-			/>
-		</div>
-
 		<h3>Architectural Advantages</h3>
 		<ul>
 			<li>
-				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at runtime. Schema validators
-				(Zod, Valibot, Standard Schema) validate untrusted JSON payloads at the network threshold.
+				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at build time. Standard Schema
+				/ Zod validates untrusted JSON at the network boundary.
 			</li>
 			<li>
-				<strong>End-to-End RPCs (Hono RPC / tRPC):</strong> Exporting backend route types directly to
-				the frontend client gives you full autocompletion, response inference, and instant compiler feedback
-				on breaking changes—without running code generation build steps.
+				<strong>End-to-End RPCs (Hono RPC):</strong> Exporting route definitions directly to the client
+				enables auto-completion and compile-time contract enforcement without code-generation steps.
 			</li>
 			<li>
-				<strong>OpenAPI 3.1 & Scalar:</strong> When public third-party integration is required, schema
-				validators can output standardized OAS JSON docs automatically.
+				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for third-party
+				consumers.
 			</li>
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
+	{#snippet lab()}
+		<LabCard
+			title="Runtime Schema & RPC Validator"
+			badge={isValid ? 'Schema: VALID' : 'Schema: INVALID'}
 		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Runtime Schema & RPC Validator
-				</span>
-				<span
-					class="rounded px-2 py-0.5 font-mono text-[10px] {isValid
-						? 'border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300'
-						: 'border border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/50 dark:text-rose-300'}"
-				>
-					{isValid ? 'Schema: VALID' : 'Schema: INVALID'}
-				</span>
-			</div>
-
-			<!-- Live Interactive Inputs -->
 			<form
 				onsubmit={(e) => {
 					e.preventDefault();
@@ -148,9 +122,9 @@
 
 				<div class="grid grid-cols-2 gap-4">
 					<div>
-						<label for="role" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
-							>role: z.enum()</label
-						>
+						<label for="role" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300">
+							role: z.enum()
+						</label>
 						<select
 							id="role"
 							bind:value={role}
@@ -171,8 +145,9 @@
 						<label
 							for="consent"
 							class="cursor-pointer text-[11px] text-slate-700 dark:text-slate-300"
-							>telemetryConsent</label
 						>
+							telemetryConsent
+						</label>
 					</div>
 				</div>
 
@@ -196,6 +171,6 @@
 					class="mt-2 overflow-x-auto whitespace-pre-wrap text-indigo-600 dark:text-indigo-300">{rpcResponse ||
 						'// Inferred payload will appear here after RPC dispatch...'}</pre>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

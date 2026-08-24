@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -48,16 +48,8 @@
 	}
 </script>
 
-<LabShell
-	moduleId="services-billing-email"
-	title={data.meta.title}
-	description={data.meta.description}
->
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="billing-and-email.ts" />
-		</div>
-
 		<h3>Merchant of Record (Polar.sh) vs. Raw Gateways</h3>
 		<ul>
 			<li>
@@ -71,21 +63,8 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Polar.sh Checkout & Resend Pipeline
-				</span>
-				<span class="font-mono text-[10px] text-slate-500">MoR + Email Lifecycle</span>
-			</div>
-
+	{#snippet lab()}
+		<LabCard title="Polar.sh Checkout & Resend Pipeline" badge="MoR + Email Lifecycle">
 			<!-- Checkout Simulator Form -->
 			<div
 				class="grid grid-cols-1 gap-4 font-mono text-xs text-slate-700 sm:grid-cols-2 dark:text-slate-300"
@@ -96,7 +75,7 @@
 						id="c-email"
 						type="email"
 						bind:value={customerEmail}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 					/>
 				</div>
 				<div>
@@ -104,7 +83,7 @@
 					<select
 						id="c-plan"
 						bind:value={selectedPlan}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 					>
 						<option value="pro">Pro Developer ($29/mo)</option>
 						<option value="enterprise">Enterprise Tier ($199/mo)</option>
@@ -143,6 +122,6 @@
 					{/each}
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

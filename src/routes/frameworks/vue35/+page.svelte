@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -11,12 +11,8 @@
 	let autoId = 'vue-uid-89f2a';
 </script>
 
-<LabShell moduleId="framework-vue35" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="ModernComponent.vue" />
-		</div>
-
 		<h3>Vue 3.5 Upgrades</h3>
 		<ul>
 			<li>
@@ -33,28 +29,14 @@
 				to prevent accessibility attribute mismatches.
 			</li>
 			<li>
-				<strong>Reactivity Memory Optimization:</strong> Vue 3.5 overhauled internal dependency tracking
-				arrays, reducing reactive memory consumption by ~56%.
+				<strong>Reactivity Memory Optimization:</strong> Overhauled internal dependency tracking arrays,
+				reducing reactive memory consumption by ~56%.
 			</li>
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Vue 3.5 Props & ID Emulator
-				</span>
-				<span class="font-mono text-[10px] text-slate-500">useId() active</span>
-			</div>
-
-			<!-- Live Prop Controls -->
+	{#snippet lab()}
+		<LabCard title="Vue 3.5 Props & ID Emulator" badge="useId() active">
 			<div class="grid grid-cols-2 gap-4 font-mono text-xs text-slate-600 dark:text-slate-400">
 				<div>
 					<label for="label-input">Prop: label</label>
@@ -62,7 +44,7 @@
 						id="label-input"
 						type="text"
 						bind:value={propLabel}
-						class="mt-1.5 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+						class="mt-1.5 w-full rounded-lg border border-slate-300 bg-slate-50 px-3 py-1.5 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 					/>
 				</div>
 				<div>
@@ -78,7 +60,6 @@
 				</div>
 			</div>
 
-			<!-- Reactive Consumer Card -->
 			<div
 				class="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-5 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
 			>
@@ -110,6 +91,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

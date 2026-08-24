@@ -1,18 +1,15 @@
 <script lang="ts">
-	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
+	import {
+		curriculum,
+		getCurriculumByTrack,
+		TRACK_ORDER,
+		type CurriculumModule
+	} from '$lib/data/curriculum';
 
 	let searchQuery = $state('');
 	let selectedTrack = $state<string>('All');
 
-	const tracks: Array<CurriculumModule['track'] | 'All'> = [
-		'All',
-		'Foundations',
-		'Modern ECMAScript',
-		'UI & Frameworks',
-		'APIs & Real-Time',
-		'Data, Caching & Auth',
-		'Infrastructure & Monetization'
-	];
+	const tracks: Array<CurriculumModule['track'] | 'All'> = ['All', ...TRACK_ORDER];
 
 	let filteredModules = $derived(
 		curriculum.filter((mod) => {
@@ -26,14 +23,7 @@
 		})
 	);
 
-	let groupedTracks = $derived.by(() => {
-		const groups: Record<string, CurriculumModule[]> = {};
-		for (const mod of filteredModules) {
-			if (!groups[mod.track]) groups[mod.track] = [];
-			groups[mod.track].push(mod);
-		}
-		return Object.entries(groups).map(([trackName, modules]) => ({ trackName, modules }));
-	});
+	let groupedTracks = $derived(getCurriculumByTrack(filteredModules));
 </script>
 
 <svelte:head>
@@ -45,7 +35,6 @@
 </svelte:head>
 
 <div class="mx-auto max-w-6xl space-y-10 p-6 sm:p-10">
-	<!-- Hero Section -->
 	<div class="space-y-4">
 		<div
 			class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-50 px-3 py-1 font-mono text-xs text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300"
@@ -65,7 +54,6 @@
 		</p>
 	</div>
 
-	<!-- Interactive Search & Track Filters -->
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div class="flex flex-wrap gap-1.5">
 			{#each tracks as track (track)}
@@ -98,9 +86,8 @@
 		</div>
 	</div>
 
-	<!-- Track Groups -->
 	<div class="space-y-12">
-		{#each groupedTracks as { trackName, modules } (trackName)}
+		{#each groupedTracks as { track, modules } (track)}
 			<div class="space-y-5">
 				<div
 					class="flex items-center justify-between border-b border-slate-200 pb-2 dark:border-slate-800"
@@ -110,7 +97,7 @@
 							class="font-mono text-[10px] font-bold tracking-widest text-indigo-600 uppercase dark:text-indigo-400"
 							>Track</span
 						>
-						<h3 class="text-lg font-bold text-slate-900 dark:text-white">{trackName}</h3>
+						<h3 class="text-lg font-bold text-slate-900 dark:text-white">{track}</h3>
 					</div>
 					<span class="font-mono text-xs text-slate-400">
 						{modules.length}

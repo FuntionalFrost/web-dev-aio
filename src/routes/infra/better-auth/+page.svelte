@@ -1,17 +1,17 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
-	// Better Auth Interactive Session Simulator
+	// 1. Better Auth Session State
 	type UserSession = {
 		userId: string;
 		email: string;
 		role: 'owner' | 'admin' | 'member';
 		activeOrg: string;
-		authMethod: 'passkey' | 'oauth_github' | 'password';
+		authMethod: 'passkey' | 'oauth_github' | 'magic_link';
 		expiresAt: string;
 	};
 
@@ -26,62 +26,68 @@
 				userId: 'usr_' + Math.random().toString(36).substring(2, 8),
 				email: 'developer@modern-web.org',
 				role: method === 'passkey' ? 'owner' : 'member',
-				activeOrg: 'Venture Capital Labs LLC',
+				activeOrg: 'Venture Architecture Labs',
 				authMethod: method,
 				expiresAt: new Date(Date.now() + 7 * 86400000).toLocaleDateString()
 			};
-		}, 450);
+		}, 400);
 	}
 
 	function logout() {
 		currentSession = null;
 	}
+
+	// 2. WebAuthn Hardware Handshake State
+	let passkeyStep = $state<'idle' | 'challenge' | 'credential' | 'verified'>('idle');
+	let simulatedCredential = $state<{ id: string; rawId: string; type: string } | null>(null);
+
+	function startPasskeyFlow() {
+		passkeyStep = 'challenge';
+		setTimeout(() => {
+			passkeyStep = 'credential';
+			simulatedCredential = {
+				id: 'pk_credential_' + Math.random().toString(36).substring(2, 10),
+				rawId: 'kP8v...w9Qx',
+				type: 'public-key'
+			};
+			setTimeout(() => {
+				passkeyStep = 'verified';
+			}, 600);
+		}, 500);
+	}
+
+	function resetPasskey() {
+		passkeyStep = 'idle';
+		simulatedCredential = null;
+	}
 </script>
 
-<LabShell moduleId="infra-better-auth" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="better-auth.config.ts" />
-		</div>
-
-		<h3>Why Better Auth in 2026?</h3>
+		<h3>Security Architecture & Standards</h3>
 		<ul>
 			<li>
-				<strong>Complete Schema Ownership:</strong> Generates standard Drizzle/Prisma tables directly
-				in your database without vendor lock-in.
+				<strong>Passkeys (WebAuthn):</strong> Asymmetric public-private keypairs anchored in hardware
+				secure enclaves (TouchID, FaceID, Windows Hello). Phishing-proof by design.
 			</li>
 			<li>
-				<strong>Modular Plugin Architecture:</strong> Enables Passkeys, 2FA, Multi-tenant Organizations,
-				and Magic Links with single-line plugin additions.
+				<strong>HttpOnly Session Cookies:</strong> Cannot be inspected via JavaScript (<code
+					>document.cookie</code
+				>), protecting session tokens against XSS exfiltration.
 			</li>
 			<li>
-				<strong>Framework-Agnostic:</strong> One unified auth engine runs seamlessly across SvelteKit,
-				Nuxt, Astro, and Hono backends.
+				<strong>Complete Schema Ownership:</strong> Generates standard Drizzle tables directly in Postgres
+				without vendor lock-in or third-party user data hosting.
 			</li>
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
+	{#snippet lab()}
+		<!-- Simulator 1: Better Auth Session Visualizer -->
+		<LabCard
+			title="Better Auth Session Visualizer"
+			badge={currentSession ? 'Authenticated' : 'Unauthenticated'}
 		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Better Auth Session Visualizer
-				</span>
-				<span
-					class="rounded px-2 py-0.5 font-mono text-[10px] {currentSession
-						? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'
-						: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}"
-				>
-					{currentSession ? 'Authenticated' : 'Unauthenticated'}
-				</span>
-			</div>
-
 			{#if !currentSession}
 				<div class="space-y-3 font-mono text-xs">
 					<span class="block text-slate-600 dark:text-slate-400"
@@ -93,9 +99,9 @@
 							disabled={isAuthenticating}
 							class="rounded-xl border border-indigo-500/40 bg-indigo-50/50 p-3 text-left font-bold text-indigo-900 transition hover:bg-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-200 dark:hover:bg-indigo-900/40"
 						>
-							<span>🔑 WebAuthn Passkey</span>
+							<span>🔑 Passkey</span>
 							<span class="mt-1 block text-[10px] font-normal text-slate-500"
-								>Biometric TouchID / FaceID</span
+								>TouchID / Biometrics</span
 							>
 						</button>
 						<button
@@ -103,25 +109,22 @@
 							disabled={isAuthenticating}
 							class="rounded-xl border border-slate-300 bg-slate-50 p-3 text-left font-bold text-slate-800 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
 						>
-							<span>🐙 OAuth 2.0 (GitHub)</span>
-							<span class="mt-1 block text-[10px] font-normal text-slate-500"
-								>PKCE State Token Exchange</span
-							>
+							<span>🐙 OAuth 2.0</span>
+							<span class="mt-1 block text-[10px] font-normal text-slate-500">PKCE Exchange</span>
 						</button>
 						<button
-							onclick={() => loginWith('password')}
+							onclick={() => loginWith('magic_link')}
 							disabled={isAuthenticating}
 							class="rounded-xl border border-slate-300 bg-slate-50 p-3 text-left font-bold text-slate-800 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
 						>
 							<span>✉️ Magic Link</span>
 							<span class="mt-1 block text-[10px] font-normal text-slate-500"
-								>Single-use Cryptographic Token</span
+								>Crypto Single-Use</span
 							>
 						</button>
 					</div>
 				</div>
 			{:else}
-				<!-- Active Authenticated State -->
 				<div class="space-y-4 font-mono text-xs">
 					<div class="flex items-center justify-between">
 						<span class="text-[11px] tracking-wider text-slate-400 uppercase"
@@ -139,14 +142,14 @@
 						<div
 							class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
 						>
-							<span class="text-[10px] text-slate-400 uppercase">User Identity</span>
+							<span class="text-[10px] text-slate-400 uppercase">Identity</span>
 							<p class="mt-1 font-bold text-slate-900 dark:text-white">{currentSession.email}</p>
 							<span class="text-[10px] text-slate-500">ID: {currentSession.userId}</span>
 						</div>
 						<div
 							class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
 						>
-							<span class="text-[10px] text-slate-400 uppercase">Organization (RBAC)</span>
+							<span class="text-[10px] text-slate-400 uppercase">RBAC Organization</span>
 							<p class="mt-1 font-bold text-indigo-600 dark:text-indigo-400">
 								{currentSession.activeOrg}
 							</p>
@@ -172,6 +175,95 @@
 					</div>
 				</div>
 			{/if}
-		</div>
+		</LabCard>
+
+		<!-- Simulator 2: Hardware WebAuthn Step Handshake -->
+		<LabCard title="WebAuthn Hardware Handshake" badge="Public-Key Cryptography">
+			<div class="flex items-center justify-between">
+				<button
+					onclick={startPasskeyFlow}
+					disabled={passkeyStep !== 'idle'}
+					class="rounded-xl bg-indigo-600 px-4 py-2 font-mono text-xs font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
+				>
+					{passkeyStep === 'idle' ? 'Run Hardware Handshake' : 'Authenticating Secure Enclave...'}
+				</button>
+				{#if passkeyStep !== 'idle'}
+					<button
+						onclick={resetPasskey}
+						class="font-mono text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white"
+					>
+						Reset
+					</button>
+				{/if}
+			</div>
+
+			<div class="grid grid-cols-3 gap-2 font-mono text-[11px]">
+				<div
+					class="rounded-lg border p-2.5 {passkeyStep === 'challenge' ||
+					passkeyStep === 'credential' ||
+					passkeyStep === 'verified'
+						? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
+						: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+				>
+					1. Server Challenge
+				</div>
+				<div
+					class="rounded-lg border p-2.5 {passkeyStep === 'credential' || passkeyStep === 'verified'
+						? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
+						: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+				>
+					2. Biometric Sign
+				</div>
+				<div
+					class="rounded-lg border p-2.5 {passkeyStep === 'verified'
+						? 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
+						: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+				>
+					3. Verified ✓
+				</div>
+			</div>
+
+			{#if passkeyStep === 'verified' && simulatedCredential}
+				<div
+					class="space-y-1 rounded-xl border border-emerald-500/40 bg-emerald-50/50 p-3.5 font-mono text-xs text-emerald-800 dark:bg-emerald-950/20 dark:text-emerald-300"
+				>
+					<div class="font-bold">Credential Registered in Secure Enclave:</div>
+					<div>
+						ID: <span class="text-slate-900 dark:text-white">{simulatedCredential.id}</span>
+					</div>
+					<div>
+						Attestation: <span class="text-slate-900 dark:text-white"
+							>Public Key Stored in Database</span
+						>
+					</div>
+				</div>
+			{/if}
+		</LabCard>
+
+		<!-- Simulator 3: Storage Threat Model Matrix -->
+		<LabCard title="Client Storage Threat Evaluation" badge="XSS Mitigation">
+			<div class="grid grid-cols-1 gap-3 font-mono text-xs sm:grid-cols-3">
+				<div
+					class="rounded-xl border border-emerald-500/30 bg-emerald-50/30 p-3 dark:bg-emerald-950/10"
+				>
+					<span class="block font-bold text-emerald-700 dark:text-emerald-400">HttpOnly Cookie</span
+					>
+					<span class="mt-1 block text-[10px] text-slate-500">XSS Safe: YES</span>
+					<p class="mt-2 text-[11px] text-slate-600 dark:text-slate-400">
+						Session IDs, Auth Tokens
+					</p>
+				</div>
+				<div class="rounded-xl border border-rose-500/30 bg-rose-50/30 p-3 dark:bg-rose-950/10">
+					<span class="block font-bold text-rose-700 dark:text-rose-400">localStorage</span>
+					<span class="mt-1 block text-[10px] text-slate-500">XSS Safe: NO</span>
+					<p class="mt-2 text-[11px] text-slate-600 dark:text-slate-400">Themes, UI preferences</p>
+				</div>
+				<div class="rounded-xl border border-amber-500/30 bg-amber-50/30 p-3 dark:bg-amber-950/10">
+					<span class="block font-bold text-amber-700 dark:text-amber-400">IndexedDB</span>
+					<span class="mt-1 block text-[10px] text-slate-500">XSS Safe: NO</span>
+					<p class="mt-2 text-[11px] text-slate-600 dark:text-slate-400">Offline cached bundles</p>
+				</div>
+			</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

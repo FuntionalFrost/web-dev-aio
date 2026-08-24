@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -54,16 +54,8 @@
 	}
 </script>
 
-<LabShell
-	moduleId="infra-redis-ratelimit"
-	title={data.meta.title}
-	description={data.meta.description}
->
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="upstash-ratelimit.ts" />
-		</div>
-
 		<h3>Sliding Window vs. Fixed Window</h3>
 		<ul>
 			<li>
@@ -82,27 +74,11 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
+	{#snippet lab()}
+		<LabCard
+			title="Sliding Window Rate Limiter"
+			badge={isRateLimited ? 'HTTP 429: BLOCKED' : 'HTTP 200: OK'}
 		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Sliding Window Rate Limiter
-				</span>
-				<span
-					class="rounded px-2 py-0.5 font-mono text-[10px] {isRateLimited
-						? 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300'
-						: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300'}"
-				>
-					{isRateLimited ? 'HTTP 429: BLOCKED' : 'HTTP 200: OK'}
-				</span>
-			</div>
-
 			<!-- Live Interactive Dispatcher -->
 			<div class="flex flex-wrap items-center justify-between gap-3">
 				<div class="flex gap-2">
@@ -146,7 +122,7 @@
 						>Active Window Slots:</span
 					>
 					<div class="mt-2.5 flex gap-1.5">
-						{#each Array(maxLimit) as _, i (i)}
+						{#each Array(maxLimit) as _, i (`slot-${i}`)}
 							<span
 								class="h-3.5 flex-1 rounded-sm transition-all duration-200 {i < timestamps.length
 									? 'bg-indigo-600 dark:bg-indigo-500'
@@ -184,6 +160,6 @@
 					{/each}
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

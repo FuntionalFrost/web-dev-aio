@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -23,16 +23,8 @@
 	let domNodesCalculated = $derived(activeTech === 'svg' ? iconCount * 2 : iconCount);
 </script>
 
-<LabShell moduleId="foundation-icons" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock
-				codeHtml={data.codeHtml}
-				rawCode={data.rawCode}
-				filename="icon-architectures.html"
-			/>
-		</div>
-
 		<h3>Architectural Comparison</h3>
 		<div class="not-prose my-4 overflow-x-auto">
 			<table
@@ -74,18 +66,12 @@
 		</div>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
+	{#snippet lab()}
+		<LabCard title="Live Icon Engine Sandbox">
 			<div
 				class="flex items-center justify-between border-b border-slate-200 pb-4 dark:border-slate-800"
 			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Live Icon Engine Sandbox
-				</span>
+				<span class="font-mono text-xs text-slate-500">Render Pipeline:</span>
 				<div
 					class="flex rounded-lg border border-slate-200 bg-slate-100 p-1 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
 				>
@@ -164,7 +150,7 @@
 			>
 				<div class="flex flex-wrap justify-center gap-2">
 					{#if activeTech === 'svg'}
-						{#each Array(iconCount) as _, i (i)}
+						{#each Array(iconCount) as _, i (`svg-${i}`)}
 							<svg
 								class="h-6 w-6 transition-colors duration-150 {activeColor.split(' ')[1]}"
 								viewBox="0 0 24 24"
@@ -176,7 +162,7 @@
 							</svg>
 						{/each}
 					{:else}
-						{#each Array(iconCount) as _, i (i)}
+						{#each Array(iconCount) as _, i (`mask-${i}`)}
 							<span
 								class="inline-block h-6 w-6 transition-colors duration-150 {activeColor.split(
 									' '
@@ -188,6 +174,6 @@
 					{/if}
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

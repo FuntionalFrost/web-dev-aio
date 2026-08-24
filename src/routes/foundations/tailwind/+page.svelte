@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -13,16 +13,8 @@
 	let oklchColorString = $derived(`oklch(0.72 0.22 ${accentHue})`);
 </script>
 
-<LabShell
-	moduleId="foundation-tailwind"
-	title={data.meta.title}
-	description={data.meta.description}
->
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="theme-engine.css" />
-		</div>
-
 		<h3>Key Architecture Upgrades in v4</h3>
 		<ul>
 			<li>
@@ -40,23 +32,8 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					Runtime Token Controller
-				</span>
-				<span class="font-mono text-[10px] text-slate-500 dark:text-slate-400"
-					>@theme + CSS Variables</span
-				>
-			</div>
-
+	{#snippet lab()}
+		<LabCard title="Runtime Token Controller" badge="@theme + CSS Variables">
 			<div
 				class="grid grid-cols-1 gap-4 font-mono text-xs text-slate-700 sm:grid-cols-2 dark:text-slate-400"
 			>
@@ -112,9 +89,9 @@
 						bind:checked={enableGlow}
 						class="rounded border-slate-300 text-indigo-600 dark:border-slate-700"
 					/>
-					<label for="glow" class="cursor-pointer text-slate-700 dark:text-slate-300"
-						>Custom Glow Utility</label
-					>
+					<label for="glow" class="cursor-pointer text-slate-700 dark:text-slate-300">
+						Custom Glow Utility
+					</label>
 				</div>
 			</div>
 
@@ -135,8 +112,9 @@
 					<div class="flex items-center justify-between">
 						<span
 							class="font-mono text-[10px] tracking-widest text-slate-700 uppercase dark:text-slate-300"
-							>Design Token</span
 						>
+							Design Token
+						</span>
 						<span class="h-2.5 w-2.5 rounded-full" style:background-color="var(--accent-color)"
 						></span>
 					</div>
@@ -160,6 +138,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

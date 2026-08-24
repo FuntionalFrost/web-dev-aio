@@ -1,37 +1,23 @@
 <script lang="ts">
 	import './layout.css';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import { MetaTags } from 'svelte-meta-tags';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
+	import { MetaTags } from 'svelte-meta-tags';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
+	import { curriculum, getCurriculumByTrack } from '$lib/data/curriculum';
+	import { SITE } from '$lib/config/site';
 
 	let { children } = $props();
 
-	const trackOrder: Array<CurriculumModule['track']> = [
-		'Foundations',
-		'Modern ECMAScript',
-		'UI & Frameworks',
-		'APIs & Real-Time',
-		'Data, Caching & Auth',
-		'Infrastructure & Monetization'
-	];
+	const cleanPath = (p: string) => p.replace(/\/$/, '');
 
-	let groupedTracks = $derived.by(() => {
-		return trackOrder
-			.map((track) => ({
-				track,
-				modules: curriculum.filter((m) => m.track === track)
-			}))
-			.filter((group) => group.modules.length > 0);
-	});
-
-	const siteUrl = 'https://web-engine26.pages.dev';
-	let currentCanonical = $derived(`${siteUrl}${page.url.pathname}`);
-	let activeModule = $derived(curriculum.find((m) => m.href === page.url.pathname));
-
+	let groupedTracks = $derived(getCurriculumByTrack());
+	let activeModule = $derived(
+		curriculum.find((m) => cleanPath(m.href) === cleanPath(page.url.pathname))
+	);
+	let currentCanonical = $derived(`${SITE.url}${page.url.pathname}`);
 	let mobileDrawerOpen = $state(false);
 
 	onNavigate((navigation) => {
@@ -46,44 +32,36 @@
 	});
 </script>
 
-<!-- Global SEO Baseline -->
 <MetaTags
 	title={activeModule ? activeModule.title : 'Modern Web Engineering Guide'}
-	titleTemplate="%s | Web Engine 2026"
-	description={activeModule?.description ??
-		'Interactive reference architecture and 21 engineering labs covering modern TypeScript, Svelte 5, Tailwind v4, Drizzle, Neon, and Edge runtimes.'}
+	titleTemplate={`%s | ${SITE.name}`}
+	description={activeModule?.description ?? SITE.description}
 	canonical={currentCanonical}
 	openGraph={{
 		type: 'website',
 		url: currentCanonical,
-		title: activeModule ? activeModule.title : 'Web Engine 2026 | Full-Stack Architecture Guide',
-		description:
-			activeModule?.description ??
-			'Master full-stack web architecture across 21 interactive engineering labs and simulators.',
-		siteName: 'Web Engine 2026',
+		title: activeModule ? activeModule.title : `${SITE.name} | Full-Stack Architecture Guide`,
+		description: activeModule?.description ?? SITE.description,
+		siteName: SITE.name,
 		images: [
 			{
-				url: `${siteUrl}/og-card.png`,
+				url: SITE.ogImage,
 				width: 1200,
 				height: 630,
-				alt: 'Web Engine 2026 Architecture'
+				alt: `${SITE.name} Architecture`
 			}
 		]
 	}}
 	twitter={{
 		cardType: 'summary_large_image',
-		title: activeModule ? activeModule.title : 'Web Engine 2026',
-		description: activeModule?.description ?? 'Modern Web Engineering Guide & Interactive Labs',
-		image: `${siteUrl}/og-card.png`
+		title: activeModule ? activeModule.title : SITE.name,
+		description: activeModule?.description ?? SITE.description,
+		image: SITE.ogImage
 	}}
 	additionalMetaTags={[
 		{ name: 'theme-color', content: '#4f46e5' },
-		{ name: 'author', content: 'Web Engine 2026 Team' },
-		{
-			name: 'keywords',
-			content:
-				'Svelte 5, Tailwind CSS v4, TypeScript 6, Drizzle ORM, Neon Postgres, Better Auth, Hono, Upstash, Edge Isolates'
-		}
+		{ name: 'author', content: SITE.author },
+		{ name: 'keywords', content: SITE.keywords }
 	]}
 />
 
@@ -95,7 +73,6 @@
 		class="sticky top-0 hidden h-screen w-80 shrink-0 flex-col border-r border-slate-200 bg-white/80 backdrop-blur-xl md:flex dark:border-slate-800/80 dark:bg-slate-900/40"
 	>
 		<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
-			<!-- Brand Header -->
 			<a href={resolve('/')} class="flex shrink-0 items-center gap-2.5">
 				<div
 					class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-sm font-bold text-white shadow-md shadow-indigo-500/20"
@@ -104,13 +81,12 @@
 				</div>
 				<div>
 					<span class="block text-xs font-bold tracking-tight text-slate-900 dark:text-white"
-						>Web Engine 2026</span
+						>{SITE.name}</span
 					>
 					<span class="block font-mono text-[10px] text-slate-400">Engineering Architecture</span>
 				</div>
 			</a>
 
-			<!-- Dynamic Navigation Tracks -->
 			<nav class="space-y-5">
 				{#each groupedTracks as group, i (group.track)}
 					<div class="space-y-1">
@@ -121,7 +97,7 @@
 						</span>
 						<div class="space-y-0.5">
 							{#each group.modules as mod (mod.id)}
-								{@const active = page.url.pathname === mod.href}
+								{@const active = cleanPath(page.url.pathname) === cleanPath(mod.href)}
 								<a
 									href={mod.href}
 									class="flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium transition {active
@@ -186,7 +162,7 @@
 					</span>
 					<div class="space-y-1">
 						{#each group.modules as mod (mod.id)}
-							{@const active = mod.href.replace(/\/$/, '') === page.url.pathname.replace(/\/$/, '')}
+							{@const active = cleanPath(page.url.pathname) === cleanPath(mod.href)}
 							<a
 								href={mod.href}
 								class="block rounded-lg px-2.5 py-1.5 text-xs transition {active
@@ -202,7 +178,7 @@
 		</nav>
 	</aside>
 
-	<!-- Content Container with Sticky Top Navigation Bar -->
+	<!-- Main Content Area -->
 	<div class="flex min-w-0 flex-1 flex-col overflow-x-hidden">
 		<header
 			class="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur-md sm:px-6 dark:border-slate-800/80 dark:bg-slate-950/80"

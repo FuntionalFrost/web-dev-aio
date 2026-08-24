@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -23,12 +23,8 @@
 	}
 </script>
 
-<LabShell moduleId="framework-nuxt4" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="Nuxt4Index.vue" />
-		</div>
-
 		<h3>Nuxt 4 Paradigm Shifts</h3>
 		<ul>
 			<li>
@@ -49,30 +45,13 @@
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span
-					class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-				>
-					useAsyncData Lifecycle Simulator
-				</span>
-				<span
-					class="rounded bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-				>
-					Nuxt 4 Fetch Engine
-				</span>
-			</div>
-
+	{#snippet lab()}
+		<LabCard title="useAsyncData Lifecycle Simulator" badge="Nuxt 4 Fetch Engine">
 			<div class="flex items-center justify-between">
 				<button
 					onclick={triggerAsyncData}
 					disabled={asyncStatus === 'pending'}
-					class="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-indigo-500 disabled:opacity-40"
+					class="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
 				>
 					{asyncStatus === 'pending' ? 'Hydrating Payload...' : 'Execute useAsyncData()'}
 				</button>
@@ -125,6 +104,6 @@
 					</div>
 				{/if}
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

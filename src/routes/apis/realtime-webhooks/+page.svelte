@@ -1,11 +1,11 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
-	// Realtime SSE Visualizer Simulation
+	// 1. SSE Real-Time Stream Simulator
 	let isSSEConnected = $state(false);
 	let sseMessages = $state<{ id: number; timestamp: string; ticker: string; price: number }[]>([]);
 	let sseTimer: ReturnType<typeof setInterval> | null = null;
@@ -28,10 +28,10 @@
 		}
 	}
 
-	// Webhook HMAC-SHA256 Visualizer
+	// 2. Webhook HMAC-SHA256 Signer
 	let webhookPayload = $state('{"event":"invoice.paid","amount":4900,"currency":"usd"}');
 	let webhookSecret = $state('whsec_test_secret_key_89234');
-	let computedSignature = $state('a8f9b2d3e1...calculated');
+	let computedSignature = $state('Calculating...');
 
 	async function generateHMAC() {
 		const encoder = new TextEncoder();
@@ -55,27 +55,14 @@
 	}
 
 	$effect(() => {
-		// Recompute signature on reactive changes
 		if (webhookPayload && webhookSecret) {
 			generateHMAC();
 		}
 	});
 </script>
 
-<LabShell
-	moduleId="api-realtime-webhooks"
-	title={data.meta.title}
-	description={data.meta.description}
->
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock
-				codeHtml={data.codeHtml}
-				rawCode={data.rawCode}
-				filename="realtime-and-webhooks.ts"
-			/>
-		</div>
-
 		<h3>Architectural Comparison: SSE vs. WebSockets</h3>
 		<div class="not-prose my-4 overflow-x-auto">
 			<table
@@ -111,68 +98,55 @@
 		</div>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div class="space-y-6">
-			<!-- SSE Stream Simulator -->
+	{#snippet lab()}
+		<!-- Card 1: SSE Stream Visualizer -->
+		<LabCard
+			title="Server-Sent Events (SSE) Stream"
+			badge={isSSEConnected ? 'Active Connection' : 'Disconnected'}
+		>
 			<div
-				class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
+				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
 			>
-				<div
-					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
+				<span class="font-mono text-xs text-slate-500">HTTP/2 Unidirectional Stream</span>
+				<button
+					onclick={toggleSSE}
+					class="rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold text-white transition {isSSEConnected
+						? 'bg-rose-600 hover:bg-rose-500'
+						: 'bg-emerald-600 hover:bg-emerald-500'}"
 				>
-					<span
-						class="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-					>
-						Server-Sent Events (SSE) Stream
-					</span>
-					<button
-						onclick={toggleSSE}
-						class="rounded-xl px-3 py-1.5 font-mono text-xs font-semibold text-white transition {isSSEConnected
-							? 'bg-rose-600 hover:bg-rose-500'
-							: 'bg-emerald-600 hover:bg-emerald-500'}"
-					>
-						{isSSEConnected ? 'Disconnect Stream' : 'Connect SSE Stream'}
-					</button>
-				</div>
-
-				<div class="space-y-2">
-					{#each sseMessages as msg (msg.id)}
-						<div
-							class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-2.5 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
-						>
-							<span class="text-slate-500">[{msg.timestamp}]</span>
-							<span class="font-bold text-slate-900 dark:text-white">{msg.ticker}</span>
-							<span class="font-bold text-indigo-600 dark:text-indigo-400">${msg.price}</span>
-						</div>
-					{:else}
-						<div class="p-4 text-center font-mono text-xs text-slate-400">
-							{isSSEConnected
-								? 'Streaming ticker chunks...'
-								: 'Click "Connect SSE Stream" to receive data frames.'}
-						</div>
-					{/each}
-				</div>
+					{isSSEConnected ? 'Disconnect Stream' : 'Connect SSE Stream'}
+				</button>
 			</div>
 
-			<!-- Webhook HMAC Signature Lab -->
-			<div
-				class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 font-mono text-xs shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-			>
-				<div
-					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-				>
-					<span class="font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-400">
-						Webhook HMAC-SHA256 Signer
-					</span>
-					<span class="text-[10px] text-slate-500">Timing-Safe Guard</span>
-				</div>
+			<div class="space-y-2">
+				{#each sseMessages as msg (msg.id)}
+					<div
+						class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-2.5 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
+					>
+						<span class="text-slate-500">[{msg.timestamp}]</span>
+						<span class="font-bold text-slate-900 dark:text-white">{msg.ticker}</span>
+						<span class="font-bold text-indigo-600 dark:text-indigo-400">${msg.price}</span>
+					</div>
+				{:else}
+					<div class="p-4 text-center font-mono text-xs text-slate-400">
+						{isSSEConnected
+							? 'Streaming ticker frames...'
+							: 'Click "Connect SSE Stream" to receive data frames.'}
+					</div>
+				{/each}
+			</div>
+		</LabCard>
 
+		<!-- Card 2: Webhook HMAC-SHA256 Signer -->
+		<LabCard title="Webhook HMAC-SHA256 Signer" badge="Timing-Safe Guard">
+			<div class="space-y-3 font-mono text-xs">
 				<div>
 					<label
 						for="wh-payload"
 						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
-						>Incoming Webhook JSON Payload:</label
 					>
+						Incoming Webhook JSON Payload:
+					</label>
 					<textarea
 						id="wh-payload"
 						rows="2"
@@ -182,9 +156,12 @@
 				</div>
 
 				<div>
-					<label for="wh-secret" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
-						>Signing Secret (whsec_...):</label
+					<label
+						for="wh-secret"
+						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
 					>
+						Signing Secret (whsec_...):
+					</label>
 					<input
 						id="wh-secret"
 						type="text"
@@ -202,6 +179,6 @@
 					</p>
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

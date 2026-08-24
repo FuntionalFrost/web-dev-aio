@@ -1,11 +1,12 @@
 import * as sitemap from 'super-sitemap/sveltekit';
 import type { RequestHandler } from './$types';
+import { SITE } from '$lib/config/site';
 
 export const prerender = true;
 
 export const GET: RequestHandler = async () => {
 	return await sitemap.response({
-		origin: 'https://web-engine26.pages.dev',
+		origin: SITE.url,
 		excludeRoutePatterns: [
 			/^\/api\/.*/ // Exclude internal API routes if any
 		],

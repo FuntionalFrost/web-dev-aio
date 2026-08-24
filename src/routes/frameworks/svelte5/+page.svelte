@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabShell from '$lib/components/LabShell.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
+	import LabCard from '$lib/components/LabCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -26,61 +26,33 @@
 	}
 </script>
 
-{#snippet customCardHeader(label: string)}
-	<div
-		class="flex items-center justify-between border-b border-slate-200 pb-2 dark:border-slate-800"
-	>
-		<span
-			class="font-mono text-xs font-bold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
-		>
-			Snippet: {label}
-		</span>
-		<span
-			class="rounded bg-indigo-50 px-2 py-0.5 font-mono text-[10px] text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300"
-		>
-			{@render snippetBadge()}
-		</span>
-	</div>
-{/snippet}
-
-{#snippet snippetBadge()}
-	<span>&#123;#snippet&#125; active</span>
-{/snippet}
-
-<LabShell moduleId="framework-svelte5" title={data.meta.title} description={data.meta.description}>
+<LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<div class="not-prose">
-			<CodeBlock codeHtml={data.codeHtml} rawCode={data.rawCode} filename="Svelte5Engine.svelte" />
-		</div>
-
 		<h3>Svelte 5 Reactive Innovations</h3>
 		<ul>
 			<li>
 				<strong>Universal Signal Reactivity (<code>$state</code>, <code>$derived</code>):</strong>
-				Reactivity is no longer confined to top-level <code>.svelte</code> script tags; it works in
-				standard TypeScript classes and functions across <code>.svelte.ts</code> files.
+				Reactivity is no longer confined to top-level <code>.svelte</code> script tags; it executes
+				in standard TypeScript classes and functions across <code>.svelte.ts</code> files.
 			</li>
 			<li>
 				<strong
 					>Snippets replacing Slots (<code>&#123;#snippet&#125;</code> &
 					<code>@render</code>):</strong
-				> Snippets provide typed, parameterizable markup closures directly inside component bodies.
+				>
+				Snippets provide typed, parameterizable markup closures directly inside component bodies.
 			</li>
 			<li>
-				<strong>Explicit Two-Way Binding (<code>$bindable()</code>):</strong> Components declare
-				explicitly whether a prop can be bound by parents with <code>bind:prop</code>.
+				<strong>Explicit Two-Way Binding (<code>$bindable()</code>):</strong>
+				Components declare explicitly whether a prop can be bound by parents with
+				<code>bind:prop</code>.
 			</li>
 		</ul>
 	{/snippet}
 
-	{#snippet sandbox()}
-		<div
-			class="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/50"
-		>
-			<!-- Snippet rendering test -->
-			{@render customCardHeader('Reactive Runes Controller')}
-
-			<!-- Controls -->
+	{#snippet lab()}
+		<!-- Fixed badge attribute using a literal JS string expression -->
+		<LabCard title="Reactive Runes Controller" badge={'{#snippet} active'}>
 			<div class="grid grid-cols-2 gap-4 font-mono text-xs text-slate-700 dark:text-slate-300">
 				<div>
 					<label for="multiplier" class="flex justify-between text-slate-600 dark:text-slate-400">
@@ -99,7 +71,7 @@
 				<div class="flex items-end gap-2">
 					<button
 						onclick={increment}
-						class="flex-1 rounded-xl bg-indigo-600 py-2 font-semibold text-white transition hover:bg-indigo-500"
+						class="flex-1 rounded-xl bg-indigo-600 py-2 font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
 					>
 						+ Increment ($state)
 					</button>
@@ -144,7 +116,7 @@
 			>
 				<span class="text-[11px] tracking-wider text-slate-400 uppercase">Reactivity Stream:</span>
 				<div class="mt-2 space-y-1">
-					{#each logHistory as log, i (i)}
+					{#each logHistory as log, i (`log-${i}`)}
 						<div class="text-slate-600 dark:text-slate-400">
 							<span class="text-indigo-500">›</span>
 							{log}
@@ -154,6 +126,6 @@
 					{/each}
 				</div>
 			</div>
-		</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

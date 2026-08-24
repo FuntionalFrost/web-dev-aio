@@ -1,21 +1,23 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
-	declare global {
-		interface Uint8Array {
-			toBase64(options?: { alphabet?: 'base64' | 'base64url' }): string;
-		}
-
-		interface Uint8ArrayConstructor {
-			fromBase64(string: string, options?: { alphabet?: 'base64' | 'base64url' }): Uint8Array;
-		}
-
-		interface ArrayConstructor {
-			fromAsync<T>(
-				iterableOrAsyncIterable: AsyncIterable<T> | Iterable<Promise<T>> | Iterable<T>
-			): Promise<T[]>;
-		}
+	// 1. ECMAScript Stage 4 & Modern Standard Extensions
+	interface Uint8Array {
+		toBase64(options?: { alphabet?: 'base64' | 'base64url' }): string;
+		toHex(): string;
 	}
+
+	interface Uint8ArrayConstructor {
+		fromBase64(string: string, options?: { alphabet?: 'base64' | 'base64url' }): Uint8Array;
+		fromHex(string: string): Uint8Array;
+	}
+
+	interface ArrayConstructor {
+		fromAsync<T>(
+			iterableOrAsyncIterable: AsyncIterable<T> | Iterable<Promise<T>> | Iterable<T>
+		): Promise<T[]>;
+	}
+
 	interface PromiseConstructor {
 		withResolvers<T>(): {
 			promise: Promise<T>;
@@ -26,6 +28,25 @@ declare global {
 
 	interface Disposable {
 		[Symbol.dispose](): void;
+	}
+
+	interface Math {
+		sumPrecise(items: Iterable<number>): number;
+	}
+
+	interface Map<K, V> {
+		getOrInsert(key: K, defaultValue: V): V;
+		getOrInsertComputed(key: K, callback: (key: K) => V): V;
+	}
+
+	interface Set<T> {
+		intersection<U>(other: ReadonlySet<U>): Set<T & U>;
+		union<U>(other: ReadonlySet<U>): Set<T | U>;
+		difference<U>(other: ReadonlySet<U>): Set<T>;
+		symmetricDifference<U>(other: ReadonlySet<U>): Set<T | U>;
+		isSubsetOf(other: ReadonlySet<unknown>): boolean;
+		isSupersetOf(other: ReadonlySet<unknown>): boolean;
+		isDisjointFrom(other: ReadonlySet<unknown>): boolean;
 	}
 
 	interface IteratorObject<T, TReturn = unknown, TNext = unknown> {
@@ -41,17 +62,15 @@ declare global {
 		from<T>(iterable: Iterable<T> | Iterator<T>): IteratorObject<T>;
 	}
 
-	const Iterator: IteratorConstructor;
+	var Iterator: IteratorConstructor;
 
+	// 2. SvelteKit App Namespace
 	namespace App {
 		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
-	}
-	interface Math {
-		sumPrecise(items: Iterable<number>): number;
 	}
 }
 
