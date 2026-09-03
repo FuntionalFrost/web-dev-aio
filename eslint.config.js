@@ -34,8 +34,14 @@ export default defineConfig(
 		}
 	},
 	{
-		// Override or add rule settings here, such as:
-		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			// No base path is configured for this static site, so navigation without resolve() is correct.
+			'svelte/no-navigation-without-resolve': 'off',
+			// Allow intentional _ hole-fillers in {#each Array(n) as _, i} patterns.
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{ varsIgnorePattern: '^_', argsIgnorePattern: '^_' }
+			]
+		}
 	}
 );

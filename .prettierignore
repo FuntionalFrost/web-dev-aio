@@ -5,5 +5,11 @@ yarn.lock
 bun.lock
 bun.lockb
 
-# Miscellaneous
+# Build and internal directories
+.svelte-kit/
+build/
+node_modules/
+.gemini/
+
+# Static files
 /static/

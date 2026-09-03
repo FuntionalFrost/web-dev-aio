@@ -8,6 +8,7 @@ node_modules
 /.svelte-kit
 /build
 
+
 # OS
 .DS_Store
 Thumbs.db
@@ -23,3 +24,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 New-Structure.ps1
 structure.txt
+
+# AI
+/.gemini
+GEMINI.md

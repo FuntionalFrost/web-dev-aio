@@ -34,4 +34,4 @@ The 21 interactive engineering modules are structured across 6 core tracks:
 - **Interactive Architecture Simulators:** Client-side visualizers for sliding-window rate limiters, biometric passkey registrations, HMAC signers, reactive runes, and query compilers—running entirely in-browser.
 - **Build-Time Syntax Highlighting:** Code samples are parsed and highlighted during static build generation using Shiki, shipping zero parser JavaScript to the client.
 - **Full-Spectrum Search & Keyboard Navigation:** Global command palette (`⌘K`) for rapid navigation across all 21 modules and architectural topics.
-- **Dual Edge Deployment Ready:** Pre-configured security headers and immutable cache policies for Cloudflare Pages (`_headers`) and Vercel (`vercel.json`).
+- **Edge Deployment Ready:** Pre-configured security headers (HSTS, CSP, nosniff, DENY) and immutable cache policies for Cloudflare Pages (`_headers`).
