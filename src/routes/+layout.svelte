@@ -37,31 +37,48 @@
 	titleTemplate={`%s | ${SITE.name}`}
 	description={activeModule?.description ?? SITE.description}
 	canonical={currentCanonical}
+	robots="index, follow"
 	openGraph={{
-		type: 'website',
+		type: activeModule ? 'article' : 'website',
 		url: currentCanonical,
-		title: activeModule ? activeModule.title : `${SITE.name} | Full-Stack Architecture Guide`,
+		title: activeModule
+			? `${activeModule.title} | ${SITE.name}`
+			: `${SITE.name} | Full-Stack Architecture Guide`,
 		description: activeModule?.description ?? SITE.description,
 		siteName: SITE.name,
 		images: [
 			{
 				url: SITE.ogImage,
+				secureUrl: SITE.ogImage,
+				type: 'image/png',
 				width: 1200,
 				height: 630,
-				alt: `${SITE.name} Architecture`
+				alt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
 			}
-		]
+		],
+		...(activeModule
+			? {
+					article: {
+						section: activeModule.track,
+						tags: activeModule.tech,
+						authors: [SITE.author]
+					}
+				}
+			: {})
 	}}
 	twitter={{
 		cardType: 'summary_large_image',
-		title: activeModule ? activeModule.title : SITE.name,
+		title: activeModule ? `${activeModule.title} | ${SITE.name}` : SITE.name,
 		description: activeModule?.description ?? SITE.description,
-		image: SITE.ogImage
+		image: SITE.ogImage,
+		imageAlt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
 	}}
 	additionalMetaTags={[
-		{ name: 'theme-color', content: '#4f46e5' },
 		{ name: 'author', content: SITE.author },
-		{ name: 'keywords', content: SITE.keywords }
+		{
+			name: 'keywords',
+			content: activeModule ? `${activeModule.tech.join(', ')}, ${SITE.keywords}` : SITE.keywords
+		}
 	]}
 />
 

@@ -1,0 +1,26 @@
+{
+  "name": "Web Engine 2026",
+  "short_name": "WebEngine26",
+  "description": "Interactive reference architecture and 21 engineering labs covering modern TypeScript 6, Svelte 5, Tailwind v4, Drizzle, Neon, and Edge runtimes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
