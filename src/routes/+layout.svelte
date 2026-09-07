@@ -2,7 +2,7 @@
 	import './layout.css';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
-	import { MetaTags } from 'svelte-meta-tags';
+	import SEO from '$lib/components/SEO.svelte';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
@@ -17,7 +17,6 @@
 	let activeModule = $derived(
 		curriculum.find((m) => cleanPath(m.href) === cleanPath(page.url.pathname))
 	);
-	let currentCanonical = $derived(`${SITE.url}${page.url.pathname}`);
 	let mobileDrawerOpen = $state(false);
 
 	onNavigate((navigation) => {
@@ -32,55 +31,7 @@
 	});
 </script>
 
-<MetaTags
-	title={activeModule ? activeModule.title : 'Modern Web Engineering Guide'}
-	titleTemplate={`%s | ${SITE.name}`}
-	description={activeModule?.description ?? SITE.description}
-	canonical={currentCanonical}
-	robots="index, follow"
-	openGraph={{
-		type: activeModule ? 'article' : 'website',
-		url: currentCanonical,
-		title: activeModule
-			? `${activeModule.title} | ${SITE.name}`
-			: `${SITE.name} | Full-Stack Architecture Guide`,
-		description: activeModule?.description ?? SITE.description,
-		siteName: SITE.name,
-		images: [
-			{
-				url: SITE.ogImage,
-				secureUrl: SITE.ogImage,
-				type: 'image/png',
-				width: 1200,
-				height: 630,
-				alt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
-			}
-		],
-		...(activeModule
-			? {
-					article: {
-						section: activeModule.track,
-						tags: activeModule.tech,
-						authors: [SITE.author]
-					}
-				}
-			: {})
-	}}
-	twitter={{
-		cardType: 'summary_large_image',
-		title: activeModule ? `${activeModule.title} | ${SITE.name}` : SITE.name,
-		description: activeModule?.description ?? SITE.description,
-		image: SITE.ogImage,
-		imageAlt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
-	}}
-	additionalMetaTags={[
-		{ name: 'author', content: SITE.author },
-		{
-			name: 'keywords',
-			content: activeModule ? `${activeModule.tech.join(', ')}, ${SITE.keywords}` : SITE.keywords
-		}
-	]}
-/>
+<SEO />
 
 <div
 	class="flex min-h-screen bg-slate-50 text-slate-900 transition-colors duration-150 dark:bg-slate-950 dark:text-slate-100"

@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
-	import { JsonLd } from 'svelte-meta-tags';
-	import { SITE } from '$lib/config/site';
 
 	let activeTrack = $state<string>('All');
 	let searchQuery = $state<string>('');
@@ -21,39 +19,6 @@
 		})
 	);
 </script>
-
-<JsonLd
-	schema={[
-		{
-			'@context': 'https://schema.org',
-			'@type': 'WebSite',
-			name: SITE.name,
-			url: SITE.url,
-			description: SITE.description,
-			inLanguage: 'en-US',
-			publisher: {
-				'@type': 'Organization',
-				name: SITE.name,
-				url: SITE.url,
-				logo: `${SITE.url}/favicon.svg`
-			}
-		},
-		{
-			'@context': 'https://schema.org',
-			'@type': 'ItemList',
-			name: `${SITE.name} Curriculum`,
-			description: '21 Full-Stack Architecture Engineering Labs',
-			numberOfItems: curriculum.length,
-			itemListElement: curriculum.map((mod, idx) => ({
-				'@type': 'ListItem',
-				position: idx + 1,
-				name: mod.title,
-				description: mod.description,
-				url: `${SITE.url}${mod.href}`
-			}))
-		}
-	]}
-/>
 
 <div class="mx-auto max-w-7xl space-y-8 p-6 sm:p-8">
 	<!-- Hero Section -->

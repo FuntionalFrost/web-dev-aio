@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
-	import { JsonLd } from 'svelte-meta-tags';
 	import LabPagination from '$lib/components/LabPagination.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import { curriculum } from '$lib/data/curriculum';
@@ -42,64 +41,8 @@
 
 	let title = $derived(propTitle ?? mod?.title ?? 'Engineering Lab');
 	let description = $derived(propDescription ?? mod?.description ?? SITE.description);
-	let canonicalUrl = $derived(`${SITE.url}${page.url.pathname}`);
 	let interactiveSnippet = $derived(children ?? lab ?? sandbox);
 </script>
-
-<!-- Structured Data: TechArticle & BreadcrumbList -->
-<JsonLd
-	schema={[
-		{
-			'@context': 'https://schema.org',
-			'@type': 'TechArticle',
-			mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-			headline: title,
-			description,
-			inLanguage: 'en-US',
-			keywords: mod ? mod.tech.join(', ') : SITE.keywords,
-			articleSection: mod?.track,
-			educationalLevel: 'Intermediate/Advanced',
-			image: SITE.ogImage,
-			author: { '@type': 'Organization', name: SITE.author, url: SITE.url },
-			publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url }
-		},
-		{
-			'@context': 'https://schema.org',
-			'@type': 'BreadcrumbList',
-			itemListElement: [
-				{
-					'@type': 'ListItem',
-					position: 1,
-					name: 'Home',
-					item: SITE.url
-				},
-				...(mod
-					? [
-							{
-								'@type': 'ListItem',
-								position: 2,
-								name: mod.track,
-								item: SITE.url
-							},
-							{
-								'@type': 'ListItem',
-								position: 3,
-								name: mod.title,
-								item: canonicalUrl
-							}
-						]
-					: [
-							{
-								'@type': 'ListItem',
-								position: 2,
-								name: title,
-								item: canonicalUrl
-							}
-						])
-			]
-		}
-	]}
-/>
 
 <div class="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-2">
 	<!-- Left Column: Guide & CodeBlock -->

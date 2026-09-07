@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-
-# Host & Sitemap Directives
-Host: https://web-engine26.pages.dev
-Sitemap: https://web-engine26.pages.dev/sitemap.xml

@@ -2,25 +2,63 @@
   "name": "Web Engine 2026",
   "short_name": "WebEngine26",
   "description": "Interactive reference architecture and 21 engineering labs covering modern TypeScript 6, Svelte 5, Tailwind v4, Drizzle, Neon, and Edge runtimes.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "any",
+  "lang": "en-US",
   "background_color": "#020617",
   "theme_color": "#4f46e5",
+  "categories": ["developer tools", "education", "productivity"],
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
     {
       "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Svelte 5 Runes",
+      "short_name": "Svelte 5",
+      "description": "Universal signals and fine-grained reactivity lab",
+      "url": "/frameworks/svelte5",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Tailwind CSS v4",
+      "short_name": "Tailwind v4",
+      "description": "CSS-first engine and native theme tokens",
+      "url": "/foundations/tailwind",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "TypeScript 6 Primitives",
+      "short_name": "TypeScript 6",
+      "description": "Discriminated unions and strict narrowing",
+      "url": "/foundations/typescript",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Cloudflare & Edge",
+      "short_name": "Edge Isolates",
+      "description": "Global serverless edge isolate architecture",
+      "url": "/infra/deployment-edge",
+      "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     }
   ]
 }
