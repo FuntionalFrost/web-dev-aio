@@ -33,7 +33,9 @@
 	openGraph={{
 		type: activeModule ? 'article' : 'website',
 		url: canonicalUrl,
-		title: activeModule ? `${activeModule.title} | ${SITE.name}` : `${SITE.name} | Architecture Guide`,
+		title: activeModule
+			? `${activeModule.title} | ${SITE.name}`
+			: `${SITE.name} | Architecture Guide`,
 		description,
 		siteName: SITE.name,
 		images: [
