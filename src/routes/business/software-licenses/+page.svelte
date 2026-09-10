@@ -200,76 +200,139 @@
 
 				<!-- Active License Deep Dive -->
 				<div
-					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
+					class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-950"
 				>
 					<div
-						class="flex items-center justify-between border-b border-slate-200 pb-2 dark:border-slate-800"
+						class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3 dark:border-slate-800"
 					>
 						<div>
-							<h4 class="text-base font-bold text-slate-900 dark:text-white">
+							<h4 class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
 								{activeLicense.name}
 							</h4>
-							<span class="text-sm font-bold text-indigo-600 dark:text-indigo-400"
-								>SPDX: {activeLicense.spdx} · {activeLicense.category}</span
-							>
+							<div class="mt-1 flex items-center gap-2">
+								<span
+									class="rounded-md bg-indigo-100 px-2.5 py-0.5 font-mono text-sm font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
+								>
+									SPDX: {activeLicense.spdx}
+								</span>
+								<span
+									class="rounded-md bg-slate-200/80 px-2.5 py-0.5 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+								>
+									{activeLicense.category}
+								</span>
+							</div>
 						</div>
 					</div>
 
-					<p class="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+					<p class="text-sm leading-relaxed text-slate-700 sm:text-base dark:text-slate-300">
 						{activeLicense.summary}
 					</p>
 
-					<!-- Feature Badges -->
-					<div class="grid grid-cols-2 gap-2 pt-1 text-sm">
+					<!-- Feature Badges 2x2 Grid -->
+					<div class="grid grid-cols-1 gap-2.5 pt-1 text-sm sm:grid-cols-2">
+						<!-- Commercial Production -->
 						<div
-							class="rounded-xl border p-2.5 {activeLicense.commercialUse
-								? 'border-emerald-500/30 bg-emerald-50/40 text-emerald-900 dark:text-emerald-300'
-								: 'border-amber-500/30 bg-amber-50/40 text-amber-900 dark:text-amber-300'}"
+							class="rounded-xl border p-3 transition-colors {activeLicense.commercialUse
+								? 'border-emerald-500/40 bg-emerald-50/60 dark:border-emerald-500/30 dark:bg-emerald-950/40'
+								: 'border-amber-500/40 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-950/40'}"
 						>
-							<span class="font-bold">Commercial Production:</span>
-							<p class="mt-0.5">
-								{activeLicense.commercialUse ? '✓ Unrestricted' : '⚠️ Restricted / Paid'}
-							</p>
+							<span
+								class="block text-sm font-bold tracking-wider text-slate-600 uppercase dark:text-slate-400"
+							>
+								Commercial Production:
+							</span>
+							<div class="mt-1 flex items-center gap-2">
+								<span
+									class="text-base font-bold {activeLicense.commercialUse
+										? 'text-emerald-700 dark:text-emerald-400'
+										: 'text-amber-700 dark:text-amber-400'}"
+								>
+									{activeLicense.commercialUse ? '✓ Unrestricted' : '⚠️ Restricted / Paid Tier'}
+								</span>
+							</div>
 						</div>
+
+						<!-- Patent Grant Included -->
 						<div
-							class="rounded-xl border p-2.5 {activeLicense.patentGrant
-								? 'border-emerald-500/30 bg-emerald-50/40 text-emerald-900 dark:text-emerald-300'
-								: 'border-slate-300 bg-slate-100/50 text-slate-700 dark:border-slate-800 dark:text-slate-400'}"
+							class="rounded-xl border p-3 transition-colors {activeLicense.patentGrant
+								? 'border-emerald-500/40 bg-emerald-50/60 dark:border-emerald-500/30 dark:bg-emerald-950/40'
+								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
-							<span class="font-bold">Patent Grant Included:</span>
-							<p class="mt-0.5">
-								{activeLicense.patentGrant ? '✓ Explicit Grant' : '— None Expressed'}
-							</p>
+							<span
+								class="block text-sm font-bold tracking-wider text-slate-600 uppercase dark:text-slate-400"
+							>
+								Patent Grant Included:
+							</span>
+							<div class="mt-1 flex items-center gap-2">
+								<span
+									class="text-base font-bold {activeLicense.patentGrant
+										? 'text-emerald-700 dark:text-emerald-400'
+										: 'text-slate-800 dark:text-slate-200'}"
+								>
+									{activeLicense.patentGrant ? '✓ Explicit Grant' : '— None Expressed'}
+								</span>
+							</div>
 						</div>
+
+						<!-- Source Disclosure -->
 						<div
-							class="rounded-xl border p-2.5 {activeLicense.disclosureRequired
-								? 'border-indigo-500/30 bg-indigo-50/40 text-indigo-900 dark:text-indigo-300'
-								: 'border-slate-300 bg-slate-100/50 text-slate-700 dark:border-slate-800 dark:text-slate-400'}"
+							class="rounded-xl border p-3 transition-colors {activeLicense.disclosureRequired
+								? 'border-indigo-500/40 bg-indigo-50/60 dark:border-indigo-500/30 dark:bg-indigo-950/40'
+								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
-							<span class="font-bold">Source Disclosure:</span>
-							<p class="mt-0.5">
-								{activeLicense.disclosureRequired ? 'Required for Derivatives' : 'Not Required'}
-							</p>
+							<span
+								class="block text-sm font-bold tracking-wider text-slate-600 uppercase dark:text-slate-400"
+							>
+								Source Disclosure:
+							</span>
+							<div class="mt-1 flex items-center gap-2">
+								<span
+									class="text-base font-bold {activeLicense.disclosureRequired
+										? 'text-indigo-700 dark:text-indigo-400'
+										: 'text-emerald-700 dark:text-emerald-400'}"
+								>
+									{activeLicense.disclosureRequired
+										? '⚠️ Required for Derivatives'
+										: '✓ Not Required'}
+								</span>
+							</div>
 						</div>
+
+						<!-- Network / SaaS Trigger -->
 						<div
-							class="rounded-xl border p-2.5 {activeLicense.networkCopyleft
-								? 'border-purple-500/30 bg-purple-50/40 text-purple-900 dark:text-purple-300'
-								: 'border-slate-300 bg-slate-100/50 text-slate-700 dark:border-slate-800 dark:text-slate-400'}"
+							class="rounded-xl border p-3 transition-colors {activeLicense.networkCopyleft
+								? 'border-purple-500/40 bg-purple-50/60 dark:border-purple-500/30 dark:bg-purple-950/40'
+								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
-							<span class="font-bold">Network / SaaS Trigger:</span>
-							<p class="mt-0.5">
-								{activeLicense.networkCopyleft
-									? '✓ Triggered via Network'
-									: '— Binary Delivery Only'}
-							</p>
+							<span
+								class="block text-sm font-bold tracking-wider text-slate-600 uppercase dark:text-slate-400"
+							>
+								Network / SaaS Trigger:
+							</span>
+							<div class="mt-1 flex items-center gap-2">
+								<span
+									class="text-base font-bold {activeLicense.networkCopyleft
+										? 'text-purple-700 dark:text-purple-400'
+										: 'text-slate-800 dark:text-slate-200'}"
+								>
+									{activeLicense.networkCopyleft
+										? '⚡ Triggered via Network (AGPL)'
+										: '— Binary Delivery Only'}
+								</span>
+							</div>
 						</div>
 					</div>
 
-					<div class="border-t border-slate-200 pt-2 dark:border-slate-800">
-						<span class="text-sm font-bold text-indigo-600 uppercase dark:text-indigo-400"
-							>Ideal Strategic Use Case:</span
+					<!-- Ideal Strategic Use Case -->
+					<div
+						class="rounded-xl border border-indigo-200 bg-indigo-50/60 p-4 dark:border-indigo-900/60 dark:bg-indigo-950/40"
+					>
+						<span
+							class="block text-sm font-bold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
 						>
-						<p class="mt-0.5 text-sm font-bold text-slate-900 dark:text-white">
+							Ideal Strategic Use Case:
+						</span>
+						<p class="mt-1 text-sm font-bold text-slate-900 sm:text-base dark:text-white">
 							{activeLicense.idealFor}
 						</p>
 					</div>
