@@ -46,36 +46,51 @@
 		lockEngaged = false;
 	}
 
+	interface PromiseWithResolversResult<T> {
+		promise: Promise<T>;
+		resolve: (value: T) => void;
+		reject: (reason?: unknown) => void;
+	}
+
+	interface ModernPromise {
+		withResolvers?: <T>() => PromiseWithResolversResult<T>;
+	}
+
 	function startAsyncStream() {
 		promiseStatus = 'pending';
 		promisePayload = '';
 
-		if (typeof (Promise as any).withResolvers === 'function') {
-			const { promise, resolve, reject } = (Promise as any).withResolvers();
-			currentResolvers = { resolve, reject };
+		const modernPromise = Promise as unknown as ModernPromise;
+		if (typeof modernPromise.withResolvers === 'function') {
+			const { promise, resolve, reject } = modernPromise.withResolvers<string>();
+			currentResolvers = {
+				resolve: (v: string) => resolve(v),
+				reject: (r: string) => reject(r)
+			};
 
 			promise
 				.then((res: string) => {
 					promiseStatus = 'resolved';
 					promisePayload = res;
 				})
-				.catch((err: any) => {
+				.catch((err: unknown) => {
 					promiseStatus = 'rejected';
 					promisePayload = String(err);
 				});
 		} else {
-			let resCallback: any, rejCallback: any;
-			const promise = new Promise((res, rej) => {
+			let resCallback!: (v: string) => void;
+			let rejCallback!: (r: string) => void;
+			const promise = new Promise<string>((res, rej) => {
 				resCallback = res;
 				rejCallback = rej;
 			});
 			currentResolvers = { resolve: resCallback, reject: rejCallback };
 			promise
-				.then((res: any) => {
+				.then((res: string) => {
 					promiseStatus = 'resolved';
 					promisePayload = res;
 				})
-				.catch((err: any) => {
+				.catch((err: unknown) => {
 					promiseStatus = 'rejected';
 					promisePayload = String(err);
 				});
@@ -101,14 +116,17 @@
 	{#snippet guide()}
 		<h3>Resource Scopes & Explicit Management</h3>
 		<p class="text-base sm:text-lg">
-			Explicit Resource Management (ERM) with <code>using</code> statements and decoupled promise resolvers streamline asynchronous lifecycle management.
+			Explicit Resource Management (ERM) with <code>using</code> statements and decoupled promise resolvers
+			streamline asynchronous lifecycle management.
 		</p>
 		<ul>
 			<li>
-				<strong><code>using (Symbol.dispose)</code>:</strong> Guarantees deterministic teardown for database connections, mutex locks, and file handles upon block scope exit.
+				<strong><code>using (Symbol.dispose)</code>:</strong> Guarantees deterministic teardown for database
+				connections, mutex locks, and file handles upon block scope exit.
 			</li>
 			<li>
-				<strong><code>Promise.withResolvers()</code>:</strong> Exposes direct <code>resolve</code> and <code>reject</code> handles without nesting logic inside closure callbacks.
+				<strong><code>Promise.withResolvers()</code>:</strong> Exposes direct <code>resolve</code>
+				and <code>reject</code> handles without nesting logic inside closure callbacks.
 			</li>
 		</ul>
 	{/snippet}
@@ -120,13 +138,13 @@
 				<div class="flex gap-2">
 					<button
 						onclick={spawnResource}
-						class="flex-1 rounded-xl bg-indigo-600 py-2.5 font-bold text-base text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
+						class="flex-1 rounded-xl bg-indigo-600 py-2.5 text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
 					>
 						Spawn Scope (Auto-Dispose 2.5s)
 					</button>
 					<button
 						onclick={purgeSessions}
-						class="rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 font-bold text-base text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+						class="rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-base font-bold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
 					>
 						Clear
 					</button>
@@ -141,12 +159,11 @@
 								: 'border-slate-200 bg-slate-50 text-slate-500 dark:border-slate-800 dark:bg-slate-950/40'}"
 						>
 							<div>
-								<span class="font-bold text-base">ID: {session.id}</span>
+								<span class="text-base font-bold">ID: {session.id}</span>
 								<span class="block text-sm text-slate-500">{session.createdAt}</span>
 							</div>
 							<span
-								class="rounded-md px-2 py-1 text-xs font-bold uppercase {session.status ===
-								'active'
+								class="rounded-md px-2 py-1 text-sm font-bold uppercase {session.status === 'active'
 									? 'bg-emerald-200 text-emerald-900 dark:bg-emerald-500/30 dark:text-emerald-300'
 									: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-400'}"
 							>
@@ -165,27 +182,30 @@
 		</LabCard>
 
 		<!-- Simulator 2: Promise.withResolvers -->
-		<LabCard title="Promise.withResolvers Controller" badge={`Status: ${promiseStatus.toUpperCase()}`}>
+		<LabCard
+			title="Promise.withResolvers Controller"
+			badge={`Status: ${promiseStatus.toUpperCase()}`}
+		>
 			<div class="space-y-4 font-mono text-sm">
 				<div class="flex gap-2">
 					<button
 						onclick={startAsyncStream}
 						disabled={promiseStatus === 'pending'}
-						class="rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 font-bold text-sm text-slate-800 transition hover:bg-slate-200 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+						class="rounded-xl border border-slate-300 bg-slate-100 px-4 py-2.5 text-sm font-bold text-slate-800 transition hover:bg-slate-200 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
 					>
 						Init Promise
 					</button>
 					<button
 						onclick={() => resolveManually('Payload received via resolve()')}
 						disabled={promiseStatus !== 'pending'}
-						class="rounded-xl bg-emerald-600 px-4 py-2.5 font-bold text-sm text-white transition hover:bg-emerald-500 disabled:opacity-40"
+						class="rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-emerald-500 disabled:opacity-40"
 					>
 						Resolve
 					</button>
 					<button
 						onclick={() => rejectManually('Stream terminated via reject()')}
 						disabled={promiseStatus !== 'pending'}
-						class="rounded-xl bg-rose-600 px-4 py-2.5 font-bold text-sm text-white transition hover:bg-rose-500 disabled:opacity-40"
+						class="rounded-xl bg-rose-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-rose-500 disabled:opacity-40"
 					>
 						Reject
 					</button>
@@ -194,7 +214,7 @@
 				<div
 					class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 				>
-					<span class="text-xs font-bold text-slate-500 uppercase">Buffer Content:</span>
+					<span class="text-sm font-bold text-slate-500 uppercase">Buffer Content:</span>
 					<p
 						class="mt-1 text-base font-bold {promiseStatus === 'rejected'
 							? 'text-rose-600 dark:text-rose-400'

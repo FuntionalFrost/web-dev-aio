@@ -7,9 +7,14 @@
 
 	let numbers = $state<number[]>([0.1, 0.2, 0.3]);
 	let standardSum = $derived(numbers.reduce((acc, curr) => acc + curr, 0));
+	interface ModernMath {
+		sumPrecise?: (values: Iterable<number>) => number;
+	}
+
 	let preciseSum = $derived.by(() => {
-		if (typeof (Math as any).sumPrecise === 'function') {
-			return (Math as any).sumPrecise(numbers);
+		const modernMath = Math as ModernMath;
+		if (typeof modernMath.sumPrecise === 'function') {
+			return modernMath.sumPrecise(numbers);
 		}
 		return Number(numbers.reduce((acc, curr) => acc + curr, 0).toFixed(1));
 	});
@@ -49,17 +54,22 @@
 	{#snippet guide()}
 		<h3>Precision Math, Maps & Modern Iterators</h3>
 		<p class="text-base sm:text-lg">
-			ES2026 introduces native mathematical accuracy algorithms and collection ergonomics directly into standard ECMAScript.
+			ES2026 introduces native mathematical accuracy algorithms and collection ergonomics directly
+			into standard ECMAScript.
 		</p>
 		<ul>
 			<li>
-				<strong><code>Math.sumPrecise()</code>:</strong> Native IEEE-754 exact accumulator avoiding binary floating-point roundoff errors without external BigNumber overhead.
+				<strong><code>Math.sumPrecise()</code>:</strong> Native IEEE-754 exact accumulator avoiding binary
+				floating-point roundoff errors without external BigNumber overhead.
 			</li>
 			<li>
-				<strong><code>Map.prototype.getOrInsert()</code>:</strong> Eliminates lookup-and-fallback boilerplate logic by atomically inserting default values in a single call.
+				<strong><code>Map.prototype.getOrInsert()</code>:</strong> Eliminates lookup-and-fallback boilerplate
+				logic by atomically inserting default values in a single call.
 			</li>
 			<li>
-				<strong>Iterator Helpers:</strong> Compose lazy, unallocated data transformation pipelines using <code>.map()</code>, <code>.filter()</code>, <code>.take()</code>, and <code>.drop()</code> directly on standard Iterators.
+				<strong>Iterator Helpers:</strong> Compose lazy, unallocated data transformation pipelines
+				using <code>.map()</code>, <code>.filter()</code>, <code>.take()</code>, and
+				<code>.drop()</code> directly on standard Iterators.
 			</li>
 		</ul>
 	{/snippet}
@@ -69,11 +79,13 @@
 		<LabCard title="IEEE-754 Precision Accumulator" badge="Float Precision">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="flex items-center justify-between">
-					<span class="text-sm font-bold text-slate-600 dark:text-slate-300">Active Array: [{numbers.join(', ')}]</span>
+					<span class="text-sm font-bold text-slate-600 dark:text-slate-300"
+						>Active Array: [{numbers.join(', ')}]</span
+					>
 					<div class="flex gap-2">
 						<button
 							onclick={() => (numbers = [...numbers, 0.1])}
-							class="rounded-xl bg-indigo-600 px-3.5 py-2 font-bold text-sm text-white transition hover:bg-indigo-500"
+							class="rounded-xl bg-indigo-600 px-3.5 py-2 text-sm font-bold text-white transition hover:bg-indigo-500"
 						>
 							+ Append 0.1
 						</button>
@@ -87,13 +99,23 @@
 				</div>
 
 				<div class="grid grid-cols-2 gap-4">
-					<div class="rounded-2xl border border-amber-500/30 bg-amber-50/50 p-4 dark:bg-amber-950/20">
-						<span class="text-sm font-bold text-amber-700 uppercase dark:text-amber-400">Standard reduce(+)</span>
+					<div
+						class="rounded-2xl border border-amber-500/30 bg-amber-50/50 p-4 dark:bg-amber-950/20"
+					>
+						<span class="text-sm font-bold text-amber-700 uppercase dark:text-amber-400"
+							>Standard reduce(+)</span
+						>
 						<p class="mt-1 text-lg font-bold text-amber-900 dark:text-amber-200">{standardSum}</p>
 					</div>
-					<div class="rounded-2xl border border-emerald-500/30 bg-emerald-50/50 p-4 dark:bg-emerald-950/20">
-						<span class="text-sm font-bold text-emerald-700 uppercase dark:text-emerald-400">Math.sumPrecise()</span>
-						<p class="mt-1 text-lg font-bold text-emerald-900 dark:text-emerald-200">{preciseSum}</p>
+					<div
+						class="rounded-2xl border border-emerald-500/30 bg-emerald-50/50 p-4 dark:bg-emerald-950/20"
+					>
+						<span class="text-sm font-bold text-emerald-700 uppercase dark:text-emerald-400"
+							>Math.sumPrecise()</span
+						>
+						<p class="mt-1 text-lg font-bold text-emerald-900 dark:text-emerald-200">
+							{preciseSum}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -111,7 +133,7 @@
 					/>
 					<button
 						onclick={handleGetOrInsert}
-						class="rounded-xl bg-indigo-600 px-5 py-2 font-bold text-base text-white transition hover:bg-indigo-500"
+						class="rounded-xl bg-indigo-600 px-5 py-2 text-base font-bold text-white transition hover:bg-indigo-500"
 					>
 						getOrInsert()
 					</button>
@@ -119,14 +141,18 @@
 
 				<div class="grid grid-cols-2 gap-2">
 					{#each Object.entries(memoryStore) as [key, val] (key)}
-						<div class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950">
-							<div class="font-bold text-base text-indigo-600 dark:text-indigo-400">{key}</div>
+						<div
+							class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
+						>
+							<div class="text-base font-bold text-indigo-600 dark:text-indigo-400">{key}</div>
 							<div class="text-sm text-slate-500">Hits: {val.hits} · {val.cachedAt}</div>
 						</div>
 					{/each}
 				</div>
 
-				<div class="space-y-1 rounded-xl bg-slate-100 p-3.5 text-sm text-slate-700 dark:bg-slate-950/80 dark:text-slate-300">
+				<div
+					class="space-y-1 rounded-xl bg-slate-100 p-3.5 text-sm text-slate-700 dark:bg-slate-950/80 dark:text-slate-300"
+				>
 					{#each logHistory as log (log)}
 						<div>› {log}</div>
 					{/each}

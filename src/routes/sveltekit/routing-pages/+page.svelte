@@ -28,13 +28,15 @@
 			title: 'Route Group (No URL Segment)',
 			folder: 'src/routes/(app)/dashboard/+page.svelte',
 			resolvesTo: '/dashboard',
-			explanation: 'Groups pages to share a distinct layout without affecting the public URL pathname.'
+			explanation:
+				'Groups pages to share a distinct layout without affecting the public URL pathname.'
 		},
 		reset: {
 			title: 'Layout Inheritance Reset',
 			folder: 'src/routes/admin/+page@.svelte',
 			resolvesTo: '/admin',
-			explanation: 'The @ suffix resets layout inheritance back to root or a specified ancestor layout.'
+			explanation:
+				'The @ suffix resets layout inheritance back to root or a specified ancestor layout.'
 		}
 	};
 </script>
@@ -43,20 +45,26 @@
 	{#snippet guide()}
 		<h3>SvelteKit Routing, Layouts & Page Options</h3>
 		<p class="text-base sm:text-lg">
-			SvelteKit's file-system router handles complex routing hierarchies with zero-configuration directory conventions and granular page options.
+			SvelteKit's file-system router handles complex routing hierarchies with zero-configuration
+			directory conventions and granular page options.
 		</p>
 		<ul>
 			<li>
-				<strong>Dynamic & Catch-all Parameters:</strong> <code>[param]</code> matches single path segments; <code>[...rest]</code> matches multiple deep segments.
+				<strong>Dynamic & Catch-all Parameters:</strong> <code>[param]</code> matches single path
+				segments; <code>[...rest]</code> matches multiple deep segments.
 			</li>
 			<li>
-				<strong>Route Groups <code>(group)</code>:</strong> Organize code and layout boundaries without adding segments to the browser URL.
+				<strong>Route Groups <code>(group)</code>:</strong> Organize code and layout boundaries without
+				adding segments to the browser URL.
 			</li>
 			<li>
-				<strong>Layout Resets (<code>+layout@</code>):</strong> Escape nested layout hierarchies for standalone dashboards or login screens.
+				<strong>Layout Resets (<code>+layout@</code>):</strong> Escape nested layout hierarchies for standalone
+				dashboards or login screens.
 			</li>
 			<li>
-				<strong>Page Options:</strong> Configure <code>export const prerender = true</code>, <code>export const ssr = false</code>, or <code>export const csr = true</code> per individual route.
+				<strong>Page Options:</strong> Configure <code>export const prerender = true</code>,
+				<code>export const ssr = false</code>, or <code>export const csr = true</code> per individual
+				route.
 			</li>
 		</ul>
 	{/snippet}
@@ -65,10 +73,11 @@
 		<LabCard title="SvelteKit Routing Pattern Visualizer" badge="File-Based Router">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
-					{#each (['dynamic', 'catchAll', 'group', 'reset'] as const) as p}
+					{#each ['dynamic', 'catchAll', 'group', 'reset'] as const as p (p)}
 						<button
 							onclick={() => (selectedPattern = p)}
-							class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedPattern === p
+							class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedPattern ===
+							p
 								? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 								: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 						>
@@ -77,20 +86,32 @@
 					{/each}
 				</div>
 
-				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950 space-y-3">
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+				>
 					<div>
-						<h4 class="text-base font-bold text-slate-900 dark:text-white">{routeExplorations[selectedPattern].title}</h4>
-						<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{routeExplorations[selectedPattern].explanation}</p>
+						<h4 class="text-base font-bold text-slate-900 dark:text-white">
+							{routeExplorations[selectedPattern].title}
+						</h4>
+						<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+							{routeExplorations[selectedPattern].explanation}
+						</p>
 					</div>
 
-					<div class="rounded-xl bg-slate-900 p-4 text-slate-100 space-y-2">
-						<div class="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800 pb-1.5">
+					<div class="space-y-2 rounded-xl bg-slate-900 p-4 text-slate-100">
+						<div
+							class="flex items-center justify-between border-b border-slate-800 pb-1.5 text-sm text-slate-500 dark:text-slate-400"
+						>
 							<span>File Path:</span>
 							<span class="text-indigo-400">{routeExplorations[selectedPattern].folder}</span>
 						</div>
-						<div class="flex items-center justify-between text-xs text-slate-400 pt-1">
+						<div
+							class="flex items-center justify-between pt-1 text-sm text-slate-500 dark:text-slate-400"
+						>
 							<span>Browser URL:</span>
-							<span class="text-emerald-400 font-bold">{routeExplorations[selectedPattern].resolvesTo}</span>
+							<span class="font-bold text-emerald-400"
+								>{routeExplorations[selectedPattern].resolvesTo}</span
+							>
 						</div>
 					</div>
 				</div>

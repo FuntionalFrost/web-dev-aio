@@ -65,7 +65,8 @@
 	{#snippet guide()}
 		<h3>Real-Time Streaming & Webhook Signatures</h3>
 		<p class="text-base sm:text-lg">
-			Choosing between unidirectional Server-Sent Events (SSE) and bidirectional WebSockets, and protecting webhook endpoints with timing-safe signature verification.
+			Choosing between unidirectional Server-Sent Events (SSE) and bidirectional WebSockets, and
+			protecting webhook endpoints with timing-safe signature verification.
 		</p>
 		<div class="not-prose my-4 overflow-x-auto">
 			<table
@@ -111,10 +112,12 @@
 				<div
 					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
 				>
-					<span class="text-sm font-bold text-slate-600 dark:text-slate-400">HTTP/2 Unidirectional Stream</span>
+					<span class="text-sm font-bold text-slate-600 dark:text-slate-400"
+						>HTTP/2 Unidirectional Stream</span
+					>
 					<button
 						onclick={toggleSSE}
-						class="rounded-xl px-4 py-2 font-bold text-sm text-white transition {isSSEConnected
+						class="rounded-xl px-4 py-2 text-sm font-bold text-white transition {isSSEConnected
 							? 'bg-rose-600 hover:bg-rose-500'
 							: 'bg-emerald-600 hover:bg-emerald-500'}"
 					>
@@ -128,11 +131,13 @@
 							class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
 						>
 							<span class="text-slate-500">[{msg.timestamp}]</span>
-							<span class="font-bold text-base text-slate-900 dark:text-white">{msg.ticker}</span>
-							<span class="font-bold text-base text-indigo-600 dark:text-indigo-400">${msg.price}</span>
+							<span class="text-base font-bold text-slate-900 dark:text-white">{msg.ticker}</span>
+							<span class="text-base font-bold text-indigo-600 dark:text-indigo-400"
+								>${msg.price}</span
+							>
 						</div>
 					{:else}
-						<div class="p-6 text-center text-sm text-slate-400">
+						<div class="p-6 text-center text-sm text-slate-500 dark:text-slate-400">
 							{isSSEConnected
 								? 'Streaming ticker frames...'
 								: 'Click "Connect SSE Stream" to receive real-time data frames.'}
@@ -146,10 +151,7 @@
 		<LabCard title="Webhook HMAC-SHA256 Signer" badge="Timing-Safe Verification">
 			<div class="space-y-3 font-mono text-sm">
 				<div>
-					<label
-						for="wh-payload"
-						class="mb-1 block font-bold text-slate-700 dark:text-slate-300"
-					>
+					<label for="wh-payload" class="mb-1 block font-bold text-slate-700 dark:text-slate-300">
 						Incoming Webhook JSON Payload:
 					</label>
 					<textarea
@@ -161,10 +163,7 @@
 				</div>
 
 				<div>
-					<label
-						for="wh-secret"
-						class="mb-1 block font-bold text-slate-700 dark:text-slate-300"
-					>
+					<label for="wh-secret" class="mb-1 block font-bold text-slate-700 dark:text-slate-300">
 						Signing Secret (whsec_...):
 					</label>
 					<input
@@ -178,7 +177,8 @@
 				<div
 					class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 				>
-					<span class="text-xs font-bold text-slate-400 uppercase">Calculated X-Signature-256:</span>
+					<span class="text-sm font-bold text-slate-400 uppercase">Calculated X-Signature-256:</span
+					>
 					<p class="mt-1 text-sm font-bold break-all text-emerald-600 dark:text-emerald-400">
 						{computedSignature}
 					</p>

@@ -21,8 +21,8 @@
 				const match = patternInput.match(/\/api\/v1\/users\/([^/?#]+)/);
 				parsedPatternGroup = match ? match[1] : 'No match (fallback parser)';
 			}
-		} catch (e: any) {
-			parsedPatternGroup = 'Error parsing: ' + e.message;
+		} catch (e: unknown) {
+			parsedPatternGroup = 'Error parsing: ' + (e instanceof Error ? e.message : String(e));
 		}
 	}
 
@@ -39,17 +39,23 @@
 	{#snippet guide()}
 		<h3>Modern HTML5 Semantics & Web Standards</h3>
 		<p class="text-base sm:text-lg">
-			Web Standards provide native browser-level primitives that replace megabytes of legacy JavaScript libraries.
+			Web Standards provide native browser-level primitives that replace megabytes of legacy
+			JavaScript libraries.
 		</p>
 		<ul>
 			<li>
-				<strong>Native <code>&lt;dialog&gt;</code>:</strong> Provides automatic focus trapping, backdrop dimming via <code>::backdrop</code>, and light dismissal with Esc without external dependencies.
+				<strong>Native <code>&lt;dialog&gt;</code>:</strong> Provides automatic focus trapping,
+				backdrop dimming via <code>::backdrop</code>, and light dismissal with Esc without external
+				dependencies.
 			</li>
 			<li>
-				<strong>Exclusive <code>&lt;details name="..."&gt;</code>:</strong> Groups accordion items natively. Opening one item automatically closes siblings sharing the same <code>name</code> attribute.
+				<strong>Exclusive <code>&lt;details name="..."&gt;</code>:</strong> Groups accordion items
+				natively. Opening one item automatically closes siblings sharing the same <code>name</code> attribute.
 			</li>
 			<li>
-				<strong>Web Standards (Streams & Web Crypto):</strong> First-class browser APIs like <code>URLPattern</code>, <code>TransformStream</code>, and <code>crypto.subtle</code> execute at native C++ speeds.
+				<strong>Web Standards (Streams & Web Crypto):</strong> First-class browser APIs like
+				<code>URLPattern</code>, <code>TransformStream</code>, and <code>crypto.subtle</code> execute
+				at native C++ speeds.
 			</li>
 		</ul>
 	{/snippet}
@@ -62,11 +68,13 @@
 				</p>
 				<button
 					onclick={openModal}
-					class="rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 text-base"
+					class="rounded-xl bg-indigo-600 px-5 py-2.5 text-base font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
 				>
 					Open Native &lt;dialog&gt;
 				</button>
-				<p class="font-mono text-sm text-slate-500 dark:text-slate-400">{dialogResult}</p>
+				<p class="font-mono text-sm text-slate-500 dark:text-slate-400">
+					{dialogResult}
+				</p>
 			</div>
 
 			<!-- Native HTML Dialog -->
@@ -78,18 +86,20 @@
 				<form method="dialog" class="space-y-4">
 					<h3 class="text-xl font-bold text-slate-900 dark:text-white">Native Browser Modal</h3>
 					<p class="text-base text-slate-600 dark:text-slate-300">
-						Focus is contained within this dialog. Pressing <kbd class="rounded border px-1 font-mono text-sm">Esc</kbd> or submitting this form dismisses it.
+						Focus is contained within this dialog. Pressing <kbd
+							class="rounded border px-1 font-mono text-sm">Esc</kbd
+						> or submitting this form dismisses it.
 					</p>
 					<div class="flex justify-end gap-3 pt-2">
 						<button
 							value="cancelled"
-							class="rounded-xl border border-slate-300 px-4 py-2 font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 text-base"
+							class="rounded-xl border border-slate-300 px-4 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300"
 						>
 							Cancel
 						</button>
 						<button
 							value="confirmed"
-							class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-500 text-base"
+							class="rounded-xl bg-indigo-600 px-4 py-2 text-base font-semibold text-white hover:bg-indigo-500"
 						>
 							Confirm
 						</button>
@@ -101,7 +111,7 @@
 		<LabCard title="Web Standard URLPattern Tester" badge="URLPattern API">
 			<div class="space-y-4 font-mono text-sm">
 				<label class="block space-y-1">
-					<span class="text-slate-600 dark:text-slate-400 font-bold">Target Route URL:</span>
+					<span class="font-bold text-slate-600 dark:text-slate-400">Target Route URL:</span>
 					<input
 						type="text"
 						bind:value={patternInput}
@@ -110,14 +120,20 @@
 				</label>
 				<button
 					onclick={testURLPattern}
-					class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-500 text-base"
+					class="rounded-xl bg-indigo-600 px-4 py-2 text-base font-semibold text-white hover:bg-indigo-500"
 				>
 					Execute URLPattern Match
 				</button>
 				{#if parsedPatternGroup}
-					<div class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3.5 dark:border-indigo-900 dark:bg-indigo-950/30">
-						<span class="text-sm font-bold text-indigo-700 dark:text-indigo-300">Extracted :userId parameter:</span>
-						<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">{parsedPatternGroup}</p>
+					<div
+						class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3.5 dark:border-indigo-900 dark:bg-indigo-950/30"
+					>
+						<span class="text-sm font-bold text-indigo-700 dark:text-indigo-300"
+							>Extracted :userId parameter:</span
+						>
+						<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">
+							{parsedPatternGroup}
+						</p>
 					</div>
 				{/if}
 			</div>

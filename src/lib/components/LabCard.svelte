@@ -19,7 +19,7 @@
 		class="flex items-center justify-between border-b border-slate-200 pb-3.5 dark:border-slate-800"
 	>
 		<span
-			class="text-sm sm:text-base font-bold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
+			class="text-sm font-bold tracking-wider text-indigo-600 uppercase sm:text-base dark:text-indigo-400"
 		>
 			{title}
 		</span>

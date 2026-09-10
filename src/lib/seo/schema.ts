@@ -40,7 +40,7 @@ export function buildJsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'ItemList',
 				name: `${SITE.name} Curriculum`,
-				description: '21 Full-Stack Architecture Engineering Labs',
+				description: '35 Full-Stack Architecture Engineering Labs',
 				numberOfItems: curriculum.length,
 				itemListElement: curriculum.map((mod, idx) => ({
 					'@type': 'ListItem',

@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This guide covers everything you ne
 
 ## Project Overview
 
-Web Engine 2026 is a static educational portal — 21 interactive engineering labs covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes), Tailwind CSS v4, and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
+Web Engine 2026 is a static educational portal — 35 interactive engineering labs across 8 tracks covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes & Async Svelte), Tailwind CSS v4, and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
 
 ---
 

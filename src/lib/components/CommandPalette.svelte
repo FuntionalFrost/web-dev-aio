@@ -78,7 +78,7 @@
 			class="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
 		>
 			<div class="flex items-center border-b border-slate-200 px-4 dark:border-slate-800">
-				<span class="text-lg text-slate-400">🔍</span>
+				<span class="text-lg text-slate-500 dark:text-slate-400">🔍</span>
 				<input
 					use:focusOnMount
 					type="text"

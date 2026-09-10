@@ -21,16 +21,16 @@ An interactive, zero-server educational portal and reference architecture for mo
 
 The 35 interactive engineering modules are structured across 8 core tracks:
 
-| Track | Modules | Key Technologies & Concepts |
-| :--- | :--- | :--- |
-| **01. Foundations & Tooling** | 01 – 05 | HTML5 `<dialog>` / `<details name="...">`, Web Standards (Streams, Web Crypto, URLPattern), Tailwind CSS v4 `@theme`, TypeScript 6 `satisfies`, Responsive SVG Favicons & CSS Masks, PNPM Workspaces & GitHub Actions `ci.yml` |
-| **02. Runtimes & Engines** | 06 – 09 | Node.js 24 LTS vs Bun 1.2 vs Deno 2.2 benchmarks & permissions, Vite 6 & library packaging (`svelte-package`/`unbuild`), UnJS Nitro & Hono Edge APIs, SvelteKit vs Nuxt 4 vs Monorepo project structures |
-| **03. Modern ECMAScript** | 10 – 13 | `Math.sumPrecise`, `Map.prototype.getOrInsert`, `Iterator.prototype` helpers, `Uint8Array.prototype.toBase64` / `toHex`, `@starting-style`, `using` Explicit Resource Management |
-| **04. Svelte & SvelteKit** | 14 – 19 | Svelte 5 Universal Runes & Class State, Async Svelte & `{#await}` streaming, Dynamic Routing `[param]`/`[...rest]`, Data Loaders & Form Actions (`use:enhance`), Server Hooks (`hooks.server.ts`), SvelteKit Adapters (Static, Node, Cloudflare, Vercel) |
-| **05. Vue & Nuxt** | 20 – 22 | Vue 3.5 reactive prop destructuring & `useTemplateRef()`, Nuxt 4 `app/` structure & `useAsyncData` deduplication, Nuxt UI v3 & Headless Bits UI / CVA design tokens |
-| **06. Rendering & Architecture** | 23 – 25 | SSG vs SSR vs Hybrid/ISR vs CSR latency & cost matrix, SSR Hydration & `devalue` serialization, Strict CSP nonces & native View Transitions API |
-| **07. APIs & Data Architecture** | 26 – 30 | Standard Schema `@standard-schema/spec` (Zod/Valibot) & Hono RPC, Server-Sent Events (SSE) & HMAC-SHA256 Webhooks, Drizzle ORM on Neon Serverless Postgres, Upstash Redis Sliding Window Rate Limiting, Better Auth Passkeys |
-| **08. Cloud, Operations & Licenses** | 31 – 35 | Cloudflare Workers vs Vercel Serverless vs Netlify Edge, Vitest & Playwright E2E testing harness, `svelte-meta-tags` & privacy-first analytics, Polar.sh Merchant of Record & Stripe Monetization, Open Source & Commercial Software License Matrix |
+| Track                                | Modules | Key Technologies & Concepts                                                                                                                                                                                                                              |
+| :----------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **01. Foundations & Tooling**        | 01 – 05 | HTML5 `<dialog>` / `<details name="...">`, Web Standards (Streams, Web Crypto, URLPattern), Tailwind CSS v4 `@theme`, TypeScript 6 `satisfies`, Responsive SVG Favicons & CSS Masks, PNPM Workspaces & GitHub Actions `ci.yml`                           |
+| **02. Runtimes & Engines**           | 06 – 09 | Node.js 24 LTS vs Bun 1.2 vs Deno 2.2 benchmarks & permissions, Vite 6 & library packaging (`svelte-package`/`unbuild`), UnJS Nitro & Hono Edge APIs, SvelteKit vs Nuxt 4 vs Monorepo project structures                                                 |
+| **03. Modern ECMAScript**            | 10 – 13 | `Math.sumPrecise`, `Map.prototype.getOrInsert`, `Iterator.prototype` helpers, `Uint8Array.prototype.toBase64` / `toHex`, `@starting-style`, `using` Explicit Resource Management                                                                         |
+| **04. Svelte & SvelteKit**           | 14 – 19 | Svelte 5 Universal Runes & Class State, Async Svelte & `{#await}` streaming, Dynamic Routing `[param]`/`[...rest]`, Data Loaders & Form Actions (`use:enhance`), Server Hooks (`hooks.server.ts`), SvelteKit Adapters (Static, Node, Cloudflare, Vercel) |
+| **05. Vue & Nuxt**                   | 20 – 22 | Vue 3.5 reactive prop destructuring & `useTemplateRef()`, Nuxt 4 `app/` structure & `useAsyncData` deduplication, Nuxt UI v3 & Headless Bits UI / CVA design tokens                                                                                      |
+| **06. Rendering & Architecture**     | 23 – 25 | SSG vs SSR vs Hybrid/ISR vs CSR latency & cost matrix, SSR Hydration & `devalue` serialization, Strict CSP nonces & native View Transitions API                                                                                                          |
+| **07. APIs & Data Architecture**     | 26 – 30 | Standard Schema `@standard-schema/spec` (Zod/Valibot) & Hono RPC, Server-Sent Events (SSE) & HMAC-SHA256 Webhooks, Drizzle ORM on Neon Serverless Postgres, Upstash Redis Sliding Window Rate Limiting, Better Auth Passkeys                             |
+| **08. Cloud, Operations & Licenses** | 31 – 35 | Cloudflare Workers vs Vercel Serverless vs Netlify Edge, Vitest & Playwright E2E testing harness, `svelte-meta-tags` & privacy-first analytics, Polar.sh Merchant of Record & Stripe Monetization, Open Source & Commercial Software License Matrix      |
 
 ---
 

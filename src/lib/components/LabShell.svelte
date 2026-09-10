@@ -58,7 +58,9 @@
 		<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
 			{title}
 		</h1>
-		<p class="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">{description}</p>
+		<p class="text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
+			{description}
+		</p>
 
 		{#if codeHtml}
 			<div class="not-prose my-2">
@@ -67,7 +69,9 @@
 		{/if}
 
 		{#if guide}
-			<div class="space-y-4 text-base sm:text-lg leading-relaxed [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mt-2">
+			<div
+				class="space-y-4 text-base leading-relaxed sm:text-lg [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_li]:mt-2 [&_ul]:list-disc [&_ul]:pl-5"
+			>
 				{@render guide()}
 			</div>
 		{/if}

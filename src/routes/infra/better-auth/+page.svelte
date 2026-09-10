@@ -66,17 +66,22 @@
 	{#snippet guide()}
 		<h3>Modern Authentication, Passkeys & Better Auth</h3>
 		<p class="text-base sm:text-lg">
-			Better Auth provides a comprehensive TypeScript authentication runtime with passwordless WebAuthn passkeys, HttpOnly cookie rotation, and organization multi-tenancy.
+			Better Auth provides a comprehensive TypeScript authentication runtime with passwordless
+			WebAuthn passkeys, HttpOnly cookie rotation, and organization multi-tenancy.
 		</p>
 		<ul>
 			<li>
-				<strong>Passkeys (WebAuthn):</strong> Asymmetric public-private keypairs anchored in hardware secure enclaves (TouchID, FaceID, Windows Hello) that are immune to phishing.
+				<strong>Passkeys (WebAuthn):</strong> Asymmetric public-private keypairs anchored in hardware
+				secure enclaves (TouchID, FaceID, Windows Hello) that are immune to phishing.
 			</li>
 			<li>
-				<strong>HttpOnly Session Cookies:</strong> Completely isolated from client JavaScript (<code>document.cookie</code>), protecting session tokens against XSS exfiltration.
+				<strong>HttpOnly Session Cookies:</strong> Completely isolated from client JavaScript (<code
+					>document.cookie</code
+				>), protecting session tokens against XSS exfiltration.
 			</li>
 			<li>
-				<strong>Schema Ownership:</strong> Better Auth creates native Drizzle tables in your own database without third-party auth vendor lock-in.
+				<strong>Schema Ownership:</strong> Better Auth creates native Drizzle tables in your own database
+				without third-party auth vendor lock-in.
 			</li>
 		</ul>
 	{/snippet}
@@ -99,7 +104,8 @@
 							class="rounded-2xl border border-indigo-500/40 bg-indigo-50/50 p-4 text-left font-bold text-indigo-900 transition hover:bg-indigo-100 dark:bg-indigo-950/30 dark:text-indigo-200 dark:hover:bg-indigo-900/40"
 						>
 							<span class="text-base">🔑 Passkey</span>
-							<span class="mt-1 block text-xs font-normal text-slate-500">TouchID / Biometrics</span>
+							<span class="mt-1 block text-sm font-normal text-slate-500">TouchID / Biometrics</span
+							>
 						</button>
 						<button
 							onclick={() => loginWith('oauth_github')}
@@ -107,7 +113,7 @@
 							class="rounded-2xl border border-slate-300 bg-slate-50 p-4 text-left font-bold text-slate-800 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
 						>
 							<span class="text-base">🐙 OAuth 2.0</span>
-							<span class="mt-1 block text-xs font-normal text-slate-500">PKCE Exchange</span>
+							<span class="mt-1 block text-sm font-normal text-slate-500">PKCE Exchange</span>
 						</button>
 						<button
 							onclick={() => loginWith('magic_link')}
@@ -115,19 +121,21 @@
 							class="rounded-2xl border border-slate-300 bg-slate-50 p-4 text-left font-bold text-slate-800 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
 						>
 							<span class="text-base">✉️ Magic Link</span>
-							<span class="mt-1 block text-xs font-normal text-slate-500">Single-Use Token</span>
+							<span class="mt-1 block text-sm font-normal text-slate-500">Single-Use Token</span>
 						</button>
 					</div>
 				</div>
 			{:else}
 				<div class="space-y-4 font-mono text-sm">
 					<div class="flex items-center justify-between">
-						<span class="text-xs font-bold tracking-wider text-slate-400 uppercase">
+						<span
+							class="text-sm font-bold tracking-wider text-slate-500 uppercase dark:text-slate-400"
+						>
 							Decoded HttpOnly Session:
 						</span>
 						<button
 							onclick={logout}
-							class="rounded-xl bg-rose-600 px-4 py-1.5 font-bold text-sm text-white transition hover:bg-rose-500"
+							class="rounded-xl bg-rose-600 px-4 py-1.5 text-sm font-bold text-white transition hover:bg-rose-500"
 						>
 							Sign Out
 						</button>
@@ -137,18 +145,22 @@
 						<div
 							class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 dark:border-slate-800 dark:bg-slate-950"
 						>
-							<span class="text-xs font-bold text-slate-400 uppercase">Identity</span>
-							<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">{currentSession.email}</p>
-							<span class="text-xs text-slate-500">ID: {currentSession.userId}</span>
+							<span class="text-sm font-bold text-slate-400 uppercase">Identity</span>
+							<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">
+								{currentSession.email}
+							</p>
+							<span class="text-sm text-slate-500">ID: {currentSession.userId}</span>
 						</div>
 						<div
 							class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 dark:border-slate-800 dark:bg-slate-950"
 						>
-							<span class="text-xs font-bold text-slate-400 uppercase">Organization</span>
+							<span class="text-sm font-bold text-slate-400 uppercase">Organization</span>
 							<p class="mt-1 text-base font-bold text-indigo-600 dark:text-indigo-400">
 								{currentSession.activeOrg}
 							</p>
-							<span class="text-xs font-bold text-emerald-600 uppercase">Role: {currentSession.role}</span>
+							<span class="text-sm font-bold text-emerald-600 uppercase"
+								>Role: {currentSession.role}</span
+							>
 						</div>
 					</div>
 				</div>
@@ -162,7 +174,7 @@
 					<button
 						onclick={startPasskeyFlow}
 						disabled={passkeyStep !== 'idle'}
-						class="rounded-xl bg-indigo-600 px-5 py-2.5 font-bold text-base text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
+						class="rounded-xl bg-indigo-600 px-5 py-2.5 text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
 					>
 						{passkeyStep === 'idle' ? 'Run Hardware Handshake' : 'Authenticating Secure Enclave...'}
 					</button>
@@ -176,27 +188,28 @@
 					{/if}
 				</div>
 
-				<div class="grid grid-cols-3 gap-2 text-xs sm:text-sm font-bold">
+				<div class="grid grid-cols-3 gap-2 text-sm font-bold sm:text-sm">
 					<div
 						class="rounded-xl border p-3 text-center {passkeyStep === 'challenge' ||
 						passkeyStep === 'credential' ||
 						passkeyStep === 'verified'
 							? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
-							: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+							: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
 					>
 						1. Challenge
 					</div>
 					<div
-						class="rounded-xl border p-3 text-center {passkeyStep === 'credential' || passkeyStep === 'verified'
+						class="rounded-xl border p-3 text-center {passkeyStep === 'credential' ||
+						passkeyStep === 'verified'
 							? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
-							: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+							: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
 					>
 						2. Biometric Sign
 					</div>
 					<div
 						class="rounded-xl border p-3 text-center {passkeyStep === 'verified'
 							? 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
-							: 'border-slate-200 text-slate-400 dark:border-slate-800'}"
+							: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
 					>
 						3. Verified ✓
 					</div>
@@ -206,9 +219,17 @@
 					<div
 						class="space-y-1.5 rounded-2xl border border-emerald-500/40 bg-emerald-50/50 p-4 text-sm text-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300"
 					>
-						<div class="font-bold text-base">Credential Enrolled in Hardware Enclave:</div>
-						<div>ID: <span class="text-slate-900 dark:text-white font-bold">{simulatedCredential.id}</span></div>
-						<div>Attestation: <span class="text-slate-900 dark:text-white font-bold">Public Key Stored in Database</span></div>
+						<div class="text-base font-bold">Credential Enrolled in Hardware Enclave:</div>
+						<div>
+							ID: <span class="font-bold text-slate-900 dark:text-white"
+								>{simulatedCredential.id}</span
+							>
+						</div>
+						<div>
+							Attestation: <span class="font-bold text-slate-900 dark:text-white"
+								>Public Key Stored in Database</span
+							>
+						</div>
 					</div>
 				{/if}
 			</div>

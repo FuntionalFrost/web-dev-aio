@@ -742,21 +742,66 @@ export function verifyWebhookSignature(
 
 	'infra/databases-orm': {
 		lang: 'typescript',
-		code: `import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
-import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+		code: `// 1. NEON SERVERLESS POSTGRES (HTTP / WebSocket connection pooling for Edge & Lambdas)
+import { neon } from '@neondatabase/serverless';
+import { drizzle as drizzleNeon } from 'drizzle-orm/neon-http';
+import { pgTable, text, timestamp, uuid, integer } from 'drizzle-orm/pg-core';
 
-// 1. Schema-First Table Definition
-export const developers = pgTable('developers', {
+export const pgUsers = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
-  handle: text('handle').notNull().unique(),
-  email: text('email').notNull(),
+  email: text('email').notNull().unique(),
+  reputation: integer('reputation').default(0).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull()
 });
 
-// 2. Serverless Neon HTTP Query Pipeline (Sub-millisecond connection pooling)
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql);`
+const neonClient = neon(process.env.DATABASE_URL!);
+export const dbNeon = drizzleNeon(neonClient);
+
+// 2. LIBSQL & TURSO (Distributed Edge SQLite with Embedded Replicas & Sync)
+import { createClient } from '@libsql/client';
+import { drizzle as drizzleLibsql } from 'drizzle-orm/libsql';
+import { sqliteTable, text as sqText, integer as sqInt } from 'drizzle-orm/sqlite-core';
+
+export const sqUsers = sqliteTable('users', {
+  id: sqText('id').primaryKey(),
+  email: sqText('email').notNull().unique(),
+  reputation: sqInt('reputation').default(0).notNull()
+});
+
+// libSQL connects to remote Turso URLs, local files ("file:local.db"), or in-memory (":memory:")
+const libsqlClient = createClient({
+  url: process.env.TURSO_DATABASE_URL ?? 'file:local.db',
+  authToken: process.env.TURSO_AUTH_TOKEN,
+  syncUrl: process.env.TURSO_SYNC_URL // optional embedded replica background sync
+});
+export const dbLibsql = drizzleLibsql(libsqlClient);
+
+// 3. POSTGRES.JS (Fastest Zero-Dependency Full-Featured PostgreSQL Driver)
+import postgres from 'postgres';
+import { drizzle as drizzlePostgresJs } from 'drizzle-orm/postgres-js';
+
+// Native tagged-template literals & streaming support for Node.js / Bun / Deno
+const queryClient = postgres(process.env.DATABASE_URL!, {
+  max: 10,
+  idle_timeout: 20,
+  connect_timeout: 10
+});
+export const dbPostgresJs = drizzlePostgresJs(queryClient);
+
+// 4. EMBEDDED SQLITE (better-sqlite3 / bun:sqlite / node:sqlite)
+import Database from 'better-sqlite3';
+import { drizzle as drizzleSqlite } from 'drizzle-orm/better-sqlite3';
+
+const sqlite = new Database('local.db');
+sqlite.pragma('journal_mode = WAL'); // Enable Write-Ahead Logging concurrency
+export const dbSqlite = drizzleSqlite(sqlite);
+
+// 5. NODE-POSTGRES (Standard pg Connection Pool)
+import { Pool } from 'pg';
+import { drizzle as drizzlePg } from 'drizzle-orm/node-postgres';
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 20 });
+export const dbPg = drizzlePg(pool);`
 	},
 
 	'infra/redis-ratelimit': {
@@ -983,47 +1028,5 @@ export const licenses: SoftwareLicense[] = [
     summary: 'Source-available with commercial production restrictions; converts to open source after a fixed period.'
   }
 ];`
-	},
-
-	// Legacy route aliases
-	'foundations/icons': {
-		lang: 'html',
-		code: `<!-- Single-DOM CSS Mask Icon -->\n<span class="inline-block h-6 w-6 bg-indigo-600 [mask:url(/icons/shield.svg)_no-repeat_center/contain]"></span>`
-	},
-	'foundations/tailwind': {
-		lang: 'css',
-		code: `@import "tailwindcss";\n@theme { --color-brand: oklch(0.62 0.24 264.5); }`
-	},
-	'frameworks/svelte5': {
-		lang: 'svelte',
-		code: `<script lang="ts">\n  let count = $state(0);\n  let double = $derived(count * 2);\n</script>`
-	},
-	'frameworks/shadcn-svelte': {
-		lang: 'typescript',
-		code: `import { cva } from 'class-variance-authority';\nexport const buttonVariants = cva('inline-flex');`
-	},
-	'frameworks/vue35': {
-		lang: 'vue',
-		code: `<script setup lang="ts">\nconst { count = 0 } = defineProps<{ count?: number }>();\n</script>`
-	},
-	'frameworks/nuxt4': {
-		lang: 'typescript',
-		code: `export default defineNuxtComponent({ async setup() { const { data } = await useAsyncData('key', () => $fetch('/api')); return { data }; } });`
-	},
-	'ecmascript/anchors-and-popovers': {
-		lang: 'html',
-		code: `<button popovertarget="menu">Open</button>\n<div id="menu" popover="auto">Popover content</div>`
-	},
-	'infra/deployment-edge': {
-		lang: 'typescript',
-		code: `export default { async fetch(req, env) { return new Response("Edge V8 Isolate"); } };`
-	},
-	'services/billing-email': {
-		lang: 'typescript',
-		code: `import { Resend } from 'resend';\nconst resend = new Resend();`
-	},
-	'services/storage-jobs': {
-		lang: 'typescript',
-		code: `import { S3Client } from '@aws-sdk/client-s3';\nimport { Inngest } from 'inngest';`
 	}
 };

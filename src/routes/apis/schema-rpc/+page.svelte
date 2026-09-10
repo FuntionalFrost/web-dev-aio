@@ -59,17 +59,21 @@
 	{#snippet guide()}
 		<h3>Schema Validation (Standard Schema) & Hono RPC</h3>
 		<p class="text-base sm:text-lg">
-			Standard Schema and Hono RPC eliminate boilerplate by providing end-to-end type safety between backend handlers and frontend clients without code-generation steps.
+			Standard Schema and Hono RPC eliminate boilerplate by providing end-to-end type safety between
+			backend handlers and frontend clients without code-generation steps.
 		</p>
 		<ul>
 			<li>
-				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at build time. Standard Schema (Zod / Valibot) validates untrusted JSON at the network perimeter.
+				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at build time. Standard Schema
+				(Zod / Valibot) validates untrusted JSON at the network perimeter.
 			</li>
 			<li>
-				<strong>End-to-End Type-Safe RPCs:</strong> Exporting route definitions directly enables auto-completion and compile-time contract enforcement.
+				<strong>End-to-End Type-Safe RPCs:</strong> Exporting route definitions directly enables auto-completion
+				and compile-time contract enforcement.
 			</li>
 			<li>
-				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for external consumers and automated SDK generation.
+				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for external
+				consumers and automated SDK generation.
 			</li>
 		</ul>
 	{/snippet}
@@ -99,7 +103,9 @@
 							: ''}"
 					/>
 					{#if validationErrors.username}
-						<span class="mt-1 block text-sm font-bold text-rose-500">{validationErrors.username}</span>
+						<span class="mt-1 block text-sm font-bold text-rose-500"
+							>{validationErrors.username}</span
+						>
 					{/if}
 				</div>
 
@@ -154,7 +160,7 @@
 				<button
 					type="submit"
 					disabled={!isValid || isSubmitting}
-					class="w-full rounded-xl bg-indigo-600 py-3 font-bold text-base text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
+					class="w-full rounded-xl bg-indigo-600 py-3 text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
 				>
 					{isSubmitting ? 'Validating & Invoking RPC...' : 'Dispatch Type-Safe RPC Call'}
 				</button>
@@ -164,11 +170,11 @@
 			<div
 				class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm dark:border-slate-800 dark:bg-slate-950"
 			>
-				<span class="text-xs font-bold tracking-wider text-slate-400 uppercase"
+				<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
 					>Typed RPC Server Response:</span
 				>
 				<pre
-					class="mt-2 overflow-x-auto whitespace-pre-wrap text-sm text-indigo-600 dark:text-indigo-300">{rpcResponse ||
+					class="mt-2 overflow-x-auto text-sm whitespace-pre-wrap text-indigo-600 dark:text-indigo-300">{rpcResponse ||
 						'// Inferred payload will appear here after RPC dispatch...'}</pre>
 			</div>
 		</LabCard>

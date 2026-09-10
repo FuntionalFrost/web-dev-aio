@@ -48,10 +48,13 @@
 					26
 				</div>
 				<div>
-					<span class="block text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white"
+					<span
+						class="block text-sm font-bold tracking-tight text-slate-900 sm:text-base dark:text-white"
 						>{SITE.name}</span
 					>
-					<span class="block font-mono text-sm text-slate-500 dark:text-slate-400">Engineering Labs</span>
+					<span class="block font-mono text-sm text-slate-500 dark:text-slate-400"
+						>Engineering Labs</span
+					>
 				</div>
 			</a>
 
@@ -109,7 +112,9 @@
 				>
 					26
 				</div>
-				<span class="text-sm font-bold tracking-wider uppercase text-slate-900 dark:text-white">Curriculum Tracks</span>
+				<span class="text-sm font-bold tracking-wider text-slate-900 uppercase dark:text-white"
+					>Curriculum Tracks</span
+				>
 			</div>
 			<button
 				onclick={() => (mobileDrawerOpen = false)}
@@ -170,9 +175,7 @@
 						<span>/</span>
 						<span>{activeModule.track}</span>
 						<span>/</span>
-						<span class="font-bold text-slate-900 dark:text-slate-100"
-							>{activeModule.title}</span
-						>
+						<span class="font-bold text-slate-900 dark:text-slate-100">{activeModule.title}</span>
 					{/if}
 				</div>
 			</div>

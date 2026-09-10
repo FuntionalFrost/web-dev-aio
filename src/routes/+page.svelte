@@ -31,8 +31,10 @@
 		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
 			Full-Stack Architecture Labs
 		</h1>
-		<p class="max-w-3xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-			35 production-grade engineering modules covering Svelte 5 Universal Runes & Async streaming, SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes, SSG/SSR rendering strategies, strict CSP security, and software license architectures.
+		<p class="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
+			35 production-grade engineering modules covering Svelte 5 Universal Runes & Async streaming,
+			SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes,
+			SSG/SSR rendering strategies, strict CSP security, and software license architectures.
 		</p>
 	</div>
 
@@ -69,7 +71,7 @@
 		<!-- Search Input -->
 		<div class="relative w-full shrink-0 lg:w-80">
 			<span
-				class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-base text-slate-400"
+				class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-base text-slate-500 dark:text-slate-400"
 			>
 				🔍
 			</span>
@@ -129,7 +131,8 @@
 		<div
 			class="rounded-2xl border border-dashed border-slate-300 p-16 text-center font-mono text-base text-slate-500 dark:border-slate-800"
 		>
-			No modules found matching your search. Try searching for Svelte, Nitro, Bun, Adapters, or Licenses.
+			No modules found matching your search. Try searching for Svelte, Nitro, Bun, Adapters, or
+			Licenses.
 		</div>
 	{/if}
 </div>

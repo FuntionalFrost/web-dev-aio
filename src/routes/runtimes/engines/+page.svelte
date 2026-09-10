@@ -67,17 +67,21 @@
 	{#snippet guide()}
 		<h3>Modern JavaScript Runtimes: Node.js 24, Bun & Deno 2</h3>
 		<p class="text-base sm:text-lg">
-			The JavaScript runtime landscape in 2026 offers distinct trade-offs across execution engines, security models, cold-start latency, and tooling integration.
+			The JavaScript runtime landscape in 2026 offers distinct trade-offs across execution engines,
+			security models, cold-start latency, and tooling integration.
 		</p>
 		<ul>
 			<li>
-				<strong>Node.js 24 LTS:</strong> The industry standard runtime featuring native TypeScript execution (type stripping), built-in SQLite, and stable permission models.
+				<strong>Node.js 24 LTS:</strong> The industry standard runtime featuring native TypeScript execution
+				(type stripping), built-in SQLite, and stable permission models.
 			</li>
 			<li>
-				<strong>Bun 1.2:</strong> An all-in-one toolkit powered by WebKit JavaScriptCore and Zig with instant package installs, native bundler, and ultra-fast cold starts.
+				<strong>Bun 1.2:</strong> An all-in-one toolkit powered by WebKit JavaScriptCore and Zig with
+				instant package installs, native bundler, and ultra-fast cold starts.
 			</li>
 			<li>
-				<strong>Deno 2.2:</strong> A secure-by-default runtime with granular CLI permissions, out-of-the-box npm compatibility, and deep Web Standards compliance.
+				<strong>Deno 2.2:</strong> A secure-by-default runtime with granular CLI permissions, out-of-the-box
+				npm compatibility, and deep Web Standards compliance.
 			</li>
 		</ul>
 	{/snippet}
@@ -86,10 +90,11 @@
 		<LabCard title="Runtime Benchmark & Feature Matrix" badge="Runtime Comparison">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-3 gap-2">
-					{#each (['bun', 'deno', 'node'] as const) as rk}
+					{#each ['bun', 'deno', 'node'] as const as rk (rk)}
 						<button
 							onclick={() => (selectedRuntime = rk)}
-							class="rounded-xl border p-3 text-center font-bold text-base transition {selectedRuntime === rk
+							class="rounded-xl border p-3 text-center text-base font-bold transition {selectedRuntime ===
+							rk
 								? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 								: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 						>
@@ -98,33 +103,53 @@
 					{/each}
 				</div>
 
-				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950 space-y-3">
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
+				>
 					<div class="grid grid-cols-2 gap-4 border-b border-slate-200 pb-3 dark:border-slate-800">
 						<div>
-							<span class="text-xs text-slate-500 uppercase font-bold">Underlying Engine:</span>
-							<p class="text-base font-bold text-slate-900 dark:text-white">{runtimeSpecs[selectedRuntime].engine}</p>
+							<span class="text-sm font-bold text-slate-500 uppercase">Underlying Engine:</span>
+							<p class="text-base font-bold text-slate-900 dark:text-white">
+								{runtimeSpecs[selectedRuntime].engine}
+							</p>
 						</div>
 						<div>
-							<span class="text-xs text-slate-500 uppercase font-bold">Security Model:</span>
-							<p class="text-base font-bold text-slate-900 dark:text-white">{runtimeSpecs[selectedRuntime].securityModel}</p>
+							<span class="text-sm font-bold text-slate-500 uppercase">Security Model:</span>
+							<p class="text-base font-bold text-slate-900 dark:text-white">
+								{runtimeSpecs[selectedRuntime].securityModel}
+							</p>
 						</div>
 					</div>
 
 					<div class="grid grid-cols-2 gap-4">
-						<div class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3 dark:border-indigo-900 dark:bg-indigo-950/40">
-							<span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Cold Start Latency:</span>
-							<p class="text-xl font-bold text-indigo-700 dark:text-indigo-300">{runtimeSpecs[selectedRuntime].coldStartMs} ms</p>
+						<div
+							class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3 dark:border-indigo-900 dark:bg-indigo-950/40"
+						>
+							<span class="text-sm font-bold text-indigo-600 uppercase dark:text-indigo-400"
+								>Cold Start Latency:</span
+							>
+							<p class="text-xl font-bold text-indigo-700 dark:text-indigo-300">
+								{runtimeSpecs[selectedRuntime].coldStartMs} ms
+							</p>
 						</div>
-						<div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-900 dark:bg-emerald-950/40">
-							<span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Package Install (100 pkgs):</span>
-							<p class="text-xl font-bold text-emerald-700 dark:text-emerald-300">{runtimeSpecs[selectedRuntime].installSpeedSec} s</p>
+						<div
+							class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-900 dark:bg-emerald-950/40"
+						>
+							<span class="text-sm font-bold text-emerald-600 uppercase dark:text-emerald-400"
+								>Package Install (100 pkgs):</span
+							>
+							<p class="text-xl font-bold text-emerald-700 dark:text-emerald-300">
+								{runtimeSpecs[selectedRuntime].installSpeedSec} s
+							</p>
 						</div>
 					</div>
 
 					<div class="pt-2">
-						<span class="text-xs font-bold text-slate-500 uppercase">Core Architectural Highlights:</span>
+						<span class="text-sm font-bold text-slate-500 uppercase"
+							>Core Architectural Highlights:</span
+						>
 						<ul class="mt-1 space-y-1 text-sm text-slate-700 dark:text-slate-300">
-							{#each runtimeSpecs[selectedRuntime].highlights as item}
+							{#each runtimeSpecs[selectedRuntime].highlights as item (item)}
 								<li>• {item}</li>
 							{/each}
 						</ul>

@@ -66,17 +66,21 @@
 	{#snippet guide()}
 		<h3>Cloud Platforms: Cloudflare Workers, Vercel & Netlify</h3>
 		<p class="text-base sm:text-lg">
-			Comparing cloud deployment architectures for Nuxt and SvelteKit applications across V8 Edge Isolates and containerized Serverless Functions.
+			Comparing cloud deployment architectures for Nuxt and SvelteKit applications across V8 Edge
+			Isolates and containerized Serverless Functions.
 		</p>
 		<ul>
 			<li>
-				<strong>V8 Isolates vs Containerized Node:</strong> Cloudflare Workers spin up in 0–5ms by sharing a single V8 runtime process, whereas standard Node lambdas incur container cold starts.
+				<strong>V8 Isolates vs Containerized Node:</strong> Cloudflare Workers spin up in 0–5ms by sharing
+				a single V8 runtime process, whereas standard Node lambdas incur container cold starts.
 			</li>
 			<li>
-				<strong>Bandwidth & Egress Optimization:</strong> Evaluating egress fees and static asset caching policies across platforms.
+				<strong>Bandwidth & Egress Optimization:</strong> Evaluating egress fees and static asset caching
+				policies across platforms.
 			</li>
 			<li>
-				<strong>Framework Adapter Topologies:</strong> Deploying universal SvelteKit and Nuxt Nitro applications with zero application code changes.
+				<strong>Framework Adapter Topologies:</strong> Deploying universal SvelteKit and Nuxt Nitro applications
+				with zero application code changes.
 			</li>
 		</ul>
 	{/snippet}
@@ -85,10 +89,11 @@
 		<LabCard title="Cloud Platform Deployment Matrix" badge="Platform Profiles">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-3 gap-2">
-					{#each (['cloudflare', 'vercel', 'netlify'] as const) as pk}
+					{#each ['cloudflare', 'vercel', 'netlify'] as const as pk (pk)}
 						<button
 							onclick={() => (selectedPlatform = pk)}
-							class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedPlatform === pk
+							class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedPlatform ===
+							pk
 								? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 								: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 						>
@@ -97,38 +102,60 @@
 					{/each}
 				</div>
 
-				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950 space-y-3">
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
+				>
 					<div>
-						<h4 class="text-base font-bold text-slate-900 dark:text-white">{platforms[selectedPlatform].name}</h4>
-						<p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">Runtime: {platforms[selectedPlatform].runtime}</p>
+						<h4 class="text-base font-bold text-slate-900 dark:text-white">
+							{platforms[selectedPlatform].name}
+						</h4>
+						<p class="mt-0.5 text-sm text-slate-600 dark:text-slate-400">
+							Runtime: {platforms[selectedPlatform].runtime}
+						</p>
 					</div>
 
 					<div class="grid grid-cols-2 gap-3 pt-1">
-						<div class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3 dark:border-indigo-900 dark:bg-indigo-950/40">
-							<span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">Cold Start Latency:</span>
-							<p class="text-base font-bold text-slate-900 dark:text-white mt-0.5">{platforms[selectedPlatform].coldStart}</p>
+						<div
+							class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3 dark:border-indigo-900 dark:bg-indigo-950/40"
+						>
+							<span class="text-sm font-bold text-indigo-600 uppercase dark:text-indigo-400"
+								>Cold Start Latency:</span
+							>
+							<p class="mt-0.5 text-base font-bold text-slate-900 dark:text-white">
+								{platforms[selectedPlatform].coldStart}
+							</p>
 						</div>
-						<div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-900 dark:bg-emerald-950/40">
-							<span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Bandwidth / Egress:</span>
-							<p class="text-base font-bold text-slate-900 dark:text-white mt-0.5">{platforms[selectedPlatform].egressCost}</p>
+						<div
+							class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-900 dark:bg-emerald-950/40"
+						>
+							<span class="text-sm font-bold text-emerald-600 uppercase dark:text-emerald-400"
+								>Bandwidth / Egress:</span
+							>
+							<p class="mt-0.5 text-base font-bold text-slate-900 dark:text-white">
+								{platforms[selectedPlatform].egressCost}
+							</p>
 						</div>
 					</div>
 
-					<div class="space-y-1.5 text-xs">
+					<div class="space-y-1.5 text-sm">
 						<div class="flex items-center justify-between">
-							<span class="text-slate-500 font-bold">SvelteKit Config:</span>
-							<span class="font-bold text-indigo-600 dark:text-indigo-400">{platforms[selectedPlatform].deploySvelteKit}</span>
+							<span class="font-bold text-slate-500">SvelteKit Config:</span>
+							<span class="font-bold text-indigo-600 dark:text-indigo-400"
+								>{platforms[selectedPlatform].deploySvelteKit}</span
+							>
 						</div>
 						<div class="flex items-center justify-between">
-							<span class="text-slate-500 font-bold">Nuxt Nitro Preset:</span>
-							<span class="font-bold text-emerald-600 dark:text-emerald-400">{platforms[selectedPlatform].deployNuxt}</span>
+							<span class="font-bold text-slate-500">Nuxt Nitro Preset:</span>
+							<span class="font-bold text-emerald-600 dark:text-emerald-400"
+								>{platforms[selectedPlatform].deployNuxt}</span
+							>
 						</div>
 					</div>
 
-					<div class="pt-2 border-t border-slate-200 dark:border-slate-800">
-						<span class="text-xs font-bold text-slate-500 uppercase">Key Strengths:</span>
+					<div class="border-t border-slate-200 pt-2 dark:border-slate-800">
+						<span class="text-sm font-bold text-slate-500 uppercase">Key Strengths:</span>
 						<ul class="mt-1 space-y-1 text-sm text-slate-700 dark:text-slate-300">
-							{#each platforms[selectedPlatform].pros as pro}
+							{#each platforms[selectedPlatform].pros as pro (pro)}
 								<li>• {pro}</li>
 							{/each}
 						</ul>

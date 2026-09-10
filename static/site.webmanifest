@@ -1,7 +1,7 @@
 {
   "name": "Web Engine 2026",
   "short_name": "WebEngine26",
-  "description": "Interactive reference architecture and 21 engineering labs covering modern TypeScript 6, Svelte 5, Tailwind v4, Drizzle, Neon, and Edge runtimes.",
+  "description": "Production-grade reference architecture and 35 interactive engineering labs covering Svelte 5, SvelteKit 2, Nuxt 4, Tailwind v4, TS6, Nitro, Hono, Bun, Deno, and Edge Cloud.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -33,31 +33,31 @@
   ],
   "shortcuts": [
     {
-      "name": "Svelte 5 Runes",
+      "name": "Svelte 5 Universal Runes",
       "short_name": "Svelte 5",
       "description": "Universal signals and fine-grained reactivity lab",
-      "url": "/frameworks/svelte5",
+      "url": "/sveltekit/runes-state",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "Tailwind CSS v4",
+      "name": "Tailwind CSS v4 & Styling",
       "short_name": "Tailwind v4",
       "description": "CSS-first engine and native theme tokens",
-      "url": "/foundations/tailwind",
+      "url": "/foundations/styling-assets",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "TypeScript 6 Primitives",
+      "name": "TypeScript 6 Strict Types",
       "short_name": "TypeScript 6",
       "description": "Discriminated unions and strict narrowing",
       "url": "/foundations/typescript",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "Cloudflare & Edge",
-      "short_name": "Edge Isolates",
+      "name": "Cloudflare & Edge Deploy",
+      "short_name": "Edge Cloud",
       "description": "Global serverless edge isolate architecture",
-      "url": "/infra/deployment-edge",
+      "url": "/cloud/platforms-deployment",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     }
   ]

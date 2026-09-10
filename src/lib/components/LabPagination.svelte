@@ -27,9 +27,10 @@
 				>
 					<span class="text-base">←</span>
 					<div class="text-left">
-						<span class="hidden text-sm text-slate-500 dark:text-slate-400 uppercase sm:block">Previous Module</span
+						<span class="hidden text-sm text-slate-500 uppercase sm:block dark:text-slate-400"
+							>Previous Module</span
 						>
-						<span class="block max-w-40 truncate sm:max-w-64 font-bold">{prevModule.title}</span>
+						<span class="block max-w-40 truncate font-bold sm:max-w-64">{prevModule.title}</span>
 					</div>
 				</a>
 			{:else}
@@ -44,14 +45,14 @@
 				>
 					<div class="text-right">
 						<span class="hidden text-sm text-indigo-200 uppercase sm:block">Next Module</span>
-						<span class="block max-w-40 truncate sm:max-w-64 font-bold">{nextModule.title}</span>
+						<span class="block max-w-40 truncate font-bold sm:max-w-64">{nextModule.title}</span>
 					</div>
 					<span class="text-base">→</span>
 				</a>
 			{:else}
 				<a
 					href="/"
-					class="rounded-xl bg-emerald-600 px-5 py-2.5 font-bold text-white shadow-sm shadow-emerald-500/20 transition hover:bg-emerald-500 text-base"
+					class="rounded-xl bg-emerald-600 px-5 py-2.5 text-base font-bold text-white shadow-sm shadow-emerald-500/20 transition hover:bg-emerald-500"
 				>
 					Curriculum Complete ✓
 				</a>

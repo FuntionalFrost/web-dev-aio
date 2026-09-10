@@ -8,10 +8,7 @@
 	type StructureType = 'sveltekit' | 'nuxt4' | 'monorepo';
 	let selectedType = $state<StructureType>('sveltekit');
 
-	const topologies: Record<
-		StructureType,
-		{ title: string; desc: string; tree: string[] }
-	> = {
+	const topologies: Record<StructureType, { title: string; desc: string; tree: string[] }> = {
 		sveltekit: {
 			title: 'SvelteKit 2 Production Architecture',
 			desc: 'Strict client/server separation with Universal Runes, +page server data pipelines, and hooks.',
@@ -70,17 +67,25 @@
 	{#snippet guide()}
 		<h3>Modern Project Types & Directory Structures</h3>
 		<p class="text-base sm:text-lg">
-			Choosing the right project topology is fundamental to long-term maintainability, code reuse, and team velocity.
+			Choosing the right project topology is fundamental to long-term maintainability, code reuse,
+			and team velocity.
 		</p>
 		<ul>
 			<li>
-				<strong>SvelteKit 2 Layout:</strong> Enforces strong server-side isolation with <code>$lib/server</code> and deterministic page routing with <code>+page.server.ts</code> and <code>hooks.server.ts</code>.
+				<strong>SvelteKit 2 Layout:</strong> Enforces strong server-side isolation with
+				<code>$lib/server</code>
+				and deterministic page routing with <code>+page.server.ts</code> and
+				<code>hooks.server.ts</code>.
 			</li>
 			<li>
-				<strong>Nuxt 4 Structure:</strong> Centralizes frontend components and composables in <code>app/</code> while isolating backend endpoints in <code>server/api/</code>.
+				<strong>Nuxt 4 Structure:</strong> Centralizes frontend components and composables in
+				<code>app/</code>
+				while isolating backend endpoints in <code>server/api/</code>.
 			</li>
 			<li>
-				<strong>Monorepo Topologies:</strong> Organizes large teams into decoupled <code>apps/</code> and reusable internal <code>packages/</code> linked via PNPM workspace catalogs.
+				<strong>Monorepo Topologies:</strong> Organizes large teams into decoupled
+				<code>apps/</code>
+				and reusable internal <code>packages/</code> linked via PNPM workspace catalogs.
 			</li>
 		</ul>
 	{/snippet}
@@ -91,7 +96,8 @@
 				<div class="grid grid-cols-3 gap-2">
 					<button
 						onclick={() => (selectedType = 'sveltekit')}
-						class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedType === 'sveltekit'
+						class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedType ===
+						'sveltekit'
 							? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 							: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 					>
@@ -99,7 +105,8 @@
 					</button>
 					<button
 						onclick={() => (selectedType = 'nuxt4')}
-						class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedType === 'nuxt4'
+						class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedType ===
+						'nuxt4'
 							? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 							: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 					>
@@ -107,7 +114,8 @@
 					</button>
 					<button
 						onclick={() => (selectedType = 'monorepo')}
-						class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedType === 'monorepo'
+						class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedType ===
+						'monorepo'
 							? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 							: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 					>
@@ -115,15 +123,21 @@
 					</button>
 				</div>
 
-				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950 space-y-3">
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+				>
 					<div>
-						<h4 class="text-base font-bold text-slate-900 dark:text-white">{topologies[selectedType].title}</h4>
-						<p class="text-sm text-slate-600 dark:text-slate-400 mt-1">{topologies[selectedType].desc}</p>
+						<h4 class="text-base font-bold text-slate-900 dark:text-white">
+							{topologies[selectedType].title}
+						</h4>
+						<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+							{topologies[selectedType].desc}
+						</p>
 					</div>
 
-					<div class="rounded-xl bg-slate-900 p-4 text-slate-100 overflow-x-auto">
-						{#each topologies[selectedType].tree as line}
-							<div class="text-sm font-mono leading-relaxed text-indigo-300">{line}</div>
+					<div class="overflow-x-auto rounded-xl bg-slate-900 p-4 text-slate-100">
+						{#each topologies[selectedType].tree as line (line)}
+							<div class="font-mono text-sm leading-relaxed text-indigo-300">{line}</div>
 						{/each}
 					</div>
 				</div>

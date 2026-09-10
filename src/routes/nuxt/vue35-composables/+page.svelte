@@ -13,17 +13,22 @@
 	{#snippet guide()}
 		<h3>Vue 3.5 Core Primitives & Composables</h3>
 		<p class="text-base sm:text-lg">
-			Vue 3.5 enhances the Composition API with compiler improvements for prop destructuring, SSR-safe element IDs, and typed template references.
+			Vue 3.5 enhances the Composition API with compiler improvements for prop destructuring,
+			SSR-safe element IDs, and typed template references.
 		</p>
 		<ul>
 			<li>
-				<strong>Reactive Prop Destructuring:</strong> Destructuring <code>defineProps()</code> directly retains full reactivity without requiring <code>toRefs()</code> or <code>toRef()</code> boilerplate.
+				<strong>Reactive Prop Destructuring:</strong> Destructuring <code>defineProps()</code>
+				directly retains full reactivity without requiring <code>toRefs()</code> or
+				<code>toRef()</code> boilerplate.
 			</li>
 			<li>
-				<strong><code>useId()</code>:</strong> Generates unique, stable element IDs across server rendering and client hydration to prevent accessibility mismatches.
+				<strong><code>useId()</code>:</strong> Generates unique, stable element IDs across server rendering
+				and client hydration to prevent accessibility mismatches.
 			</li>
 			<li>
-				<strong><code>useTemplateRef()</code>:</strong> Strongly typed DOM ref bindings that decouple variable names from template string literals.
+				<strong><code>useTemplateRef()</code>:</strong> Strongly typed DOM ref bindings that decouple
+				variable names from template string literals.
 			</li>
 		</ul>
 	{/snippet}
@@ -33,7 +38,9 @@
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-2 gap-3">
 					<div>
-						<label for="metric-label" class="block mb-1 text-xs font-bold text-slate-500 uppercase">Label Prop:</label>
+						<label for="metric-label" class="mb-1 block text-sm font-bold text-slate-500 uppercase"
+							>Label Prop:</label
+						>
 						<input
 							id="metric-label"
 							type="text"
@@ -42,7 +49,10 @@
 						/>
 					</div>
 					<div>
-						<label for="metric-counter" class="block mb-1 text-xs font-bold text-slate-500 uppercase">Count Prop:</label>
+						<label
+							for="metric-counter"
+							class="mb-1 block text-sm font-bold text-slate-500 uppercase">Count Prop:</label
+						>
 						<div class="flex gap-2">
 							<input
 								id="metric-counter"
@@ -52,7 +62,7 @@
 							/>
 							<button
 								onclick={() => counterValue++}
-								class="rounded-xl bg-indigo-600 px-4 py-2 font-bold text-base text-white hover:bg-indigo-500"
+								class="rounded-xl bg-indigo-600 px-4 py-2 text-base font-bold text-white hover:bg-indigo-500"
 							>
 								+1
 							</button>
@@ -60,19 +70,29 @@
 					</div>
 				</div>
 
-				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950 space-y-3">
-					<div class="flex items-center justify-between border-b border-slate-200 pb-2 dark:border-slate-800">
-						<span class="text-xs font-bold text-slate-500 uppercase">Simulated Vue 3.5 Component State</span>
-						<span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">SSR useId() = v-id-109</span>
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
+				>
+					<div
+						class="flex items-center justify-between border-b border-slate-200 pb-2 dark:border-slate-800"
+					>
+						<span class="text-sm font-bold text-slate-500 uppercase"
+							>Simulated Vue 3.5 Component State</span
+						>
+						<span class="text-sm font-bold text-emerald-600 dark:text-emerald-400"
+							>SSR useId() = v-id-109</span
+						>
 					</div>
 
-					<div class="rounded-xl bg-white p-4 shadow-sm dark:bg-slate-900 flex justify-between items-center">
+					<div
+						class="flex items-center justify-between rounded-xl bg-white p-4 shadow-sm dark:bg-slate-900"
+					>
 						<div>
-							<span class="text-xs font-bold text-indigo-600 uppercase">Destructured Prop:</span>
+							<span class="text-sm font-bold text-indigo-600 uppercase">Destructured Prop:</span>
 							<h4 class="text-lg font-bold text-slate-900 dark:text-white">{metricLabel}</h4>
 						</div>
 						<div class="text-right">
-							<span class="text-xs font-bold text-slate-500 uppercase">Reactive Value:</span>
+							<span class="text-sm font-bold text-slate-500 uppercase">Reactive Value:</span>
 							<p class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{counterValue}</p>
 						</div>
 					</div>

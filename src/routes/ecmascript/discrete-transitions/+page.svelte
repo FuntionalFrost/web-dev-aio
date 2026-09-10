@@ -28,17 +28,21 @@
 	{#snippet guide()}
 		<h3>Discrete Transitions & DOM Interactivity</h3>
 		<p class="text-base sm:text-lg">
-			CSS discrete transitions and HTML5 background isolation provide butter-smooth entrance animations without heavy JavaScript animation runtimes.
+			CSS discrete transitions and HTML5 background isolation provide butter-smooth entrance
+			animations without heavy JavaScript animation runtimes.
 		</p>
 		<ul>
 			<li>
-				<strong><code>@starting-style</code> & <code>allow-discrete</code>:</strong> Transition CSS properties directly from <code>display: none</code> to visible block layout.
+				<strong><code>@starting-style</code> & <code>allow-discrete</code>:</strong> Transition CSS
+				properties directly from <code>display: none</code> to visible block layout.
 			</li>
 			<li>
-				<strong><code>inert</code> Attribute:</strong> Completely removes background DOM subtrees from focus, selection, and accessibility trees when overlays are open.
+				<strong><code>inert</code> Attribute:</strong> Completely removes background DOM subtrees from
+				focus, selection, and accessibility trees when overlays are open.
 			</li>
 			<li>
-				<strong>Hardware Transforms:</strong> GPU-composited 3D spatial matrix operations calculated smoothly with zero layout thrashing.
+				<strong>Hardware Transforms:</strong> GPU-composited 3D spatial matrix operations calculated smoothly
+				with zero layout thrashing.
 			</li>
 		</ul>
 	{/snippet}
@@ -47,9 +51,17 @@
 		<!-- Simulator 1: Dialog & Inert -->
 		<LabCard title="Modal & Inert Visualizer" badge="@starting-style">
 			<div class="space-y-4 font-mono text-sm">
-				<div class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800">
-					<label class="flex cursor-pointer items-center gap-2 text-base text-slate-700 dark:text-slate-300">
-						<input type="checkbox" bind:checked={isInertActive} class="h-4 w-4 rounded text-indigo-600" />
+				<div
+					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
+				>
+					<label
+						class="flex cursor-pointer items-center gap-2 text-base text-slate-700 dark:text-slate-300"
+					>
+						<input
+							type="checkbox"
+							bind:checked={isInertActive}
+							class="h-4 w-4 rounded text-indigo-600"
+						/>
 						Apply <code>inert</code> to background
 					</label>
 				</div>
@@ -61,7 +73,9 @@
 						? 'opacity-30 select-none'
 						: 'opacity-100'}"
 				>
-					<p class="mb-3 text-sm text-slate-500">// Background container (Inert when modal is open)</p>
+					<p class="mb-3 text-sm text-slate-500">
+						// Background container (Inert when modal is open)
+					</p>
 					<div class="flex flex-wrap gap-2">
 						<input
 							type="text"
@@ -78,7 +92,7 @@
 
 				<button
 					onclick={openDialog}
-					class="w-full rounded-xl bg-indigo-600 py-3 font-bold text-base text-white transition hover:bg-indigo-500"
+					class="w-full rounded-xl bg-indigo-600 py-3 text-base font-bold text-white transition hover:bg-indigo-500"
 				>
 					Open showModal() Dialog
 				</button>
@@ -150,11 +164,14 @@
 					class="flex h-48 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-4 perspective-midrange dark:border-slate-800 dark:bg-slate-950"
 				>
 					<div
-						class="rounded-2xl border border-indigo-500/40 bg-gradient-to-br from-indigo-500/20 to-white p-6 shadow-lg transition-transform duration-75 dark:from-indigo-900/50 dark:to-slate-900"
+						class="rounded-2xl border border-indigo-500/40 bg-linear-to-br from-indigo-500/20 to-white p-6 shadow-lg transition-transform duration-75 dark:from-indigo-900/50 dark:to-slate-900"
 						style:transform="rotateX({rotateX}deg) rotateY({rotateY}deg) translateZ({depth}px)"
 					>
 						<div class="text-center font-mono">
-							<span class="text-sm font-bold tracking-widest text-indigo-600 uppercase dark:text-indigo-400">3D Matrix Node</span>
+							<span
+								class="text-sm font-bold tracking-widest text-indigo-600 uppercase dark:text-indigo-400"
+								>3D Matrix Node</span
+							>
 							<p class="mt-1 text-lg font-bold text-slate-900 dark:text-white">Spatial Engine</p>
 						</div>
 					</div>

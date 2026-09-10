@@ -58,17 +58,22 @@
 	{#snippet guide()}
 		<h3>Edge Caching & Sliding Window Rate Limiting</h3>
 		<p class="text-base sm:text-lg">
-			Sliding window algorithms in Upstash Redis over stateless HTTP prevent traffic burst exploits across fixed window intervals and defend against DDoS attacks.
+			Sliding window algorithms in Upstash Redis over stateless HTTP prevent traffic burst exploits
+			across fixed window intervals and defend against DDoS attacks.
 		</p>
 		<ul>
 			<li>
-				<strong>The Fixed Window Burst Vulnerability:</strong> In fixed window rate limiting, a client can send its full limit at second 9 and another batch at second 10, executing a 2x burst across the boundary.
+				<strong>The Fixed Window Burst Vulnerability:</strong> In fixed window rate limiting, a client
+				can send its full limit at second 9 and another batch at second 10, executing a 2x burst across
+				the boundary.
 			</li>
 			<li>
-				<strong>Sliding Window Smoothness:</strong> Tracks a continuous rolling weighted window in Redis memory, ensuring the client never exceeds quota across any arbitrary slice of time.
+				<strong>Sliding Window Smoothness:</strong> Tracks a continuous rolling weighted window in Redis
+				memory, ensuring the client never exceeds quota across any arbitrary slice of time.
 			</li>
 			<li>
-				<strong>Stateless HTTP Redis:</strong> Upstash uses standard HTTPS requests instead of persistent TCP sockets, eliminating connection exhaustion on Cloudflare Workers and serverless edges.
+				<strong>Stateless HTTP Redis:</strong> Upstash uses standard HTTPS requests instead of persistent
+				TCP sockets, eliminating connection exhaustion on Cloudflare Workers and serverless edges.
 			</li>
 		</ul>
 	{/snippet}
@@ -84,13 +89,13 @@
 					<div class="flex gap-2">
 						<button
 							onclick={dispatchAPIRequest}
-							class="rounded-xl bg-indigo-600 px-4 py-2.5 font-bold text-base text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 active:scale-95"
+							class="rounded-xl bg-indigo-600 px-4 py-2.5 text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 active:scale-95"
 						>
 							Invoke /api/v1/resource
 						</button>
 						<button
 							onclick={resetLimiter}
-							class="rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 font-bold text-base text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+							class="rounded-xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-base font-bold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
 						>
 							Clear Window
 						</button>
@@ -106,7 +111,9 @@
 					<div
 						class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 					>
-						<span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Remaining Quota:</span>
+						<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
+							>Remaining Quota:</span
+						>
 						<p
 							class="mt-1 text-2xl font-bold {remainingRequests === 0
 								? 'text-rose-600 dark:text-rose-400'
@@ -118,7 +125,9 @@
 					<div
 						class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 					>
-						<span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Active Window Slots:</span>
+						<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
+							>Active Window Slots:</span
+						>
 						<div class="mt-3 flex gap-1.5">
 							{#each Array(maxLimit) as _, i (`slot-${i}`)}
 								<span
@@ -135,15 +144,17 @@
 				<div
 					class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 				>
-					<span class="text-xs font-bold tracking-wider text-slate-400 uppercase">Edge Gateway Response Log:</span>
+					<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
+						>Edge Gateway Response Log:</span
+					>
 					<div class="mt-2.5 space-y-2">
 						{#each requestLogs as log (log.id)}
 							<div
 								class="flex items-center justify-between border-b border-slate-200/60 pb-2 last:border-none dark:border-slate-800/60"
 							>
-								<span class="text-slate-400">[{log.time}]</span>
+								<span class="text-slate-500 dark:text-slate-400">[{log.time}]</span>
 								<span
-									class="font-bold text-sm {log.allowed
+									class="text-sm font-bold {log.allowed
 										? 'text-emerald-600 dark:text-emerald-400'
 										: 'text-rose-600 dark:text-rose-400'}"
 								>
@@ -152,7 +163,9 @@
 								<span class="text-slate-500">Remaining: {log.remaining}</span>
 							</div>
 						{:else}
-							<div class="text-slate-400 py-2">Click "Invoke" to simulate incoming edge requests.</div>
+							<div class="py-2 text-slate-500 dark:text-slate-400">
+								Click "Invoke" to simulate incoming edge requests.
+							</div>
 						{/each}
 					</div>
 				</div>
