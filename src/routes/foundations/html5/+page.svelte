@@ -5,211 +5,122 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// 1. Constraint validation state
-	let testEmail = $state('');
-	let testNumber = $state(42);
+	let dialogElement: HTMLDialogElement;
+	let dialogResult = $state<string>('No action taken');
+	let patternInput = $state<string>('https://api.example.com/api/v1/users/usr_2026');
+	let parsedPatternGroup = $state<string>('');
 
-	// 2. Interactive <search> landmark state
-	let searchQuery = $state('');
-	const html5Features = [
-		{ name: '<details name="...">', tag: 'Accordion', desc: 'Exclusive native disclosure' },
-		{ name: '<search>', tag: 'Landmark', desc: 'Accessible search container' },
-		{ name: ':user-valid', tag: 'CSS Selectors', desc: 'Post-interaction validation' },
-		{ name: '<dialog>', tag: 'Top Layer', desc: 'Native modal & backdrop' },
-		{ name: 'inert', tag: 'Global Attribute', desc: 'Focus & a11y containment' }
-	];
+	function testURLPattern() {
+		try {
+			if (typeof URLPattern !== 'undefined') {
+				const pattern = new URLPattern({ pathname: '/api/v1/users/:userId' });
+				const match = pattern.exec(patternInput);
+				parsedPatternGroup = match?.pathname.groups.userId ?? 'No match';
+			} else {
+				// Fallback regex if browser lacks native URLPattern
+				const match = patternInput.match(/\/api\/v1\/users\/([^/?#]+)/);
+				parsedPatternGroup = match ? match[1] : 'No match (fallback parser)';
+			}
+		} catch (e: any) {
+			parsedPatternGroup = 'Error parsing: ' + e.message;
+		}
+	}
 
-	let filteredFeatures = $derived(
-		html5Features.filter(
-			(f) =>
-				f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				f.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				f.tag.toLowerCase().includes(searchQuery.toLowerCase())
-		)
-	);
+	function openModal() {
+		dialogElement?.showModal();
+	}
+
+	function handleDialogClose() {
+		dialogResult = `Dialog closed with return value: "${dialogElement.returnValue || 'backdrop/escape'}"`;
+	}
 </script>
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Core Specifications</h3>
+		<h3>Modern HTML5 Semantics & Web Standards</h3>
+		<p class="text-base sm:text-lg">
+			Web Standards provide native browser-level primitives that replace megabytes of legacy JavaScript libraries.
+		</p>
 		<ul>
 			<li>
-				<strong>Exclusive Accordions (<code>&lt;details name="..."&gt;</code>):</strong> Multiple
-				<code>&lt;details&gt;</code>
-				elements sharing a <code>name</code> attribute create an exclusive accordion with zero JavaScript
-				listeners.
+				<strong>Native <code>&lt;dialog&gt;</code>:</strong> Provides automatic focus trapping, backdrop dimming via <code>::backdrop</code>, and light dismissal with Esc without external dependencies.
 			</li>
 			<li>
-				<strong>The <code>&lt;search&gt;</code> Landmark:</strong> Replaces non-semantic
-				<code>&lt;div role="search"&gt;</code> with an accessible, screen-reader discoverable document
-				landmark.
+				<strong>Exclusive <code>&lt;details name="..."&gt;</code>:</strong> Groups accordion items natively. Opening one item automatically closes siblings sharing the same <code>name</code> attribute.
 			</li>
 			<li>
-				<strong><code>:user-valid</code> & <code>:user-invalid</code>:</strong> CSS pseudo-classes that
-				display validation feedback only after user interaction and blur, eliminating initial load error
-				flashes.
+				<strong>Web Standards (Streams & Web Crypto):</strong> First-class browser APIs like <code>URLPattern</code>, <code>TransformStream</code>, and <code>crypto.subtle</code> execute at native C++ speeds.
 			</li>
 		</ul>
 	{/snippet}
 
 	{#snippet lab()}
-		<!-- Card 1: Exclusive Accordion Group -->
-		<LabCard title="Exclusive Grouped Accordion" badge="Zero-JS Native DOM">
-			<p class="text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-				Opening any panel automatically collapses siblings linked through <code
-					class="font-semibold text-indigo-600 dark:text-indigo-300">name="faq-group"</code
-				>.
-			</p>
-
-			<div class="space-y-2.5">
-				<details
-					name="faq-group"
-					open
-					class="group rounded-xl border border-slate-200 bg-slate-50/60 p-4 transition open:border-indigo-500/50 open:bg-indigo-50/20 dark:border-slate-800 dark:bg-slate-950 dark:open:border-indigo-500/50 dark:open:bg-indigo-950/20"
+		<LabCard title="Interactive HTML5 Native Dialog" badge="Zero-JS Focus Trap">
+			<div class="space-y-4">
+				<p class="text-base text-slate-600 dark:text-slate-300">
+					Click below to invoke the browser's native top-layer modal system:
+				</p>
+				<button
+					onclick={openModal}
+					class="rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 text-base"
 				>
-					<summary
-						class="flex cursor-pointer list-none items-center justify-between font-mono text-xs font-bold text-slate-900 dark:text-slate-100"
-					>
-						<span>01. Native Accordion Grouping</span>
-						<span
-							class="text-slate-400 transition-transform duration-200 group-open:rotate-180 dark:text-slate-500"
-							>▼</span
-						>
-					</summary>
-					<p
-						class="mt-3 border-t border-slate-200 pt-3 text-xs leading-relaxed text-slate-600 dark:border-slate-800/80 dark:text-slate-400"
-					>
-						Handled directly by the browser engine. Opening a sibling automatically fires a toggle
-						event and closes this panel without JavaScript.
-					</p>
-				</details>
-
-				<details
-					name="faq-group"
-					class="group rounded-xl border border-slate-200 bg-slate-50/60 p-4 transition open:border-indigo-500/50 open:bg-indigo-50/20 dark:border-slate-800 dark:bg-slate-950 dark:open:border-indigo-500/50 dark:open:bg-indigo-950/20"
-				>
-					<summary
-						class="flex cursor-pointer list-none items-center justify-between font-mono text-xs font-bold text-slate-900 dark:text-slate-100"
-					>
-						<span>02. Built-in Keyboard Accessibility</span>
-						<span
-							class="text-slate-400 transition-transform duration-200 group-open:rotate-180 dark:text-slate-500"
-							>▼</span
-						>
-					</summary>
-					<p
-						class="mt-3 border-t border-slate-200 pt-3 text-xs leading-relaxed text-slate-600 dark:border-slate-800/80 dark:text-slate-400"
-					>
-						Full Tab and Space/Enter key navigation is supported natively with no ARIA configuration
-						required.
-					</p>
-				</details>
-
-				<details
-					name="faq-group"
-					class="group rounded-xl border border-slate-200 bg-slate-50/60 p-4 transition open:border-indigo-500/50 open:bg-indigo-50/20 dark:border-slate-800 dark:bg-slate-950 dark:open:border-indigo-500/50 dark:open:bg-indigo-950/20"
-				>
-					<summary
-						class="flex cursor-pointer list-none items-center justify-between font-mono text-xs font-bold text-slate-900 dark:text-slate-100"
-					>
-						<span>03. Page Search Integration</span>
-						<span
-							class="text-slate-400 transition-transform duration-200 group-open:rotate-180 dark:text-slate-500"
-							>▼</span
-						>
-					</summary>
-					<p
-						class="mt-3 border-t border-slate-200 pt-3 text-xs leading-relaxed text-slate-600 dark:border-slate-800/80 dark:text-slate-400"
-					>
-						Closed panels remain indexable via in-page search (<kbd
-							class="rounded bg-slate-200 px-1 py-0.5 text-[10px] text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-							>Ctrl+F</kbd
-						>), auto-expanding when a match is found.
-					</p>
-				</details>
+					Open Native &lt;dialog&gt;
+				</button>
+				<p class="font-mono text-sm text-slate-500 dark:text-slate-400">{dialogResult}</p>
 			</div>
-		</LabCard>
 
-		<!-- Card 2: Semantic <search> Landmark -->
-		<LabCard title="Semantic <search> Landmark" badge="HTML5 Search Element">
-			<search class="w-full">
-				<form onsubmit={(e) => e.preventDefault()} class="relative">
-					<input
-						type="search"
-						bind:value={searchQuery}
-						placeholder="Search primitives (e.g., 'dialog', 'accordion')..."
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-2 font-mono text-xs text-slate-900 placeholder-slate-400 transition focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500"
-					/>
+			<!-- Native HTML Dialog -->
+			<dialog
+				bind:this={dialogElement}
+				onclose={handleDialogClose}
+				class="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl backdrop:bg-slate-950/70 dark:border-slate-800 dark:bg-slate-900"
+			>
+				<form method="dialog" class="space-y-4">
+					<h3 class="text-xl font-bold text-slate-900 dark:text-white">Native Browser Modal</h3>
+					<p class="text-base text-slate-600 dark:text-slate-300">
+						Focus is contained within this dialog. Pressing <kbd class="rounded border px-1 font-mono text-sm">Esc</kbd> or submitting this form dismisses it.
+					</p>
+					<div class="flex justify-end gap-3 pt-2">
+						<button
+							value="cancelled"
+							class="rounded-xl border border-slate-300 px-4 py-2 font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 text-base"
+						>
+							Cancel
+						</button>
+						<button
+							value="confirmed"
+							class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-500 text-base"
+						>
+							Confirm
+						</button>
+					</div>
 				</form>
-			</search>
-
-			<div class="max-h-40 space-y-1.5 overflow-y-auto">
-				{#each filteredFeatures as feature (feature.name)}
-					<div
-						class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs dark:border-slate-800 dark:bg-slate-950"
-					>
-						<div>
-							<span class="font-mono font-bold text-slate-900 dark:text-slate-100"
-								>{feature.name}</span
-							>
-							<span class="block text-[11px] text-slate-500 dark:text-slate-400"
-								>{feature.desc}</span
-							>
-						</div>
-						<span
-							class="rounded border border-indigo-200 bg-indigo-50 px-2 py-0.5 font-mono text-[10px] font-semibold text-indigo-700 dark:border-indigo-500/30 dark:bg-indigo-950/60 dark:text-indigo-300"
-						>
-							{feature.tag}
-						</span>
-					</div>
-				{:else}
-					<div class="p-3 text-center font-mono text-xs text-slate-400">
-						No primitives matching query.
-					</div>
-				{/each}
-			</div>
+			</dialog>
 		</LabCard>
 
-		<!-- Card 3: Constraint Validation Form -->
-		<LabCard title="Constraint Validation Lab" badge=":user-valid / :user-invalid">
-			<form onsubmit={(e) => e.preventDefault()} class="space-y-4 font-mono text-xs">
-				<div>
-					<label
-						for="req-email"
-						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
-					>
-						Email Address (Required):
-					</label>
+		<LabCard title="Web Standard URLPattern Tester" badge="URLPattern API">
+			<div class="space-y-4 font-mono text-sm">
+				<label class="block space-y-1">
+					<span class="text-slate-600 dark:text-slate-400 font-bold">Target Route URL:</span>
 					<input
-						id="req-email"
-						type="email"
-						required
-						placeholder="developer@modern-web.org"
-						bind:value={testEmail}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2 text-slate-900 placeholder-slate-400 transition-colors focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500"
+						type="text"
+						bind:value={patternInput}
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 p-2.5 text-base text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
 					/>
-					<span class="mt-1 block text-[10px] text-slate-500 dark:text-slate-400">
-						Validation styles trigger only after user interaction and blur.
-					</span>
-				</div>
-
-				<div>
-					<label
-						for="range-num"
-						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
-					>
-						Bounded Integer (min: 10, max: 100):
-					</label>
-					<input
-						id="range-num"
-						type="number"
-						min="10"
-						max="100"
-						bind:value={testNumber}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2 text-slate-900 placeholder-slate-400 transition-colors focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder-slate-500"
-					/>
-				</div>
-			</form>
+				</label>
+				<button
+					onclick={testURLPattern}
+					class="rounded-xl bg-indigo-600 px-4 py-2 font-semibold text-white hover:bg-indigo-500 text-base"
+				>
+					Execute URLPattern Match
+				</button>
+				{#if parsedPatternGroup}
+					<div class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3.5 dark:border-indigo-900 dark:bg-indigo-950/30">
+						<span class="text-sm font-bold text-indigo-700 dark:text-indigo-300">Extracted :userId parameter:</span>
+						<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">{parsedPatternGroup}</p>
+					</div>
+				{/if}
+			</div>
 		</LabCard>
 	{/snippet}
 </LabShell>

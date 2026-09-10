@@ -38,41 +38,41 @@
 >
 	<!-- Desktop Fixed Sticky Sidebar -->
 	<aside
-		class="sticky top-0 hidden h-screen w-80 shrink-0 flex-col border-r border-slate-200 bg-white/80 backdrop-blur-xl md:flex dark:border-slate-800/80 dark:bg-slate-900/40"
+		class="sticky top-0 hidden h-screen w-88 shrink-0 flex-col border-r border-slate-200 bg-white/80 backdrop-blur-xl md:flex dark:border-slate-800/80 dark:bg-slate-900/40"
 	>
 		<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
-			<a href={resolve('/')} class="flex shrink-0 items-center gap-2.5">
+			<a href={resolve('/')} class="flex shrink-0 items-center gap-3">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-sm font-bold text-white shadow-md shadow-indigo-500/20"
+					class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 font-mono text-base font-bold text-white shadow-md shadow-indigo-500/20"
 				>
 					26
 				</div>
 				<div>
-					<span class="block text-xs font-bold tracking-tight text-slate-900 dark:text-white"
+					<span class="block text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white"
 						>{SITE.name}</span
 					>
-					<span class="block font-mono text-[10px] text-slate-400">Engineering Architecture</span>
+					<span class="block font-mono text-sm text-slate-500 dark:text-slate-400">Engineering Labs</span>
 				</div>
 			</a>
 
-			<nav class="space-y-5">
+			<nav class="space-y-6">
 				{#each groupedTracks as group, i (group.track)}
-					<div class="space-y-1">
+					<div class="space-y-1.5">
 						<span
-							class="px-2 font-mono text-[10px] font-bold tracking-wider text-slate-400 uppercase dark:text-slate-500"
+							class="block px-2 font-mono text-sm font-bold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
 						>
 							0{i + 1}. {group.track}
 						</span>
-						<div class="space-y-0.5">
+						<div class="space-y-1">
 							{#each group.modules as mod (mod.id)}
 								{@const active = cleanPath(page.url.pathname) === cleanPath(mod.href)}
 								<a
 									href={mod.href}
-									class="flex items-center rounded-lg px-2.5 py-1.5 text-xs font-medium transition {active
-										? 'bg-indigo-50 font-semibold text-indigo-950 dark:bg-indigo-950/50 dark:text-indigo-200'
-										: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200'}"
+									class="flex items-center rounded-xl px-3 py-2 text-sm font-medium transition {active
+										? 'bg-indigo-50 font-bold text-indigo-950 shadow-xs dark:bg-indigo-950/60 dark:text-indigo-200'
+										: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 								>
-									<span class="leading-snug">{mod.title}</span>
+									<span class="leading-relaxed">{mod.title}</span>
 								</a>
 							{/each}
 						</div>
@@ -96,25 +96,25 @@
 
 	<!-- Mobile Navigation Drawer -->
 	<aside
-		class="fixed inset-y-0 left-0 z-50 w-80 transform bg-white p-6 shadow-2xl transition-transform duration-200 md:hidden dark:bg-slate-900 {mobileDrawerOpen
+		class="fixed inset-y-0 left-0 z-50 w-88 transform bg-white p-6 shadow-2xl transition-transform duration-200 md:hidden dark:bg-slate-900 {mobileDrawerOpen
 			? 'translate-x-0'
 			: '-translate-x-full'}"
 	>
 		<div
 			class="flex items-center justify-between border-b border-slate-200 pb-4 dark:border-slate-800"
 		>
-			<div class="flex items-center gap-2">
+			<div class="flex items-center gap-2.5">
 				<div
-					class="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-600 font-mono text-xs font-bold text-white"
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-sm font-bold text-white"
 				>
 					26
 				</div>
-				<span class="text-xs font-bold tracking-wider uppercase">Curriculum Tracks</span>
+				<span class="text-sm font-bold tracking-wider uppercase text-slate-900 dark:text-white">Curriculum Tracks</span>
 			</div>
 			<button
 				onclick={() => (mobileDrawerOpen = false)}
 				aria-label="Close navigation drawer"
-				class="p-1 text-slate-500 hover:text-slate-900 dark:hover:text-white"
+				class="rounded-lg p-1.5 text-base text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
 			>
 				✕
 			</button>
@@ -124,7 +124,7 @@
 			{#each groupedTracks as group, i (group.track)}
 				<div class="space-y-1.5">
 					<span
-						class="font-mono text-[10px] font-bold tracking-wider text-slate-400 uppercase dark:text-slate-500"
+						class="block font-mono text-sm font-bold tracking-wider text-indigo-600 uppercase dark:text-indigo-400"
 					>
 						0{i + 1}. {group.track}
 					</span>
@@ -133,9 +133,9 @@
 							{@const active = cleanPath(page.url.pathname) === cleanPath(mod.href)}
 							<a
 								href={mod.href}
-								class="block rounded-lg px-2.5 py-1.5 text-xs transition {active
-									? 'bg-indigo-50 font-semibold text-indigo-950 dark:bg-indigo-950/50 dark:text-indigo-200'
-									: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50'}"
+								class="block rounded-xl px-3 py-2 text-sm font-medium transition {active
+									? 'bg-indigo-50 font-bold text-indigo-950 dark:bg-indigo-950/60 dark:text-indigo-200'
+									: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 							>
 								{mod.title}
 							</a>
@@ -149,19 +149,19 @@
 	<!-- Main Content Area -->
 	<div class="flex min-w-0 flex-1 flex-col overflow-x-hidden">
 		<header
-			class="sticky top-0 z-30 flex h-14 shrink-0 items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur-md sm:px-6 dark:border-slate-800/80 dark:bg-slate-950/80"
+			class="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur-md sm:px-6 dark:border-slate-800/80 dark:bg-slate-950/80"
 		>
 			<div class="flex items-center gap-3">
 				<button
 					onclick={() => (mobileDrawerOpen = !mobileDrawerOpen)}
-					class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-600 md:hidden dark:border-slate-800 dark:text-slate-400"
+					class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-base text-slate-700 md:hidden dark:border-slate-800 dark:text-slate-300"
 					aria-label="Toggle navigation drawer"
 				>
 					☰
 				</button>
 
 				<div
-					class="hidden items-center gap-2 font-mono text-xs text-slate-500 sm:flex dark:text-slate-400"
+					class="hidden items-center gap-2 font-mono text-sm text-slate-500 sm:flex dark:text-slate-400"
 				>
 					<a href={resolve('/')} class="transition hover:text-slate-900 dark:hover:text-white"
 						>Home</a
@@ -170,14 +170,14 @@
 						<span>/</span>
 						<span>{activeModule.track}</span>
 						<span>/</span>
-						<span class="font-semibold text-slate-900 dark:text-slate-100"
+						<span class="font-bold text-slate-900 dark:text-slate-100"
 							>{activeModule.title}</span
 						>
 					{/if}
 				</div>
 			</div>
 
-			<div class="flex items-center gap-2.5">
+			<div class="flex items-center gap-3">
 				<CommandPalette />
 				<ThemeToggle />
 			</div>

@@ -44,30 +44,32 @@
 	let interactiveSnippet = $derived(children ?? lab ?? sandbox);
 </script>
 
-<div class="grid grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-2">
+<div class="grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-2">
 	<!-- Left Column: Guide & CodeBlock -->
 	<div class="prose flex max-w-none flex-col justify-start prose-slate dark:prose-invert">
-		<div class="not-prose mb-2">
+		<div class="not-prose mb-3">
 			<span
-				class="inline-block rounded bg-indigo-50 px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider text-indigo-600 uppercase dark:bg-indigo-950/50 dark:text-indigo-400"
+				class="inline-block rounded-md bg-indigo-50 px-3 py-1 font-mono text-sm font-bold tracking-wider text-indigo-600 uppercase dark:bg-indigo-950/60 dark:text-indigo-400"
 			>
 				{mod?.category ?? 'Architecture Guide'}
 			</span>
 		</div>
 
-		<h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-white">
+		<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
 			{title}
 		</h1>
-		<p class="text-sm text-slate-600 dark:text-slate-400">{description}</p>
+		<p class="text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">{description}</p>
 
 		{#if codeHtml}
-			<div class="not-prose">
+			<div class="not-prose my-2">
 				<CodeBlock {codeHtml} {rawCode} {filename} />
 			</div>
 		{/if}
 
 		{#if guide}
-			{@render guide()}
+			<div class="space-y-4 text-base sm:text-lg leading-relaxed [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mt-2">
+				{@render guide()}
+			</div>
 		{/if}
 	</div>
 

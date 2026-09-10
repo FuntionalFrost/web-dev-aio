@@ -37,7 +37,7 @@
 			rpcResponse = JSON.stringify(
 				{
 					status: 201,
-					endpoint: 'POST /api/users',
+					endpoint: 'POST /api/v1/accounts',
 					payload: {
 						id: `usr_${Math.random().toString(36).substring(2, 9)}`,
 						username,
@@ -46,7 +46,7 @@
 						telemetryConsent: consent,
 						createdAt: new Date().toISOString()
 					},
-					inferredSchemaType: 'CreateUserInput'
+					inferredSchemaType: 'CreateAccountInput'
 				},
 				null,
 				2
@@ -57,19 +57,19 @@
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Architectural Advantages</h3>
+		<h3>Schema Validation (Standard Schema) & Hono RPC</h3>
+		<p class="text-base sm:text-lg">
+			Standard Schema and Hono RPC eliminate boilerplate by providing end-to-end type safety between backend handlers and frontend clients without code-generation steps.
+		</p>
 		<ul>
 			<li>
-				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at build time. Standard Schema
-				/ Zod validates untrusted JSON at the network boundary.
+				<strong>Runtime Boundary Safety:</strong> TypeScript types evaporate at build time. Standard Schema (Zod / Valibot) validates untrusted JSON at the network perimeter.
 			</li>
 			<li>
-				<strong>End-to-End RPCs (Hono RPC):</strong> Exporting route definitions directly to the client
-				enables auto-completion and compile-time contract enforcement without code-generation steps.
+				<strong>End-to-End Type-Safe RPCs:</strong> Exporting route definitions directly enables auto-completion and compile-time contract enforcement.
 			</li>
 			<li>
-				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for third-party
-				consumers.
+				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for external consumers and automated SDK generation.
 			</li>
 		</ul>
 	{/snippet}
@@ -84,67 +84,67 @@
 					e.preventDefault();
 					dispatchRPC();
 				}}
-				class="space-y-4 font-mono text-xs"
+				class="space-y-4 font-mono text-sm"
 			>
 				<div>
-					<label for="username" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300">
+					<label for="username" class="mb-1 block font-bold text-slate-700 dark:text-slate-300">
 						username: z.string().min(3).max(20)
 					</label>
 					<input
 						id="username"
 						type="text"
 						bind:value={username}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 {validationErrors.username
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 {validationErrors.username
 							? 'border-rose-500 bg-rose-50/20'
 							: ''}"
 					/>
 					{#if validationErrors.username}
-						<span class="mt-1 block text-[10px] text-rose-500">{validationErrors.username}</span>
+						<span class="mt-1 block text-sm font-bold text-rose-500">{validationErrors.username}</span>
 					{/if}
 				</div>
 
 				<div>
-					<label for="email" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300">
+					<label for="email" class="mb-1 block font-bold text-slate-700 dark:text-slate-300">
 						email: z.string().email()
 					</label>
 					<input
 						id="email"
 						type="text"
 						bind:value={email}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 {validationErrors.email
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 {validationErrors.email
 							? 'border-rose-500 bg-rose-50/20'
 							: ''}"
 					/>
 					{#if validationErrors.email}
-						<span class="mt-1 block text-[10px] text-rose-500">{validationErrors.email}</span>
+						<span class="mt-1 block text-sm font-bold text-rose-500">{validationErrors.email}</span>
 					{/if}
 				</div>
 
 				<div class="grid grid-cols-2 gap-4">
 					<div>
-						<label for="role" class="mb-1 block font-semibold text-slate-700 dark:text-slate-300">
+						<label for="role" class="mb-1 block font-bold text-slate-700 dark:text-slate-300">
 							role: z.enum()
 						</label>
 						<select
 							id="role"
 							bind:value={role}
-							class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+							class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 						>
 							<option value="admin">admin</option>
 							<option value="member">member</option>
 							<option value="viewer">viewer</option>
 						</select>
 					</div>
-					<div class="flex items-center gap-2 pt-6">
+					<div class="flex items-center gap-2 pt-7">
 						<input
 							id="consent"
 							type="checkbox"
 							bind:checked={consent}
-							class="rounded border-slate-300 text-indigo-600 dark:border-slate-700"
+							class="h-4 w-4 rounded border-slate-300 text-indigo-600 dark:border-slate-700"
 						/>
 						<label
 							for="consent"
-							class="cursor-pointer text-[11px] text-slate-700 dark:text-slate-300"
+							class="cursor-pointer text-sm font-bold text-slate-700 dark:text-slate-300"
 						>
 							telemetryConsent
 						</label>
@@ -154,7 +154,7 @@
 				<button
 					type="submit"
 					disabled={!isValid || isSubmitting}
-					class="w-full rounded-xl bg-indigo-600 py-2.5 font-semibold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
+					class="w-full rounded-xl bg-indigo-600 py-3 font-bold text-base text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500 disabled:opacity-40"
 				>
 					{isSubmitting ? 'Validating & Invoking RPC...' : 'Dispatch Type-Safe RPC Call'}
 				</button>
@@ -162,13 +162,13 @@
 
 			<!-- Response Telemetry -->
 			<div
-				class="rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
+				class="rounded-2xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm dark:border-slate-800 dark:bg-slate-950"
 			>
-				<span class="text-[11px] tracking-wider text-slate-400 uppercase"
+				<span class="text-xs font-bold tracking-wider text-slate-400 uppercase"
 					>Typed RPC Server Response:</span
 				>
 				<pre
-					class="mt-2 overflow-x-auto whitespace-pre-wrap text-indigo-600 dark:text-indigo-300">{rpcResponse ||
+					class="mt-2 overflow-x-auto whitespace-pre-wrap text-sm text-indigo-600 dark:text-indigo-300">{rpcResponse ||
 						'// Inferred payload will appear here after RPC dispatch...'}</pre>
 			</div>
 		</LabCard>

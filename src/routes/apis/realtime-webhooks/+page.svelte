@@ -63,35 +63,38 @@
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Architectural Comparison: SSE vs. WebSockets</h3>
+		<h3>Real-Time Streaming & Webhook Signatures</h3>
+		<p class="text-base sm:text-lg">
+			Choosing between unidirectional Server-Sent Events (SSE) and bidirectional WebSockets, and protecting webhook endpoints with timing-safe signature verification.
+		</p>
 		<div class="not-prose my-4 overflow-x-auto">
 			<table
-				class="w-full overflow-hidden rounded-xl border border-slate-200 text-left font-mono text-xs dark:border-slate-800"
+				class="w-full overflow-hidden rounded-2xl border border-slate-200 text-left font-mono text-sm dark:border-slate-800"
 			>
 				<thead
 					class="border-b border-slate-200 bg-slate-100 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
 				>
 					<tr>
-						<th class="p-3">Protocol</th>
-						<th class="p-3">Direction</th>
-						<th class="p-3">Transport</th>
-						<th class="p-3">Ideal Use Case</th>
+						<th class="p-3.5 font-bold">Protocol</th>
+						<th class="p-3.5 font-bold">Direction</th>
+						<th class="p-3.5 font-bold">Transport</th>
+						<th class="p-3.5 font-bold">Ideal Use Case</th>
 					</tr>
 				</thead>
 				<tbody
 					class="divide-y divide-slate-200 bg-white text-slate-600 dark:divide-slate-800/60 dark:bg-slate-950/40 dark:text-slate-400"
 				>
 					<tr>
-						<td class="p-3 font-semibold text-slate-900 dark:text-slate-200">Server-Sent Events</td>
-						<td class="p-3 text-indigo-600 dark:text-indigo-400">Server → Client</td>
-						<td class="p-3">Standard HTTP/2+</td>
-						<td class="p-3">AI completions, price tickers, dashboard telemetry</td>
+						<td class="p-3.5 font-bold text-slate-900 dark:text-slate-200">Server-Sent Events</td>
+						<td class="p-3.5 font-bold text-indigo-600 dark:text-indigo-400">Server → Client</td>
+						<td class="p-3.5">Standard HTTP/2+</td>
+						<td class="p-3.5">AI LLM tokens, price tickers, dashboard telemetry</td>
 					</tr>
 					<tr>
-						<td class="p-3 font-semibold text-slate-900 dark:text-slate-200">WebSockets</td>
-						<td class="p-3 text-emerald-600 dark:text-emerald-400">Bidirectional</td>
-						<td class="p-3">WS / WSS upgrade</td>
-						<td class="p-3">Multiplayer gaming, collaborative whiteboards, chat</td>
+						<td class="p-3.5 font-bold text-slate-900 dark:text-slate-200">WebSockets</td>
+						<td class="p-3.5 font-bold text-emerald-600 dark:text-emerald-400">Bidirectional</td>
+						<td class="p-3.5">WS / WSS upgrade</td>
+						<td class="p-3.5">Multiplayer gaming, collaborative whiteboards, live chat</td>
 					</tr>
 				</tbody>
 			</table>
@@ -102,48 +105,50 @@
 		<!-- Card 1: SSE Stream Visualizer -->
 		<LabCard
 			title="Server-Sent Events (SSE) Stream"
-			badge={isSSEConnected ? 'Active Connection' : 'Disconnected'}
+			badge={isSSEConnected ? 'Active Stream' : 'Disconnected'}
 		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
-			>
-				<span class="font-mono text-xs text-slate-500">HTTP/2 Unidirectional Stream</span>
-				<button
-					onclick={toggleSSE}
-					class="rounded-xl px-3.5 py-1.5 font-mono text-xs font-semibold text-white transition {isSSEConnected
-						? 'bg-rose-600 hover:bg-rose-500'
-						: 'bg-emerald-600 hover:bg-emerald-500'}"
+			<div class="space-y-4 font-mono text-sm">
+				<div
+					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"
 				>
-					{isSSEConnected ? 'Disconnect Stream' : 'Connect SSE Stream'}
-				</button>
-			</div>
-
-			<div class="space-y-2">
-				{#each sseMessages as msg (msg.id)}
-					<div
-						class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-2.5 font-mono text-xs dark:border-slate-800 dark:bg-slate-950"
+					<span class="text-sm font-bold text-slate-600 dark:text-slate-400">HTTP/2 Unidirectional Stream</span>
+					<button
+						onclick={toggleSSE}
+						class="rounded-xl px-4 py-2 font-bold text-sm text-white transition {isSSEConnected
+							? 'bg-rose-600 hover:bg-rose-500'
+							: 'bg-emerald-600 hover:bg-emerald-500'}"
 					>
-						<span class="text-slate-500">[{msg.timestamp}]</span>
-						<span class="font-bold text-slate-900 dark:text-white">{msg.ticker}</span>
-						<span class="font-bold text-indigo-600 dark:text-indigo-400">${msg.price}</span>
-					</div>
-				{:else}
-					<div class="p-4 text-center font-mono text-xs text-slate-400">
-						{isSSEConnected
-							? 'Streaming ticker frames...'
-							: 'Click "Connect SSE Stream" to receive data frames.'}
-					</div>
-				{/each}
+						{isSSEConnected ? 'Disconnect Stream' : 'Connect SSE Stream'}
+					</button>
+				</div>
+
+				<div class="space-y-2">
+					{#each sseMessages as msg (msg.id)}
+						<div
+							class="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
+						>
+							<span class="text-slate-500">[{msg.timestamp}]</span>
+							<span class="font-bold text-base text-slate-900 dark:text-white">{msg.ticker}</span>
+							<span class="font-bold text-base text-indigo-600 dark:text-indigo-400">${msg.price}</span>
+						</div>
+					{:else}
+						<div class="p-6 text-center text-sm text-slate-400">
+							{isSSEConnected
+								? 'Streaming ticker frames...'
+								: 'Click "Connect SSE Stream" to receive real-time data frames.'}
+						</div>
+					{/each}
+				</div>
 			</div>
 		</LabCard>
 
 		<!-- Card 2: Webhook HMAC-SHA256 Signer -->
-		<LabCard title="Webhook HMAC-SHA256 Signer" badge="Timing-Safe Guard">
-			<div class="space-y-3 font-mono text-xs">
+		<LabCard title="Webhook HMAC-SHA256 Signer" badge="Timing-Safe Verification">
+			<div class="space-y-3 font-mono text-sm">
 				<div>
 					<label
 						for="wh-payload"
-						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
+						class="mb-1 block font-bold text-slate-700 dark:text-slate-300"
 					>
 						Incoming Webhook JSON Payload:
 					</label>
@@ -151,14 +156,14 @@
 						id="wh-payload"
 						rows="2"
 						bind:value={webhookPayload}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 p-2.5 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-base text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 					></textarea>
 				</div>
 
 				<div>
 					<label
 						for="wh-secret"
-						class="mb-1 block font-semibold text-slate-700 dark:text-slate-300"
+						class="mb-1 block font-bold text-slate-700 dark:text-slate-300"
 					>
 						Signing Secret (whsec_...):
 					</label>
@@ -166,15 +171,15 @@
 						id="wh-secret"
 						type="text"
 						bind:value={webhookSecret}
-						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+						class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base text-slate-900 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
 					/>
 				</div>
 
 				<div
-					class="rounded-xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950"
+					class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 				>
-					<span class="text-[10px] text-slate-400 uppercase">Calculated X-Signature-256:</span>
-					<p class="mt-1 text-xs font-bold break-all text-emerald-600 dark:text-emerald-400">
+					<span class="text-xs font-bold text-slate-400 uppercase">Calculated X-Signature-256:</span>
+					<p class="mt-1 text-sm font-bold break-all text-emerald-600 dark:text-emerald-400">
 						{computedSignature}
 					</p>
 				</div>

@@ -4,7 +4,7 @@
 
 @plugin '@tailwindcss/typography';
 
-/* 1. Shiki Syntax Highlighting & Typography */
+/* 1. Shiki Syntax Highlighting & Readable Typography */
 .shiki {
 	background-color: transparent !important;
 	font-family: var(
@@ -16,8 +16,8 @@
 		Consolas,
 		monospace
 	) !important;
-	font-size: 0.84rem !important; /* Crisp ~13.5px font size */
-	line-height: 1.7 !important;
+	font-size: 0.95rem !important; /* Highly readable font size (~15.2px) */
+	line-height: 1.75 !important;
 }
 
 .shiki code {
@@ -64,4 +64,5 @@ input:user-invalid {
 html {
 	scrollbar-gutter: stable;
 	scroll-behavior: smooth;
+	font-size: 16px;
 }

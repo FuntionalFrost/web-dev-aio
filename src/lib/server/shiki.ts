@@ -6,7 +6,7 @@ export async function getHighlighter(): Promise<Highlighter> {
 	if (!highlighterPromise) {
 		highlighterPromise = createHighlighter({
 			themes: ['github-light', 'github-dark-dimmed'],
-			langs: ['typescript', 'javascript', 'html', 'css', 'svelte', 'vue', 'json']
+			langs: ['typescript', 'javascript', 'html', 'css', 'svelte', 'vue', 'json', 'yaml', 'bash']
 		});
 	}
 	return highlighterPromise;

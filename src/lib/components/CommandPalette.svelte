@@ -44,16 +44,16 @@
 <!-- Prominent Navbar Search Trigger -->
 <button
 	onclick={() => (isOpen = true)}
-	class="flex h-9 w-44 items-center justify-between rounded-xl border border-slate-200 bg-slate-100/80 px-3 font-mono text-xs text-slate-500 transition hover:border-slate-300 hover:bg-slate-200/60 sm:w-64 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400 dark:hover:border-slate-700 dark:hover:bg-slate-800/80"
+	class="flex h-10 w-48 items-center justify-between rounded-xl border border-slate-200 bg-slate-100/80 px-3.5 font-mono text-sm text-slate-600 transition hover:border-slate-300 hover:bg-slate-200/60 sm:w-72 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800/80"
 	aria-label="Open search command palette"
 >
-	<span class="flex items-center gap-2">
+	<span class="flex items-center gap-2.5">
 		<span>🔍</span>
 		<span class="hidden sm:inline">Search labs...</span>
 		<span class="sm:hidden">Search...</span>
 	</span>
 	<kbd
-		class="rounded border border-slate-300 bg-white px-1.5 py-0.5 text-[10px] font-semibold text-slate-500 shadow-xs dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
+		class="rounded-md border border-slate-300 bg-white px-2 py-0.5 font-mono text-sm font-semibold text-slate-600 shadow-xs dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
 	>
 		⌘K
 	</kbd>
@@ -75,47 +75,47 @@
 			aria-modal="true"
 			onclick={(e) => e.stopPropagation()}
 			onkeydown={(e) => e.stopPropagation()}
-			class="w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+			class="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
 		>
 			<div class="flex items-center border-b border-slate-200 px-4 dark:border-slate-800">
-				<span class="text-slate-400">🔍</span>
+				<span class="text-lg text-slate-400">🔍</span>
 				<input
 					use:focusOnMount
 					type="text"
 					bind:value={searchQuery}
-					placeholder="Search modules, tech tags, or topics..."
-					class="h-12 w-full bg-transparent px-3 font-mono text-xs text-slate-900 focus:outline-none dark:text-slate-100"
+					placeholder="Search modules, tech tags, or topics (e.g. Svelte, Nitro, Bun, Adapters)..."
+					class="h-14 w-full bg-transparent px-3 font-mono text-base text-slate-900 focus:outline-none dark:text-slate-100"
 				/>
 				<button
 					onclick={() => (isOpen = false)}
-					class="rounded px-1.5 py-0.5 font-mono text-[11px] text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+					class="rounded-lg px-2 py-1 font-mono text-sm font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-200"
 				>
 					ESC
 				</button>
 			</div>
 
-			<div class="max-h-80 overflow-y-auto p-2">
+			<div class="max-h-96 overflow-y-auto p-3">
 				{#each filtered as mod (mod.id)}
 					<button
 						onclick={() => selectModule(mod.href)}
-						class="flex w-full items-start justify-between rounded-xl p-3 text-left transition hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
+						class="flex w-full items-start justify-between rounded-xl p-3.5 text-left transition hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
 					>
-						<div class="space-y-0.5">
-							<span class="block font-mono text-xs font-bold text-slate-900 dark:text-slate-100">
+						<div class="space-y-1 pr-3">
+							<span class="block font-mono text-base font-bold text-slate-900 dark:text-slate-100">
 								{mod.title}
 							</span>
-							<span class="line-clamp-1 block text-[11px] text-slate-500 dark:text-slate-400">
+							<span class="line-clamp-1 block text-sm text-slate-600 dark:text-slate-300">
 								{mod.description}
 							</span>
 						</div>
 						<span
-							class="shrink-0 rounded bg-slate-100 px-2 py-0.5 font-mono text-[10px] text-slate-600 dark:bg-slate-800 dark:text-slate-400"
+							class="shrink-0 rounded-md bg-slate-100 px-2.5 py-1 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
 						>
 							{mod.category}
 						</span>
 					</button>
 				{:else}
-					<div class="p-8 text-center font-mono text-xs text-slate-400">
+					<div class="p-10 text-center font-mono text-base text-slate-500 dark:text-slate-400">
 						No matching engineering labs found.
 					</div>
 				{/each}

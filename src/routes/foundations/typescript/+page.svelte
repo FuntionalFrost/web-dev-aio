@@ -5,159 +5,79 @@
 
 	let { data }: { data: PageData } = $props();
 
-	type PayloadData = { records: number; checksum: string };
-	type NetworkState =
-		| { status: 'idle' }
-		| { status: 'loading'; progress: number }
-		| { status: 'success'; data: PayloadData; timestamp: number }
-		| { status: 'error'; code: number; message: string };
+	type AuthEvent =
+		| { type: 'LOGIN'; userId: string; timestamp: number }
+		| { type: 'LOGOUT'; userId: string }
+		| { type: 'PASSWORD_RESET_REQUEST'; email: string };
 
-	let currentState = $state<NetworkState>({ status: 'idle' });
-	let uploadTimer: ReturnType<typeof setInterval> | null = null;
+	let selectedEventType = $state<AuthEvent['type']>('LOGIN');
+	let samplePayload = $derived(
+		selectedEventType === 'LOGIN'
+			? { type: 'LOGIN', userId: 'usr_2026', timestamp: Date.now() }
+			: selectedEventType === 'LOGOUT'
+			? { type: 'LOGOUT', userId: 'usr_2026' }
+			: { type: 'PASSWORD_RESET_REQUEST', email: 'dev@example.com' }
+	);
 
-	function setIdle() {
-		if (uploadTimer) clearInterval(uploadTimer);
-		currentState = { status: 'idle' };
-	}
-
-	function simulateLoad() {
-		if (uploadTimer) clearInterval(uploadTimer);
-		currentState = { status: 'loading', progress: 0 };
-
-		uploadTimer = setInterval(() => {
-			if (currentState.status === 'loading') {
-				if (currentState.progress < 100) {
-					currentState = { status: 'loading', progress: currentState.progress + 25 };
-				} else {
-					clearInterval(uploadTimer!);
-					currentState = {
-						status: 'success',
-						data: { records: 1420, checksum: '0x8F9A' },
-						timestamp: Date.now()
-					};
-				}
-			}
-		}, 350);
-	}
-
-	function simulateError() {
-		if (uploadTimer) clearInterval(uploadTimer);
-		currentState = {
-			status: 'error',
-			code: 429,
-			message: 'Rate limit exceeded. Exponential backoff required.'
-		};
+	function getNarrowedSummary(event: AuthEvent): string {
+		switch (event.type) {
+			case 'LOGIN':
+				return `[LOGIN] User ${event.userId} authenticated at ${new Date(event.timestamp).toLocaleTimeString()}`;
+			case 'LOGOUT':
+				return `[LOGOUT] User ${event.userId} terminated active session`;
+			case 'PASSWORD_RESET_REQUEST':
+				return `[RESET] Reset token dispatched to ${event.email}`;
+		}
 	}
 </script>
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Core Advantages</h3>
+		<h3>TypeScript 6 & Modern Strict Typing</h3>
+		<p class="text-base sm:text-lg">
+			TypeScript 6 provides sound type inference, const type parameters, the <code>satisfies</code> operator, and strict discriminated unions.
+		</p>
 		<ul>
 			<li>
-				<strong>Discriminated Unions:</strong> Narrow object properties safely with standard control flow.
+				<strong>The <code>satisfies</code> Operator:</strong> Enforces that an expression matches an interface without widening literal string or numeric types to general primitives.
 			</li>
 			<li>
-				<strong>Exhaustiveness Checking:</strong> Enforce total union coverage using the
-				<code>never</code> type.
+				<strong>Const Type Parameters:</strong> Allows generic functions to infer literal tuple and object types automatically at the call site without requiring <code>as const</code>.
 			</li>
 			<li>
-				<strong>The <code>satisfies</code> Operator:</strong> Validates interfaces while retaining specific
-				literal types.
+				<strong>Discriminated Unions & Exhaustiveness:</strong> Guarantees that all variants of an event or state machine are handled safely at compile time.
 			</li>
 		</ul>
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="Union State Machine Visualizer" badge={`status: "${currentState.status}"`}>
-			<div class="flex flex-wrap gap-2 font-mono text-xs">
-				<button
-					onclick={setIdle}
-					class="rounded-lg border border-slate-300 bg-slate-100 px-3 py-2 text-slate-800 transition hover:bg-slate-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
-				>
-					Dispatch 'idle'
-				</button>
-				<button
-					onclick={simulateLoad}
-					class="rounded-lg bg-indigo-600 px-3 py-2 text-white transition hover:bg-indigo-500"
-				>
-					Dispatch 'loading' → 'success'
-				</button>
-				<button
-					onclick={simulateError}
-					class="rounded-lg bg-rose-600 px-3 py-2 text-white transition hover:bg-rose-500"
-				>
-					Dispatch 'error'
-				</button>
-			</div>
-
-			<div
-				class="space-y-4 rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
-			>
-				<div
-					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-900"
-				>
-					<span class="font-mono text-[11px] text-slate-500 uppercase">Narrowed Type State</span>
-					<span
-						class="rounded px-2 py-0.5 font-mono text-xs font-bold uppercase {currentState.status ===
-						'idle'
-							? 'bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400'
-							: currentState.status === 'loading'
-								? 'bg-amber-100 text-amber-800 dark:bg-amber-500/20 dark:text-amber-300'
-								: currentState.status === 'success'
-									? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-emerald-300'
-									: 'bg-rose-100 text-rose-800 dark:bg-rose-500/20 dark:text-rose-300'}"
-					>
-						{currentState.status}
-					</span>
+		<LabCard title="Discriminated Union Exhaustiveness Visualizer" badge="Strict Narrowing">
+			<div class="space-y-4 font-mono text-sm">
+				<div>
+					<div class="block mb-1.5 font-bold text-slate-700 dark:text-slate-300">Select Event Variant:</div>
+					<div class="grid grid-cols-3 gap-2">
+						{#each (['LOGIN', 'LOGOUT', 'PASSWORD_RESET_REQUEST'] as const) as evt}
+							<button
+								onclick={() => (selectedEventType = evt)}
+								class="rounded-xl border p-2.5 text-center font-bold text-sm transition {selectedEventType === evt
+									? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
+									: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
+							>
+								{evt}
+							</button>
+						{/each}
+					</div>
 				</div>
 
-				{#if currentState.status === 'idle'}
-					<div class="py-6 text-center font-mono text-xs text-slate-500">
-						State is idle. No payload or errors active.
-					</div>
-				{:else if currentState.status === 'loading'}
-					<div class="space-y-2 font-mono text-xs">
-						<div class="flex justify-between text-slate-600 dark:text-slate-400">
-							<span>Streaming stream buffer...</span>
-							<span class="font-bold text-amber-600 dark:text-amber-300"
-								>{currentState.progress}%</span
-							>
-						</div>
-						<div class="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-900">
-							<div
-								class="h-full bg-amber-500 transition-all duration-300"
-								style="width: {currentState.progress}%"
-							></div>
-						</div>
-					</div>
-				{:else if currentState.status === 'success'}
-					<div class="grid grid-cols-2 gap-3 font-mono text-xs">
-						<div
-							class="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
-						>
-							<span class="text-[10px] text-slate-500 uppercase">Records Received</span>
-							<p class="mt-0.5 text-lg font-bold text-emerald-600 dark:text-emerald-400">
-								{currentState.data.records}
-							</p>
-						</div>
-						<div
-							class="rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
-						>
-							<span class="text-[10px] text-slate-500 uppercase">Checksum Hash</span>
-							<p class="mt-0.5 text-lg font-bold text-slate-800 dark:text-slate-200">
-								{currentState.data.checksum}
-							</p>
-						</div>
-					</div>
-				{:else if currentState.status === 'error'}
-					<div
-						class="space-y-1 rounded-lg border border-rose-200 bg-rose-50 p-4 font-mono text-xs text-rose-800 dark:border-rose-900/50 dark:bg-rose-950/30 dark:text-rose-300"
-					>
-						<div class="font-bold">HTTP Error Code: {currentState.code}</div>
-						<div class="text-[11px] text-rose-700 dark:text-rose-400">{currentState.message}</div>
-					</div>
-				{/if}
+				<div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950 space-y-2">
+					<span class="text-sm font-bold text-slate-500 uppercase">Evaluated Payload:</span>
+					<pre class="overflow-x-auto text-sm text-slate-800 dark:text-slate-200">{JSON.stringify(samplePayload, null, 2)}</pre>
+				</div>
+
+				<div class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3.5 dark:border-indigo-900 dark:bg-indigo-950/30">
+					<span class="text-sm font-bold text-indigo-700 dark:text-indigo-300">Exhaustive Narrowing Output:</span>
+					<p class="mt-1 text-base font-bold text-slate-900 dark:text-white">{getNarrowedSummary(samplePayload as AuthEvent)}</p>
+				</div>
 			</div>
 		</LabCard>
 	{/snippet}

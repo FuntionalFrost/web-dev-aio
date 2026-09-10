@@ -9,7 +9,9 @@ const EXTENSIONS: Record<string, string> = {
 	svelte: 'svelte',
 	vue: 'vue',
 	css: 'css',
-	json: 'json'
+	json: 'json',
+	yaml: 'yaml',
+	bash: 'sh'
 };
 
 export interface LabPageData {
