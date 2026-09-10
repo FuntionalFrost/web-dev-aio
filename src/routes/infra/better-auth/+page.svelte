@@ -67,7 +67,7 @@
 		<h3>Modern Authentication, Passkeys & Better Auth</h3>
 		<p class="text-base sm:text-lg">
 			Better Auth provides a comprehensive TypeScript authentication runtime with passwordless
-			WebAuthn passkeys, HttpOnly cookie rotation, and organization multi-tenancy.
+			WebAuthn passkeys, HttpOnly cookie rotation, and organisation multi-tenancy.
 		</p>
 		<ul>
 			<li>
@@ -87,9 +87,9 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<!-- Simulator 1: Better Auth Session Visualizer -->
+		<!-- Simulator 1: Better Auth Session Visualiser -->
 		<LabCard
-			title="Better Auth Session Visualizer"
+			title="Better Auth Session Visualiser"
 			badge={currentSession ? 'Authenticated' : 'Unauthenticated'}
 		>
 			{#if !currentSession}
@@ -154,7 +154,7 @@
 						<div
 							class="rounded-xl border border-slate-200 bg-slate-50 p-3.5 dark:border-slate-800 dark:bg-slate-950"
 						>
-							<span class="text-sm font-bold text-slate-400 uppercase">Organization</span>
+							<span class="text-sm font-bold text-slate-400 uppercase">Organisation</span>
 							<p class="mt-1 text-base font-bold text-indigo-600 dark:text-indigo-400">
 								{currentSession.activeOrg}
 							</p>

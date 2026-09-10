@@ -68,7 +68,7 @@
 				high-performance Cloudflare V8 Edge Isolates.
 			</li>
 			<li>
-				<strong><code>@sveltejs/adapter-node</code>:</strong> Produces a standalone Node.js server containerized
+				<strong><code>@sveltejs/adapter-node</code>:</strong> Produces a standalone Node.js server containerised
 				easily with Docker.
 			</li>
 			<li>

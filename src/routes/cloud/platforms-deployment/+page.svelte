@@ -67,15 +67,15 @@
 		<h3>Cloud Platforms: Cloudflare Workers, Vercel & Netlify</h3>
 		<p class="text-base sm:text-lg">
 			Comparing cloud deployment architectures for Nuxt and SvelteKit applications across V8 Edge
-			Isolates and containerized Serverless Functions.
+			Isolates and containerised Serverless Functions.
 		</p>
 		<ul>
 			<li>
-				<strong>V8 Isolates vs Containerized Node:</strong> Cloudflare Workers spin up in 0–5ms by sharing
+				<strong>V8 Isolates vs Containerised Node:</strong> Cloudflare Workers spin up in 0–5ms by sharing
 				a single V8 runtime process, whereas standard Node lambdas incur container cold starts.
 			</li>
 			<li>
-				<strong>Bandwidth & Egress Optimization:</strong> Evaluating egress fees and static asset caching
+				<strong>Bandwidth & Egress Optimisation:</strong> Evaluating egress fees and static asset caching
 				policies across platforms.
 			</li>
 			<li>

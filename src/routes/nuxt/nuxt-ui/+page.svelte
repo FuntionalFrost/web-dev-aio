@@ -49,7 +49,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="CVA Token Variant Synthesizer" badge="Headless UI Primitives">
+		<LabCard title="CVA Token Variant Synthesiser" badge="Headless UI Primitives">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-2 gap-4">
 					<div>

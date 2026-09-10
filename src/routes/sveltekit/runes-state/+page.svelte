@@ -8,7 +8,7 @@
 	// Universal class-based state module using Svelte 5 Runes
 	class StoreModule {
 		items = $state<{ id: string; name: string; price: number }[]>([
-			{ id: '1', name: 'Web Engine 2026 Core License', price: 99 },
+			{ id: '1', name: 'Web Engine 2026 Core Licence', price: 99 },
 			{ id: '2', name: 'Edge Microservice Blueprint', price: 49 }
 		]);
 

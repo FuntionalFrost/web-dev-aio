@@ -55,7 +55,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="Discriminated Union Exhaustiveness Visualizer" badge="Strict Narrowing">
+		<LabCard title="Discriminated Union Exhaustiveness Visualiser" badge="Strict Narrowing">
 			<div class="space-y-4 font-mono text-sm">
 				<div>
 					<div class="mb-1.5 block font-bold text-slate-700 dark:text-slate-300">

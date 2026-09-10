@@ -174,7 +174,7 @@
 						<div
 							class="col-span-full rounded-xl border border-dashed border-slate-300 p-6 text-center text-sm text-slate-500 dark:border-slate-800"
 						>
-							No active resource scopes initialized.
+							No active resource scopes initialised.
 						</div>
 					{/each}
 				</div>

@@ -387,7 +387,7 @@ setTimeout(() => resolve('Async pipeline ready'), 1000);`
 <div class="p-6 border rounded-2xl bg-white dark:bg-slate-900">
   <h2 class="text-xl font-bold">{title} (Total: \${cart.total})</h2>
   <button 
-    onclick={() => cart.addItem('Pro License', 49)} 
+    onclick={() => cart.addItem('Pro Licence', 49)} 
     class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl text-base"
   >
     Add Item (\${cart.items.length})
@@ -604,7 +604,7 @@ export const buttonStyles = cva(
 	},
 
 	// ==========================================
-	// Track 6: Rendering, Serialization & Security
+	// Track 6: Rendering, Serialisation & Security
 	// ==========================================
 	'rendering/strategies': {
 		lang: 'typescript',
@@ -653,7 +653,7 @@ export const strategies: Record<RenderingStrategy, StrategyMetrics> = {
 
 	'rendering/hydration-serialization': {
 		lang: 'typescript',
-		code: `// Complex Data Serialization across the Network Boundary
+		code: `// Complex Data Serialisation across the Network Boundary
 import { stringify, parse } from 'devalue';
 
 // Objects containing Dates, Sets, Maps, BigInts, and Circular References
@@ -665,8 +665,8 @@ const complexPayload = {
 };
 
 // devalue encodes complex JS types safely without data loss
-const serialized = stringify(complexPayload);
-const reconstructed = parse(serialized);
+const serialised = stringify(complexPayload);
+const reconstructed = parse(serialised);
 
 console.log(reconstructed.sessionId === 9007199254740993n); // true
 console.log(reconstructed.activeTags instanceof Set);       // true`
@@ -852,7 +852,7 @@ export const auth = betterAuth({
 	},
 
 	// ==========================================
-	// Track 8: Cloud, Operations, Monetization & Licenses
+	// Track 8: Cloud, Operations, Monetisation & Licences
 	// ==========================================
 	'cloud/platforms-deployment': {
 		lang: 'typescript',
@@ -956,7 +956,7 @@ import { Resend } from 'resend';
 const polar = new Polar({ accessToken: process.env.POLAR_ACCESS_TOKEN });
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Polar.sh Merchant of Record (MoR) automated subscription & checkout checkout session
+// Polar.sh Merchant of Record (MoR) automated subscription & checkout session
 export async function createCheckout(customerEmail: string, productId: string) {
   const checkout = await polar.checkouts.custom.create({
     productId,
@@ -970,8 +970,8 @@ export async function createCheckout(customerEmail: string, productId: string) {
 
 	'business/software-licenses': {
 		lang: 'typescript',
-		code: `// Open Source & Commercial Software License Matrix
-export interface SoftwareLicense {
+		code: `// Open Source & Commercial Software Licence Matrix
+export interface SoftwareLicence {
   spdx: string;
   name: string;
   category: 'Permissive' | 'Weak Copyleft' | 'Strong Copyleft' | 'Source-Available';
@@ -981,10 +981,10 @@ export interface SoftwareLicense {
   summary: string;
 }
 
-export const licenses: SoftwareLicense[] = [
+export const licences: SoftwareLicence[] = [
   {
     spdx: 'MIT',
-    name: 'MIT License',
+    name: 'MIT Licence',
     category: 'Permissive',
     commercialUse: true,
     patentGrant: false,
@@ -993,16 +993,16 @@ export const licenses: SoftwareLicense[] = [
   },
   {
     spdx: 'Apache-2.0',
-    name: 'Apache License 2.0',
+    name: 'Apache Licence 2.0',
     category: 'Permissive',
     commercialUse: true,
     patentGrant: true,
     disclosureRequired: false,
-    summary: 'Permissive license that provides an express grant of patent rights and trademark protections.'
+    summary: 'Permissive licence that provides an express grant of patent rights and trademark protections.'
   },
   {
     spdx: 'GPL-3.0',
-    name: 'GNU General Public License v3',
+    name: 'GNU General Public Licence v3',
     category: 'Strong Copyleft',
     commercialUse: true,
     patentGrant: true,
@@ -1011,7 +1011,7 @@ export const licenses: SoftwareLicense[] = [
   },
   {
     spdx: 'AGPL-3.0',
-    name: 'GNU Affero General Public License v3',
+    name: 'GNU Affero General Public Licence v3',
     category: 'Strong Copyleft',
     commercialUse: true,
     patentGrant: true,
@@ -1020,7 +1020,7 @@ export const licenses: SoftwareLicense[] = [
   },
   {
     spdx: 'BSL-1.1',
-    name: 'Business Source License 1.1',
+    name: 'Business Source Licence 1.1',
     category: 'Source-Available',
     commercialUse: false,
     patentGrant: true,

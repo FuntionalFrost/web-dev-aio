@@ -30,7 +30,7 @@
 		<ul>
 			<li>
 				<strong>Universal Data Fetching (<code>useAsyncData</code>):</strong> Prevents double-fetching
-				during client hydration by serializing server-fetched data in the SSR payload.
+				during client hydration by serialising server-fetched data in the SSR payload.
 			</li>
 			<li>
 				<strong>Deduplication Keys:</strong> Key-based cache management ensures multiple components requesting

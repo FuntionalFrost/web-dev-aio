@@ -20,13 +20,13 @@
 	{#snippet guide()}
 		<h3>SEO, Metadata & Privacy-First Web Analytics</h3>
 		<p class="text-base sm:text-lg">
-			Optimizing discovery across search engine crawlers and social share cards while collecting
+			Optimising discovery across search engine crawlers and social share cards while collecting
 			privacy-respecting, cookieless telemetry.
 		</p>
 		<ul>
 			<li>
 				<strong>Structured SEO Meta:</strong> Configure Open Graph (OG), Twitter Card, and JSON-LD schema
-				tags to maximize social preview click-through rates.
+				tags to maximise social preview click-through rates.
 			</li>
 			<li>
 				<strong>Privacy-Friendly Analytics (Plausible, Umami, Cloudflare Web Analytics):</strong> Track
@@ -40,7 +40,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="Open Graph Social Preview Visualizer" badge="SEO Card Preview">
+		<LabCard title="Open Graph Social Preview Visualiser" badge="SEO Card Preview">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="space-y-2">
 					<label class="block">

@@ -49,7 +49,7 @@
 
 	{#snippet lab()}
 		<!-- Simulator 1: Dialog & Inert -->
-		<LabCard title="Modal & Inert Visualizer" badge="@starting-style">
+		<LabCard title="Modal & Inert Visualiser" badge="@starting-style">
 			<div class="space-y-4 font-mono text-sm">
 				<div
 					class="flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800"

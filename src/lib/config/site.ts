@@ -6,5 +6,5 @@ export const SITE = {
 	ogImage: 'https://web-engine26.pages.dev/og-card.png',
 	author: 'Web Engine 2026 Team',
 	keywords:
-		'Svelte 5, SvelteKit 2, Async Svelte, Nuxt 4, Vue 3.5, Nitro, Hono, Vite 6, Bun, Deno, Node 24, Tailwind CSS v4, TypeScript 6, Drizzle ORM, Better Auth, Cloudflare Workers, Software Licenses, Monetization, Web Standards'
+		'Svelte 5, SvelteKit 2, Async Svelte, Nuxt 4, Vue 3.5, Nitro, Hono, Vite 6, Bun, Deno, Node 24, Tailwind CSS v4, TypeScript 6, Drizzle ORM, Better Auth, Cloudflare Workers, Software Licences, Monetisation, Web Standards'
 } as const;

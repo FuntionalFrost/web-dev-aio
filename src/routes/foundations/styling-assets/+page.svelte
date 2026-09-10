@@ -34,7 +34,7 @@
 				their parent container width rather than the global viewport width.
 			</li>
 			<li>
-				<strong>Asset Optimization & Immutable Delivery:</strong> Modern bundlers hash static assets
+				<strong>Asset Optimisation & Immutable Delivery:</strong> Modern bundlers hash static assets
 				and serve them with <code>Cache-Control: public, max-age=31536000, immutable</code>.
 			</li>
 		</ul>

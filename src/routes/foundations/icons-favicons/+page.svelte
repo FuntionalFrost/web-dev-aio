@@ -85,7 +85,7 @@
 						<label
 							for="icon-color-picker"
 							class="mb-1 block font-bold text-slate-600 dark:text-slate-400"
-							>Color (Inherits via bg):</label
+							>Colour (Inherits via bg):</label
 						>
 						<input
 							id="icon-color-picker"

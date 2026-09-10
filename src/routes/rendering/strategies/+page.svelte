@@ -36,9 +36,9 @@
 			fcp: '280 - 450ms',
 			seoRating: 'Excellent (Fresh dynamic server HTML)',
 			hostingCost: 'Standard Serverless / Node compute charges',
-			bestFor: 'Personalized user dashboards, authenticated views, dynamic live feeds',
+			bestFor: 'Personalised user dashboards, authenticated views, dynamic live feeds',
 			description:
-				'HTML is synthesized dynamically on every incoming request on the server runtime.'
+				'HTML is synthesised dynamically on every incoming request on the server runtime.'
 		},
 		hybrid: {
 			title: 'Hybrid / Incremental Static Regeneration (ISR)',

@@ -39,7 +39,7 @@
 		</p>
 		<ul>
 			<li>
-				<strong>The <code>catalog:</code> Protocol:</strong> Centralizes dependency versioning in
+				<strong>The <code>catalog:</code> Protocol:</strong> Centralises dependency versioning in
 				<code>pnpm-workspace.yaml</code>, preventing version mismatches across multiple packages in
 				a monorepo.
 			</li>

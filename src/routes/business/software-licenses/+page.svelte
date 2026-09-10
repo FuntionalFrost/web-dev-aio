@@ -5,12 +5,12 @@
 
 	let { data }: { data: PageData } = $props();
 
-	type LicenseCategory =
+	type LicenceCategory =
 		'All' | 'Permissive' | 'Weak Copyleft' | 'Strong Copyleft' | 'Source-Available';
-	let selectedCategory = $state<LicenseCategory>('All');
+	let selectedCategory = $state<LicenceCategory>('All');
 	let selectedSpdx = $state('MIT');
 
-	interface LicenseInfo {
+	interface LicenceInfo {
 		spdx: string;
 		name: string;
 		category: 'Permissive' | 'Weak Copyleft' | 'Strong Copyleft' | 'Source-Available';
@@ -22,10 +22,10 @@
 		idealFor: string;
 	}
 
-	const licenseList: LicenseInfo[] = [
+	const licenceList: LicenceInfo[] = [
 		{
 			spdx: 'MIT',
-			name: 'MIT License',
+			name: 'MIT Licence',
 			category: 'Permissive',
 			commercialUse: true,
 			patentGrant: false,
@@ -38,14 +38,14 @@
 		},
 		{
 			spdx: 'Apache-2.0',
-			name: 'Apache License 2.0',
+			name: 'Apache Licence 2.0',
 			category: 'Permissive',
 			commercialUse: true,
 			patentGrant: true,
 			disclosureRequired: false,
 			networkCopyleft: false,
 			summary:
-				'Permissive license that includes an explicit contributor patent grant and trademark restrictions to protect maintainers against patent litigation.',
+				'Permissive licence that includes an explicit contributor patent grant and trademark restrictions to protect maintainers against patent litigation.',
 			idealFor:
 				'Enterprise open source, foundational backend engines, TypeScript tooling, Rust libraries.'
 		},
@@ -58,12 +58,12 @@
 			disclosureRequired: false,
 			networkCopyleft: false,
 			summary:
-				'Permissive license similar to MIT with an explicit clause prohibiting using author names for product endorsements without permission.',
+				'Permissive licence similar to MIT with an explicit clause prohibiting using author names for product endorsements without permission.',
 			idealFor: 'Academic codebases, systems software, Go standard library ecosystem.'
 		},
 		{
 			spdx: 'MPL-2.0',
-			name: 'Mozilla Public License 2.0',
+			name: 'Mozilla Public Licence 2.0',
 			category: 'Weak Copyleft',
 			commercialUse: true,
 			patentGrant: true,
@@ -76,7 +76,7 @@
 		},
 		{
 			spdx: 'GPL-3.0',
-			name: 'GNU General Public License v3',
+			name: 'GNU General Public Licence v3',
 			category: 'Strong Copyleft',
 			commercialUse: true,
 			patentGrant: true,
@@ -89,7 +89,7 @@
 		},
 		{
 			spdx: 'AGPL-3.0',
-			name: 'GNU Affero General Public License v3',
+			name: 'GNU Affero General Public Licence v3',
 			category: 'Strong Copyleft',
 			commercialUse: true,
 			patentGrant: true,
@@ -102,71 +102,71 @@
 		},
 		{
 			spdx: 'BSL-1.1',
-			name: 'Business Source License 1.1',
+			name: 'Business Source Licence 1.1',
 			category: 'Source-Available',
 			commercialUse: false,
 			patentGrant: true,
 			disclosureRequired: false,
 			networkCopyleft: false,
 			summary:
-				'Source-available license that grants free use for development and non-production, while requiring a paid commercial license for production hosting; automatically converts to open source (e.g. Apache/MIT) after 3-4 years.',
+				'Source-available licence that grants free use for development and non-production, while requiring a paid commercial licence for production hosting; automatically converts to open source (e.g. Apache/MIT) after 3-4 years.',
 			idealFor:
 				'Commercial open-core companies (Sentry, CockroachDB, MariaDB) defending against hyperscaler cloud reselling.'
 		},
 		{
 			spdx: 'FSL-1.1-MIT',
-			name: 'Functional Source License (FSL)',
+			name: 'Functional Source Licence (FSL)',
 			category: 'Source-Available',
 			commercialUse: false,
 			patentGrant: true,
 			disclosureRequired: false,
 			networkCopyleft: false,
 			summary:
-				'Modern source-available license: grants complete free use except for directly competing products, and guarantees conversion to standard MIT after exactly two years.',
+				'Modern source-available licence: grants complete free use except for directly competing products, and guarantees conversion to standard MIT after exactly two years.',
 			idealFor:
 				'Modern developer tools and startups wanting open innovation while protecting core revenue.'
 		}
 	];
 
-	let filteredLicenses = $derived(
+	let filteredLicences = $derived(
 		selectedCategory === 'All'
-			? licenseList
-			: licenseList.filter((l) => l.category === selectedCategory)
+			? licenceList
+			: licenceList.filter((l) => l.category === selectedCategory)
 	);
 
-	let activeLicense = $derived(licenseList.find((l) => l.spdx === selectedSpdx) ?? licenseList[0]);
+	let activeLicence = $derived(licenceList.find((l) => l.spdx === selectedSpdx) ?? licenceList[0]);
 </script>
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Software License Types & Open Source Strategy</h3>
+		<h3>Software Licence Types & Open Source Strategy</h3>
 		<p class="text-base sm:text-lg">
-			Selecting the right software license governs intellectual property rights, commercial
+			Selecting the right software licence governs intellectual property rights, commercial
 			exploitation, patent protection, and source code redistribution requirements.
 		</p>
 		<ul>
 			<li>
-				<strong>Permissive Licenses (MIT, Apache 2.0, BSD):</strong> Maximum freedom with minimal obligations
-				(keep copyright notice). Apache 2.0 adds explicit patent defense.
+				<strong>Permissive Licences (MIT, Apache 2.0, BSD):</strong> Maximum freedom with minimal obligations
+				(keep copyright notice). Apache 2.0 adds explicit patent defence.
 			</li>
 			<li>
-				<strong>Copyleft Licenses (MPL, GPL, AGPL):</strong> Ensures software remains open. AGPL-3.0 specifically
+				<strong>Copyleft Licences (MPL, GPL, AGPL):</strong> Ensures software remains open. AGPL-3.0 specifically
 				closes the cloud SaaS loophole by triggering disclosure when accessed over a network.
 			</li>
 			<li>
-				<strong>Source-Available Licenses (BSL 1.1, FSL):</strong> Not strictly OSI Open Source, but allows
+				<strong>Source-Available Licences (BSL 1.1, FSL):</strong> Not strictly OSI Open Source, but allows
 				public code inspection and non-competing use while converting to permissive open source after
 				a fixed duration.
 			</li>
 			<li>
 				<strong>Dual-Licensing Model:</strong> Providing software under both a strong copyleft / source-available
-				license (for community) and a commercial proprietary license (for enterprise customers).
+				licence (for community) and a commercial proprietary licence (for enterprise customers).
 			</li>
 		</ul>
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="Interactive Software License Decision Matrix" badge="Legal Architecture">
+		<LabCard title="Interactive Software Licence Decision Matrix" badge="Legal Architecture">
 			<div class="space-y-4 font-mono text-sm">
 				<!-- Category Filter Pills -->
 				<div class="flex flex-wrap gap-1.5">
@@ -183,9 +183,9 @@
 					{/each}
 				</div>
 
-				<!-- License Selector Grid -->
+				<!-- Licence Selector Grid -->
 				<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
-					{#each filteredLicenses as lic (lic.spdx)}
+					{#each filteredLicences as lic (lic.spdx)}
 						<button
 							onclick={() => (selectedSpdx = lic.spdx)}
 							class="rounded-xl border p-2.5 text-center text-sm font-bold transition sm:text-sm {selectedSpdx ===
@@ -198,7 +198,7 @@
 					{/each}
 				</div>
 
-				<!-- Active License Deep Dive -->
+				<!-- Active Licence Deep Dive -->
 				<div
 					class="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-950"
 				>
@@ -207,32 +207,32 @@
 					>
 						<div>
 							<h4 class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">
-								{activeLicense.name}
+								{activeLicence.name}
 							</h4>
 							<div class="mt-1 flex items-center gap-2">
 								<span
 									class="rounded-md bg-indigo-100 px-2.5 py-0.5 font-mono text-sm font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300"
 								>
-									SPDX: {activeLicense.spdx}
+									SPDX: {activeLicence.spdx}
 								</span>
 								<span
 									class="rounded-md bg-slate-200/80 px-2.5 py-0.5 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
 								>
-									{activeLicense.category}
+									{activeLicence.category}
 								</span>
 							</div>
 						</div>
 					</div>
 
 					<p class="text-sm leading-relaxed text-slate-700 sm:text-base dark:text-slate-300">
-						{activeLicense.summary}
+						{activeLicence.summary}
 					</p>
 
 					<!-- Feature Badges 2x2 Grid -->
 					<div class="grid grid-cols-1 gap-2.5 pt-1 text-sm sm:grid-cols-2">
 						<!-- Commercial Production -->
 						<div
-							class="rounded-xl border p-3 transition-colors {activeLicense.commercialUse
+							class="rounded-xl border p-3 transition-colors {activeLicence.commercialUse
 								? 'border-emerald-500/40 bg-emerald-50/60 dark:border-emerald-500/30 dark:bg-emerald-950/40'
 								: 'border-amber-500/40 bg-amber-50/60 dark:border-amber-500/30 dark:bg-amber-950/40'}"
 						>
@@ -243,18 +243,18 @@
 							</span>
 							<div class="mt-1 flex items-center gap-2">
 								<span
-									class="text-base font-bold {activeLicense.commercialUse
+									class="text-base font-bold {activeLicence.commercialUse
 										? 'text-emerald-700 dark:text-emerald-400'
 										: 'text-amber-700 dark:text-amber-400'}"
 								>
-									{activeLicense.commercialUse ? '✓ Unrestricted' : '⚠️ Restricted / Paid Tier'}
+									{activeLicence.commercialUse ? '✓ Unrestricted' : '⚠️ Restricted / Paid Tier'}
 								</span>
 							</div>
 						</div>
 
 						<!-- Patent Grant Included -->
 						<div
-							class="rounded-xl border p-3 transition-colors {activeLicense.patentGrant
+							class="rounded-xl border p-3 transition-colors {activeLicence.patentGrant
 								? 'border-emerald-500/40 bg-emerald-50/60 dark:border-emerald-500/30 dark:bg-emerald-950/40'
 								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
@@ -265,18 +265,18 @@
 							</span>
 							<div class="mt-1 flex items-center gap-2">
 								<span
-									class="text-base font-bold {activeLicense.patentGrant
+									class="text-base font-bold {activeLicence.patentGrant
 										? 'text-emerald-700 dark:text-emerald-400'
 										: 'text-slate-800 dark:text-slate-200'}"
 								>
-									{activeLicense.patentGrant ? '✓ Explicit Grant' : '— None Expressed'}
+									{activeLicence.patentGrant ? '✓ Explicit Grant' : '— None Expressed'}
 								</span>
 							</div>
 						</div>
 
 						<!-- Source Disclosure -->
 						<div
-							class="rounded-xl border p-3 transition-colors {activeLicense.disclosureRequired
+							class="rounded-xl border p-3 transition-colors {activeLicence.disclosureRequired
 								? 'border-indigo-500/40 bg-indigo-50/60 dark:border-indigo-500/30 dark:bg-indigo-950/40'
 								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
@@ -287,11 +287,11 @@
 							</span>
 							<div class="mt-1 flex items-center gap-2">
 								<span
-									class="text-base font-bold {activeLicense.disclosureRequired
+									class="text-base font-bold {activeLicence.disclosureRequired
 										? 'text-indigo-700 dark:text-indigo-400'
 										: 'text-emerald-700 dark:text-emerald-400'}"
 								>
-									{activeLicense.disclosureRequired
+									{activeLicence.disclosureRequired
 										? '⚠️ Required for Derivatives'
 										: '✓ Not Required'}
 								</span>
@@ -300,7 +300,7 @@
 
 						<!-- Network / SaaS Trigger -->
 						<div
-							class="rounded-xl border p-3 transition-colors {activeLicense.networkCopyleft
+							class="rounded-xl border p-3 transition-colors {activeLicence.networkCopyleft
 								? 'border-purple-500/40 bg-purple-50/60 dark:border-purple-500/30 dark:bg-purple-950/40'
 								: 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/80'}"
 						>
@@ -311,11 +311,11 @@
 							</span>
 							<div class="mt-1 flex items-center gap-2">
 								<span
-									class="text-base font-bold {activeLicense.networkCopyleft
+									class="text-base font-bold {activeLicence.networkCopyleft
 										? 'text-purple-700 dark:text-purple-400'
 										: 'text-slate-800 dark:text-slate-200'}"
 								>
-									{activeLicense.networkCopyleft
+									{activeLicence.networkCopyleft
 										? '⚡ Triggered via Network (AGPL)'
 										: '— Binary Delivery Only'}
 								</span>
@@ -333,7 +333,7 @@
 							Ideal Strategic Use Case:
 						</span>
 						<p class="mt-1 text-sm font-bold text-slate-900 sm:text-base dark:text-white">
-							{activeLicense.idealFor}
+							{activeLicence.idealFor}
 						</p>
 					</div>
 				</div>

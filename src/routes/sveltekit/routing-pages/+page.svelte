@@ -54,7 +54,7 @@
 				segments; <code>[...rest]</code> matches multiple deep segments.
 			</li>
 			<li>
-				<strong>Route Groups <code>(group)</code>:</strong> Organize code and layout boundaries without
+				<strong>Route Groups <code>(group)</code>:</strong> Organise code and layout boundaries without
 				adding segments to the browser URL.
 			</li>
 			<li>
@@ -70,7 +70,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="SvelteKit Routing Pattern Visualizer" badge="File-Based Router">
+		<LabCard title="SvelteKit Routing Pattern Visualiser" badge="File-Based Router">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
 					{#each ['dynamic', 'catchAll', 'group', 'reset'] as const as p (p)}

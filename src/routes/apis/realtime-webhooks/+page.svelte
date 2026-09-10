@@ -103,7 +103,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<!-- Card 1: SSE Stream Visualizer -->
+		<!-- Card 1: SSE Stream Visualiser -->
 		<LabCard
 			title="Server-Sent Events (SSE) Stream"
 			badge={isSSEConnected ? 'Active Stream' : 'Disconnected'}

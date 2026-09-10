@@ -5,11 +5,11 @@
 
 	let { data }: { data: PageData } = $props();
 
-	type MonetizationModel = 'mor' | 'stripe' | 'paywall' | 'tokens';
-	let selectedModel = $state<MonetizationModel>('mor');
+	type MonetisationModel = 'mor' | 'stripe' | 'paywall' | 'tokens';
+	let selectedModel = $state<MonetisationModel>('mor');
 
 	const models: Record<
-		MonetizationModel,
+		MonetisationModel,
 		{ title: string; provider: string; taxHandling: string; payout: string; bestFor: string }
 	> = {
 		mor: {
@@ -18,7 +18,7 @@
 			taxHandling: '100% Automated (Global VAT, GST, Sales Tax handled by MoR)',
 			payout: 'Direct bank transfer / Stripe Connect',
 			bestFor:
-				'Solo developers, open-source creators selling Pro tiers or licenses globally without corporate tax entities'
+				'Solo developers, open-source creators selling Pro tiers or licences globally without corporate tax entities'
 		},
 		stripe: {
 			title: 'Direct Stripe Billing & Checkout',
@@ -47,9 +47,9 @@
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
 	{#snippet guide()}
-		<h3>Site & Project Monetization Models</h3>
+		<h3>Site & Project Monetisation Models</h3>
 		<p class="text-base sm:text-lg">
-			Monetizing developer software tools, SaaS products, and open-source packages requires choosing
+			Monetising developer software tools, SaaS products, and open-source packages requires choosing
 			between Merchant of Record platforms, direct payment gateways, and usage-based billing.
 		</p>
 		<ul>
@@ -70,7 +70,7 @@
 	{/snippet}
 
 	{#snippet lab()}
-		<LabCard title="Monetization Strategy Explorer" badge="Business Models">
+		<LabCard title="Monetisation Strategy Explorer" badge="Business Models">
 			<div class="space-y-4 font-mono text-sm">
 				<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
 					{#each ['mor', 'stripe', 'paywall', 'tokens'] as const as m (m)}

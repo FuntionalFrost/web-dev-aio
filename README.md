@@ -28,15 +28,15 @@ The 35 interactive engineering modules are structured across 8 core tracks:
 | **03. Modern ECMAScript**            | 10 – 13 | `Math.sumPrecise`, `Map.prototype.getOrInsert`, `Iterator.prototype` helpers, `Uint8Array.prototype.toBase64` / `toHex`, `@starting-style`, `using` Explicit Resource Management                                                                         |
 | **04. Svelte & SvelteKit**           | 14 – 19 | Svelte 5 Universal Runes & Class State, Async Svelte & `{#await}` streaming, Dynamic Routing `[param]`/`[...rest]`, Data Loaders & Form Actions (`use:enhance`), Server Hooks (`hooks.server.ts`), SvelteKit Adapters (Static, Node, Cloudflare, Vercel) |
 | **05. Vue & Nuxt**                   | 20 – 22 | Vue 3.5 reactive prop destructuring & `useTemplateRef()`, Nuxt 4 `app/` structure & `useAsyncData` deduplication, Nuxt UI v3 & Headless Bits UI / CVA design tokens                                                                                      |
-| **06. Rendering & Architecture**     | 23 – 25 | SSG vs SSR vs Hybrid/ISR vs CSR latency & cost matrix, SSR Hydration & `devalue` serialization, Strict CSP nonces & native View Transitions API                                                                                                          |
+| **06. Rendering & Architecture**     | 23 – 25 | SSG vs SSR vs Hybrid/ISR vs CSR latency & cost matrix, SSR Hydration & `devalue` serialisation, Strict CSP nonces & native View Transitions API                                                                                                          |
 | **07. APIs & Data Architecture**     | 26 – 30 | Standard Schema `@standard-schema/spec` (Zod/Valibot) & Hono RPC, Server-Sent Events (SSE) & HMAC-SHA256 Webhooks, Drizzle ORM on Neon Serverless Postgres, Upstash Redis Sliding Window Rate Limiting, Better Auth Passkeys                             |
-| **08. Cloud, Operations & Licenses** | 31 – 35 | Cloudflare Workers vs Vercel Serverless vs Netlify Edge, Vitest & Playwright E2E testing harness, `svelte-meta-tags` & privacy-first analytics, Polar.sh Merchant of Record & Stripe Monetization, Open Source & Commercial Software License Matrix      |
+| **08. Cloud, Operations & Licences** | 31 – 35 | Cloudflare Workers vs Vercel Serverless vs Netlify Edge, Vitest & Playwright E2E testing harness, `svelte-meta-tags` & privacy-first analytics, Polar.sh Merchant of Record & Stripe Monetisation, Open Source & Commercial Software Licence Matrix      |
 
 ---
 
 ## Key Features
 
-- **Interactive Architecture Simulators:** Client-side visualizers for sliding-window rate limiters, biometric passkey registrations, HMAC signers, reactive runes, software license matrix selectors, and query compilers—running entirely in-browser.
+- **Interactive Architecture Simulators:** Client-side visualisers for sliding-window rate limiters, biometric passkey registrations, HMAC signers, reactive runes, software licence matrix selectors, and query compilers—running entirely in-browser.
 - **Build-Time Syntax Highlighting:** Code samples are parsed and highlighted during static build generation using Shiki, shipping zero parser JavaScript to the client.
 - **Accessible Typography & Layouts:** Enforces minimum text size of `text-base` (or at least `text-sm`, completely avoiding `text-xs`) with responsive design for desktop and mobile.
 - **Full-Spectrum Search & Keyboard Navigation:** Global command palette (`⌘K`) for rapid navigation across all 35 modules and architectural topics.

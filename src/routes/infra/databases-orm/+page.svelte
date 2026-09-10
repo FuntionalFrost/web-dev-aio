@@ -142,7 +142,7 @@
 			</li>
 			<li>
 				<strong>postgres.js:</strong> The fastest full-featured PostgreSQL client for Node.js, Bun, and
-				Deno. Features zero dependencies, tagged-template literal queries, and native type serialization.
+				Deno. Features zero dependencies, tagged-template literal queries, and native type serialisation.
 			</li>
 			<li>
 				<strong>SQLite & better-sqlite3:</strong> The world's most widely deployed database engine. In-process,
@@ -244,7 +244,7 @@
 
 					<div class="space-y-1.5 pt-2">
 						<span class="text-sm font-bold text-slate-500 uppercase dark:text-slate-400"
-							>Drizzle Driver Initialization:</span
+							>Drizzle Driver Initialisation:</span
 						>
 						<pre
 							class="overflow-x-auto rounded-xl border border-slate-200 bg-white p-3.5 text-sm font-bold text-indigo-600 dark:border-slate-800 dark:bg-slate-900 dark:text-indigo-300">{selectedProfile.codeSample}</pre>

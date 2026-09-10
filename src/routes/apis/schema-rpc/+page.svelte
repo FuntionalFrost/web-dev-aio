@@ -11,7 +11,7 @@
 	let role = $state<'admin' | 'member' | 'viewer'>('admin');
 	let consent = $state(true);
 
-	// Runtime validation engine simulation (Standard Schema / Zod behavior)
+	// Runtime validation engine simulation (Standard Schema / Zod behaviour)
 	let validationErrors = $derived.by(() => {
 		const errors: Record<string, string> = {};
 		if (username.length < 3) errors.username = 'Username must be at least 3 characters.';
@@ -72,7 +72,7 @@
 				and compile-time contract enforcement.
 			</li>
 			<li>
-				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardized JSON specs automatically for external
+				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardised JSON specs automatically for external
 				consumers and automated SDK generation.
 			</li>
 		</ul>

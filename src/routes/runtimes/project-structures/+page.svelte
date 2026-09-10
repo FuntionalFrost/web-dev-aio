@@ -78,12 +78,12 @@
 				<code>hooks.server.ts</code>.
 			</li>
 			<li>
-				<strong>Nuxt 4 Structure:</strong> Centralizes frontend components and composables in
+				<strong>Nuxt 4 Structure:</strong> Centralises frontend components and composables in
 				<code>app/</code>
 				while isolating backend endpoints in <code>server/api/</code>.
 			</li>
 			<li>
-				<strong>Monorepo Topologies:</strong> Organizes large teams into decoupled
+				<strong>Monorepo Topologies:</strong> Organises large teams into decoupled
 				<code>apps/</code>
 				and reusable internal <code>packages/</code> linked via PNPM workspace catalogs.
 			</li>

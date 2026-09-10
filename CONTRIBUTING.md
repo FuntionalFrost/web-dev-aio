@@ -105,6 +105,6 @@ Please open a GitHub Issue with:
 
 ---
 
-## License
+## Licence
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](LICENSE).
+By contributing, you agree that your contributions will be licensed under the [MIT Licence](LICENSE).
