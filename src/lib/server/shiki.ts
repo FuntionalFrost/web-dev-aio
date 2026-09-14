@@ -1,4 +1,5 @@
 import { createHighlighter, type Highlighter } from 'shiki';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 
 let highlighterPromise: Promise<Highlighter> | null = null;
 
@@ -6,7 +7,8 @@ export async function getHighlighter(): Promise<Highlighter> {
 	if (!highlighterPromise) {
 		highlighterPromise = createHighlighter({
 			themes: ['github-light', 'github-dark-dimmed'],
-			langs: ['typescript', 'javascript', 'html', 'css', 'svelte', 'vue', 'json', 'yaml', 'bash']
+			langs: ['typescript', 'javascript', 'html', 'css', 'svelte', 'vue', 'json', 'yaml', 'bash'],
+			engine: createJavaScriptRegexEngine()
 		});
 	}
 	return highlighterPromise;
