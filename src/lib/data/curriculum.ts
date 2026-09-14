@@ -186,7 +186,13 @@ export const curriculum: CurriculumModule[] = [
 		track: 'Runtimes & Engines',
 		title: '09. Modern Project Types & Directory Structures',
 		category: 'Project Architecture',
-		tech: ['Full-Stack App Hierarchy', 'Library Architecture', 'Monorepos', 'SSG vs Full-Stack', 'Server Isolation'],
+		tech: [
+			'Full-Stack App Hierarchy',
+			'Library Architecture',
+			'Monorepos',
+			'SSG vs Full-Stack',
+			'Server Isolation'
+		],
 		description:
 			'Architect production-grade codebases across full-stack applications, static sites, component libraries, and enterprise monorepo workspace hierarchies.'
 	},

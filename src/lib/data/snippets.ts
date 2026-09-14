@@ -817,34 +817,6 @@ export const licences: SoftwareLicence[] = [
 ];`
 	},
 
-	'infra/storage-s3-r2': {
-		lang: 'typescript',
-		code: `import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-
-// 1. Initialise Cloudflare R2 / AWS S3 Client
-export const s3 = new S3Client({
-  region: 'auto',
-  endpoint: \`https://\${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com\`,
-  credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!
-  }
-});
-
-// 2. Generate short-lived Presigned Upload URL (Zero backend bandwidth consumed)
-export async function createPresignedUploadUrl(bucket: string, key: string, contentType: string) {
-  const command = new PutObjectCommand({
-    Bucket: bucket,
-    Key: key,
-    ContentType: contentType
-  });
-
-  // Client uploads directly to R2 / S3 via HTTP PUT
-  return await getSignedUrl(s3, command, { expiresIn: 3600 });
-}`
-	},
-
 	'cloud/containers-iac': {
 		lang: 'typescript',
 		code: `// Infrastructure as Code (IaC) & Container Definition
