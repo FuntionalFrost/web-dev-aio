@@ -79,6 +79,11 @@
 				policies across platforms.
 			</li>
 			<li>
+				<strong>Reverse & Forward Proxying:</strong> Reverse proxies (Cloudflare, Nginx, Caddy)
+				handle inbound SSL termination, rate limiting, and <code>X-Forwarded-For</code> header passing
+				to backend nodes. Forward proxies act as dedicated egress gateways for outbound IP whitelisting.
+			</li>
+			<li>
 				<strong>Framework Adapter Topologies:</strong> Deploying universal SvelteKit and Nuxt Nitro applications
 				with zero application code changes.
 			</li>

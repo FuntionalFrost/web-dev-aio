@@ -75,6 +75,11 @@
 				<strong>OpenAPI 3.1 & Scalar:</strong> Generates standardised JSON specs automatically for external
 				consumers and automated SDK generation.
 			</li>
+			<li>
+				<strong>Unified Web & Mobile (Android) Backend:</strong> OpenAPI specs allow tools like
+				<code>openapi-generator</code> to generate type-safe Kotlin models (Retrofit/Ktor) for native
+				Android apps alongside TypeScript web clients from a single backend.
+			</li>
 		</ul>
 	{/snippet}
 
