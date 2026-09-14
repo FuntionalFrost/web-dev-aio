@@ -1,7 +1,7 @@
 {
   "name": "Web Engine 2026",
   "short_name": "WebEngine26",
-  "description": "Production-grade reference architecture and 35 interactive engineering labs covering Svelte 5, SvelteKit 2, Nuxt 4, Tailwind v4, TS6, Nitro, Hono, Bun, Deno, and Edge Cloud.",
+  "description": "Production-grade reference architecture and 29 interactive engineering labs covering Modern HTML5, Web Standards, Tailwind v4, TS6, Nitro, Hono, Bun, Deno, and Edge Cloud.",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -33,10 +33,10 @@
   ],
   "shortcuts": [
     {
-      "name": "Svelte 5 Universal Runes",
-      "short_name": "Svelte 5",
-      "description": "Universal signals and fine-grained reactivity lab",
-      "url": "/sveltekit/runes-state",
+      "name": "Modern HTML5 & Web Standards",
+      "short_name": "HTML5 Standards",
+      "description": "Native dialogs, accordions and Web Crypto APIs",
+      "url": "/foundations/html5",
       "icons": [{ "src": "/favicon.svg", "sizes": "any" }]
     },
     {

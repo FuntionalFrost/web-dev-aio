@@ -202,11 +202,10 @@ const response = new Response(JSON.stringify({ runtime: 'Universal' }), {
 		lang: 'typescript',
 		code: `// vite.config.ts & package.json exports architecture
 import { defineConfig } from 'vite';
-import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  plugins: [tailwindcss(), sveltekit()],
+  plugins: [tailwindcss()],
   build: {
     target: 'es2026',
     cssMinify: 'lightningcss'
@@ -256,26 +255,27 @@ export type AppType = typeof app;
 
 	'runtimes/project-structures': {
 		lang: 'typescript',
-		code: `// Modern Project Topologies: SvelteKit vs Nuxt 4 vs Monorepos
+		code: `// Production Application & Monorepo Directory Architectures
 
-/* SvelteKit Directory Standard */
+/* Universal Web Application Standard */
 // src/
-// ├── lib/          <- Reusable components, state, server utilities ($lib)
+// ├── lib/          <- Core application logic, shared utilities, domain modules
 // │   ├── components/
-// │   ├── server/   <- Server-only code ($lib/server, prevents client leak)
-// │   └── state/    <- Svelte 5 runes universal stores (.svelte.ts)
-// ├── routes/       <- File-based router (+page, +layout, +server, +error)
-// ├── app.html      <- HTML shell template
-// └── hooks.server.ts
+// │   ├── server/   <- Server-only boundary (prevents private secret leaks)
+// │   └── state/    <- Fine-grained reactive state models
+// ├── routes/       <- File-based routing hierarchy (+page, +layout, +server)
+// ├── assets/       <- Static fonts, icons, vector graphics
+// └── app.html      <- HTML shell template
 
-/* Nuxt 4 Forward-Compatible Standard */
-// app/
-// ├── components/   <- Auto-imported Vue components
-// ├── composables/  <- Auto-imported reactive state composables
-// ├── pages/        <- File-based page routes
-// └── layouts/
-// server/
-// └── api/          <- Nitro server endpoints`
+/* Enterprise Monorepo Hierarchy (pnpm-workspace.yaml) */
+// apps/
+// ├── web/          <- Production customer web application
+// ├── admin/        <- Internal management dashboard
+// └── api/          <- Shared microservice & edge API handlers
+// packages/
+// ├── ui/           <- Design system component library
+// ├── db/           <- Drizzle ORM schema & migrations
+// └── config/       <- Shared TypeScript, ESLint & Tailwind tokens`
 	},
 
 	// ==========================================
@@ -365,246 +365,7 @@ setTimeout(() => resolve('Async pipeline ready'), 1000);`
 	},
 
 	// ==========================================
-	// Track 4: Svelte 5 & SvelteKit 2 Architecture
-	// ==========================================
-	'sveltekit/runes-state': {
-		lang: 'svelte',
-		code: `<script lang="ts">
-  // Svelte 5 Universal Runes in Components and TS Classes
-  class CartState {
-    items = $state<{ name: string; price: number }[]>([]);
-    total = $derived(this.items.reduce((sum, item) => sum + item.price, 0));
-
-    addItem(name: string, price: number) {
-      this.items.push({ name, price });
-    }
-  }
-
-  const cart = new CartState();
-  let { title = 'Store Cart' }: { title?: string } = $props();
-</script>
-
-<div class="p-6 border rounded-2xl bg-white dark:bg-slate-900">
-  <h2 class="text-xl font-bold">{title} (Total: \${cart.total})</h2>
-  <button 
-    onclick={() => cart.addItem('Pro Licence', 49)} 
-    class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-xl text-base"
-  >
-    Add Item (\${cart.items.length})
-  </button>
-</div>`
-	},
-
-	'sveltekit/async-svelte': {
-		lang: 'svelte',
-		code: `<script lang="ts">
-  // Svelte 5 Async Components & Streaming Promises
-  interface Telemetry {
-    nodeId: string;
-    rps: number;
-    latencyMs: number;
-  }
-
-  async function fetchTelemetry(): Promise<Telemetry> {
-    const res = await fetch('/api/telemetry');
-    return res.json();
-  }
-
-  let telemetryPromise = $state(fetchTelemetry());
-</script>
-
-<!-- Streaming Promise resolution without blocking UI hydration -->
-{#await telemetryPromise}
-  <div class="animate-pulse p-6 bg-slate-100 dark:bg-slate-800 rounded-2xl">
-    <p class="text-base text-slate-500 font-mono">Connecting to edge stream...</p>
-  </div>
-{:then data}
-  <div class="p-6 border border-emerald-500/40 rounded-2xl bg-emerald-50/20">
-    <h3 class="text-lg font-bold text-emerald-600">Edge Node: {data.nodeId}</h3>
-    <p class="text-base font-mono mt-1">Throughput: {data.rps} req/s | Latency: {data.latencyMs}ms</p>
-  </div>
-{:catch error}
-  <div class="p-4 border border-rose-500/40 rounded-2xl text-rose-500 text-base">
-    Failed to load telemetry stream: {error.message}
-  </div>
-{/await}`
-	},
-
-	'sveltekit/routing-pages': {
-		lang: 'typescript',
-		code: `// SvelteKit Page Options & Routing Topology
-
-// src/routes/dashboard/+page.ts
-import type { PageLoad } from './$types';
-
-// 1. Page Options: Control SSR, Prerendering and CSR per-route
-export const prerender = true;     // Statically render at build time
-export const ssr = true;           // Server-Side Rendering enabled
-export const csr = true;           // Client-Side Hydration enabled
-export const trailingSlash = 'never';
-
-// 2. Universal Data Load Function
-export const load: PageLoad = async ({ fetch, params, parent }) => {
-  const parentData = await parent(); // Inherit data from +layout.ts
-  const res = await fetch('/api/metrics');
-  const metrics = await res.json();
-
-  return { metrics, user: parentData.user };
-};`
-	},
-
-	'sveltekit/loading-actions': {
-		lang: 'typescript',
-		code: `// src/routes/newsletter/+page.server.ts
-import { fail } from '@sveltejs/kit';
-import type { Actions, PageServerLoad } from './$types';
-
-export const load: PageServerLoad = async ({ locals }) => {
-  return { subscribersCount: 1420 };
-};
-
-export const actions: Actions = {
-  subscribe: async ({ request }) => {
-    const data = await request.formData();
-    const email = data.get('email')?.toString().trim();
-
-    if (!email || !email.includes('@')) {
-      return fail(400, { email, missing: true, error: 'Valid email required' });
-    }
-
-    // Save to database
-    return { success: true, message: \`Subscribed \${email} successfully!\` };
-  }
-};`
-	},
-
-	'sveltekit/hooks-env-errors': {
-		lang: 'typescript',
-		code: `// src/hooks.server.ts & Environment Isolation
-import type { Handle, HandleServerError } from '@sveltejs/kit';
-import { SECRET_DB_KEY } from '$env/static/private'; // Compile-time private secret
-import { PUBLIC_APP_URL } from '$env/static/public';   // Safe public constant
-
-export const handle: Handle = async ({ event, resolve }) => {
-  // Global Auth / Session Verification Hook
-  const sessionCookie = event.cookies.get('session_id');
-  if (sessionCookie) {
-    event.locals.user = { id: 'usr_88', role: 'admin' };
-  }
-
-  const response = await resolve(event);
-  response.headers.set('X-Frame-Options', 'DENY');
-  return response;
-};
-
-export const handleError: HandleServerError = ({ error, event }) => {
-  console.error(\`Server Error on \${event.url.pathname}:\`, error);
-  return { message: 'An internal server error occurred.', code: 'ERR_INTERNAL' };
-};`
-	},
-
-	'sveltekit/adapters-deploy': {
-		lang: 'typescript',
-		code: `// svelte.config.js: Adapter Configuration
-import adapterStatic from '@sveltejs/adapter-static';
-import adapterCloudflare from '@sveltejs/adapter-cloudflare';
-import adapterNode from '@sveltejs/adapter-node';
-
-// Switchable adapter configuration based on deployment target
-const target = process.env.DEPLOY_TARGET || 'static';
-
-export default {
-  kit: {
-    adapter: target === 'cloudflare' 
-      ? adapterCloudflare({ routes: { include: ['/*'], exclude: ['<all>'] } })
-      : target === 'node'
-      ? adapterNode({ out: 'build' })
-      : adapterStatic({ pages: 'build', assets: 'build', fallback: '404.html' })
-  }
-};`
-	},
-
-	// ==========================================
-	// Track 5: Vue 3.5 & Nuxt 4 Architecture
-	// ==========================================
-	'nuxt/vue35-composables': {
-		lang: 'vue',
-		code: `<script setup lang="ts">
-import { watchEffect } from 'vue';
-
-// Vue 3.5 Reactive Prop Destructure (Preserves signals without toRefs)
-const { count = 0, label = 'Telemetric Metric' } = defineProps<{
-  count?: number;
-  label?: string;
-}>();
-
-// Vue 3.5 SSR-safe ID & Template References
-const elementId = useId();
-const inputRef = useTemplateRef<HTMLInputElement>('inputField');
-
-watchEffect(() => {
-  console.log(\`[Vue 3.5] \${label}: \${count} (ID: \${elementId})\`);
-});
-</script>
-
-<template>
-  <div :id="elementId" class="p-6 border rounded-2xl bg-white dark:bg-slate-900">
-    <h4 class="text-lg font-bold">{{ label }}</h4>
-    <p class="text-base text-slate-600 dark:text-slate-300 mt-2">Value: {{ count }}</p>
-  </div>
-</template>`
-	},
-
-	'nuxt/nuxt4-data': {
-		lang: 'typescript',
-		code: `// Nuxt 4 Forward-Compatible app/ & Universal Data Fetching
-export default defineNuxtComponent({
-  async setup() {
-    // 1. useAsyncData with key-based deduplication & SSR hydration transfer
-    const { data: telemetry, status, refresh } = await useAsyncData(
-      'node-telemetry',
-      () => $fetch('/api/v1/metrics'),
-      { lazy: false, server: true }
-    );
-
-    return { telemetry, status, refresh };
-  }
-});`
-	},
-
-	'nuxt/nuxt-ui': {
-		lang: 'typescript',
-		code: `// Modern Headless UI Design Tokens with CVA & Tailwind v4
-import { cva, type VariantProps } from 'class-variance-authority';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
-export const buttonStyles = cva(
-  'inline-flex items-center justify-center font-medium transition focus:outline-none rounded-xl',
-  {
-    variants: {
-      variant: {
-        primary: 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-sm',
-        secondary: 'border border-slate-200 bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100',
-        danger: 'bg-rose-600 text-white hover:bg-rose-500'
-      },
-      size: {
-        sm: 'px-3 py-1.5 text-sm',
-        base: 'px-4 py-2 text-base',
-        lg: 'px-6 py-3 text-lg'
-      }
-    },
-    defaultVariants: { variant: 'primary', size: 'base' }
-  }
-);`
-	},
-
-	// ==========================================
-	// Track 6: Rendering, Serialisation & Security
+	// Track 4: Rendering, Serialisation & Security
 	// ==========================================
 	'rendering/strategies': {
 		lang: 'typescript',
@@ -660,7 +421,7 @@ import { stringify, parse } from 'devalue';
 const complexPayload = {
   sessionId: 9007199254740993n, // BigInt
   timestamp: new Date('2026-09-10T10:00:00Z'),
-  activeTags: new Set(['svelte5', 'nitro', 'bun']),
+  activeTags: new Set(['web-standards', 'nitro', 'bun']),
   metricCache: new Map([['us-east', 14.2], ['eu-central', 8.6]])
 };
 
@@ -696,7 +457,7 @@ export function createSecurityHeaders() {
 	},
 
 	// ==========================================
-	// Track 7: APIs, Real-Time & Backend Data
+	// Track 5: APIs, Real-Time & Backend Data
 	// ==========================================
 	'apis/schema-rpc': {
 		lang: 'typescript',
@@ -851,8 +612,36 @@ export const auth = betterAuth({
 });`
 	},
 
+	'infra/storage-s3-r2': {
+		lang: 'typescript',
+		code: `import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+// 1. Initialise Cloudflare R2 / AWS S3 Client
+export const s3 = new S3Client({
+  region: 'auto',
+  endpoint: \`https://\${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com\`,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!
+  }
+});
+
+// 2. Generate short-lived Presigned Upload URL (Zero backend bandwidth consumed)
+export async function createPresignedUploadUrl(bucket: string, key: string, contentType: string) {
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: key,
+    ContentType: contentType
+  });
+
+  // Client uploads directly to R2 / S3 via HTTP PUT
+  return await getSignedUrl(s3, command, { expiresIn: 3600 });
+}`
+	},
+
 	// ==========================================
-	// Track 8: Cloud, Operations, Monetisation & Licences
+	// Track 6: Cloud, Operations, Monetisation & Licences
 	// ==========================================
 	'cloud/platforms-deployment': {
 		lang: 'typescript',
@@ -871,14 +660,14 @@ export const platformProfiles: DeploymentTarget[] = [
     runtime: 'V8 Isolate',
     coldStartLatency: '0 - 5ms (Instant)',
     bandwidthCost: 'Free / $0 per GB egress',
-    idealFor: 'Global low-latency APIs, Nuxt Nitro static/edge, SvelteKit adapter-cloudflare'
+    idealFor: 'Global low-latency APIs, Nitro edge, Static + Edge functions'
   },
   {
     platform: 'Vercel Serverless',
     runtime: 'Node.js Container',
     coldStartLatency: '150 - 450ms',
     bandwidthCost: 'Tiered bandwidth quotas',
-    idealFor: 'Full-stack SSR frameworks, automated preview branches, Next.js / Nuxt / SvelteKit'
+    idealFor: 'Full-stack SSR web applications, automated preview branches'
   },
   {
     platform: 'Netlify Edge',
@@ -894,10 +683,8 @@ export const platformProfiles: DeploymentTarget[] = [
 		lang: 'typescript',
 		code: `// vitest.config.ts & Test Harness
 import { defineConfig } from 'vitest/config';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-  plugins: [svelte({ hot: !process.env.VITEST })],
   test: {
     environment: 'jsdom',
     include: ['src/**/*.test.ts'],
@@ -905,47 +692,47 @@ export default defineConfig({
   }
 });
 
-// Sample Unit & Component Test
-// import { render, screen, fireEvent } from '@testing-library/svelte';
-// test('renders increment counter', async () => {
-//   render(Counter, { initial: 5 });
-//   const btn = screen.getByRole('button', { name: /increment/i });
-//   await fireEvent.click(btn);
-//   expect(screen.getByText('6')).toBeInTheDocument();
+// Sample Unit & Integration Test
+// import { describe, it, expect } from 'vitest';
+// describe('Math.sumPrecise', () => {
+//   it('accurately accumulates floating points', () => {
+//     expect(Math.sumPrecise([0.1, 0.2, 0.3, -0.6])).toBe(0.0);
+//   });
 // });`
 	},
 
 	'operations/seo-analytics': {
-		lang: 'svelte',
-		code: `<script lang="ts">
-  import { MetaTags } from 'svelte-meta-tags';
-  import { SITE } from '$lib/config/site';
+		lang: 'html',
+		code: `<!-- 1. Semantic HTML5 Head & Social Card Meta -->
+<head>
+  <title>Production Architecture | Web Engine 2026</title>
+  <meta name="description" content="Production-grade web engineering reference." />
+  <link rel="canonical" href="https://web-engine26.pages.dev" />
 
-  let { title = 'Lab Architecture', description = SITE.description } = $props();
-</script>
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Production Architecture" />
+  <meta property="og:description" content="Production-grade web engineering reference." />
+  <meta property="og:image" content="https://web-engine26.pages.dev/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<MetaTags
-  {title}
-  titleTemplate="%s | Web Engine 2026"
-  {description}
-  canonical="https://web-engine26.pages.dev"
-  openGraph={{
-    url: 'https://web-engine26.pages.dev',
-    title: title,
-    description: description,
-    images: [{ url: 'https://web-engine26.pages.dev/og-card.png', width: 1200, height: 630 }],
-    siteName: 'Web Engine 2026'
-  }}
-  twitter={{
-    handle: '@webengine2026',
-    cardType: 'summary_large_image',
-    title: title,
-    description: description
-  }}
-/>
+  <!-- 2. Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Production Web Architecture",
+    "description": "Production-grade web engineering reference.",
+    "author": {
+      "@type": "Organization",
+      "name": "Web Engine Team"
+    }
+  }
+  </script>
 
-<!-- Privacy-First Cookieless Analytics Integration -->
-<!-- <script defer data-domain="web-engine26.pages.dev" src="https://plausible.io/js/script.js"></script> -->`
+  <!-- 3. Privacy-First Cookieless Analytics -->
+  <script defer data-domain="web-engine26.pages.dev" src="https://plausible.io/js/script.js"></script>
+</head>`
 	},
 
 	'business/monetization': {
@@ -1072,7 +859,7 @@ resource "aws_ecs_task_definition" "web_engine" {
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn
 
   container_definitions = jsonencode([{
-    name      = "sveltekit-app"
+    name      = "production-app"
     image     = "ghcr.io/org/web-engine:latest"
     essential = true
     portMappings = [{ containerPort = 3000, hostPort = 3000 }]

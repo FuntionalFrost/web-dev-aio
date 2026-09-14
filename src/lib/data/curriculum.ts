@@ -5,8 +5,6 @@ export interface CurriculumModule {
 		| 'Foundations & Tooling'
 		| 'Runtimes & Engines'
 		| 'Modern ECMAScript'
-		| 'Svelte & SvelteKit'
-		| 'Vue & Nuxt'
 		| 'Rendering & Architecture'
 		| 'APIs & Data Architecture'
 		| 'Cloud, Operations & Licences';
@@ -22,15 +20,6 @@ export interface CurriculumModule {
 		| 'Server Engines'
 		| 'Project Architecture'
 		| 'ECMAScript'
-		| 'Svelte 5 Runes'
-		| 'Async Svelte'
-		| 'SvelteKit Routing'
-		| 'SvelteKit Data & Actions'
-		| 'SvelteKit Server & Env'
-		| 'SvelteKit Adapters'
-		| 'Vue 3.5 & Composables'
-		| 'Nuxt 4 & Nitro'
-		| 'Nuxt UI & Design Systems'
 		| 'Rendering Strategies'
 		| 'Hydration & Serialisation'
 		| 'Web Security & Transitions'
@@ -38,12 +27,12 @@ export interface CurriculumModule {
 		| 'Real-Time & Streaming'
 		| 'Backend & Data'
 		| 'Auth & Security'
+		| 'Object Storage & R2'
 		| 'Cloud & Deployment'
 		| 'Testing & Quality'
 		| 'SEO & Analytics'
 		| 'Monetisation & Billing'
 		| 'Software Licences'
-		| 'Object Storage & R2'
 		| 'Containers & IaC'
 		| 'Developer Workstations';
 	tech: string[];
@@ -54,8 +43,6 @@ export const TRACK_ORDER: Array<CurriculumModule['track']> = [
 	'Foundations & Tooling',
 	'Runtimes & Engines',
 	'Modern ECMAScript',
-	'Svelte & SvelteKit',
-	'Vue & Nuxt',
 	'Rendering & Architecture',
 	'APIs & Data Architecture',
 	'Cloud, Operations & Licences'
@@ -176,7 +163,7 @@ export const curriculum: CurriculumModule[] = [
 		tech: [
 			'Vite 6 / Rolldown',
 			'HMR Pipelines',
-			'svelte-package',
+			'TypeScript d.ts',
 			'unbuild',
 			'package.json exports'
 		],
@@ -199,7 +186,7 @@ export const curriculum: CurriculumModule[] = [
 		track: 'Runtimes & Engines',
 		title: '09. Modern Project Types & Directory Structures',
 		category: 'Project Architecture',
-		tech: ['SvelteKit Structure', 'Nuxt 4 app/', 'Monorepos', 'SSG vs Full-Stack', 'Library Repos'],
+		tech: ['Full-Stack App Hierarchy', 'Library Architecture', 'Monorepos', 'SSG vs Full-Stack', 'Server Isolation'],
 		description:
 			'Architect production-grade codebases across full-stack applications, static sites, component libraries, and enterprise monorepo workspace hierarchies.'
 	},
@@ -249,159 +236,13 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// Track 4: Svelte 5 & SvelteKit 2 Architecture
-	// ==========================================
-	{
-		id: 'svelte-runes-state',
-		href: '/sveltekit/runes-state',
-		track: 'Svelte & SvelteKit',
-		title: '14. Svelte 5 Universal Runes & State Management',
-		category: 'Svelte 5 Runes',
-		tech: [
-			'$state / $derived',
-			'$props / $bindable',
-			'{#snippet} blocks',
-			'Class-based State',
-			'Runes Context'
-		],
-		description:
-			'Master the Svelte 5 signal reactivity runtime: universal runes outside components, class-based state modules, $bindable props, and typed snippets.'
-	},
-	{
-		id: 'svelte-async-streaming',
-		href: '/sveltekit/async-svelte',
-		track: 'Svelte & SvelteKit',
-		title: '15. Async Svelte, Streaming & Await Snippets',
-		category: 'Async Svelte',
-		tech: [
-			'Async Components',
-			'{#await} Blocks',
-			'Streaming SSR',
-			'Async Snippets',
-			'Deferred Promises'
-		],
-		description:
-			'Build responsive async interfaces with Svelte 5 async components, streaming promise resolution in {#await} blocks, and non-blocking SSR hydration.'
-	},
-	{
-		id: 'svelte-routing-pages',
-		href: '/sveltekit/routing-pages',
-		track: 'Svelte & SvelteKit',
-		title: '16. SvelteKit Routing, Layouts & Page Options',
-		category: 'SvelteKit Routing',
-		tech: [
-			'Dynamic [param]',
-			'Catch-all [...rest]',
-			'Route Groups (group)',
-			'Layout Resets +layout@',
-			'Page Options'
-		],
-		description:
-			'Design scalable SvelteKit file-based routing hierarchies, layout inheritance resets, route groups, and route-level prerender/ssr/csr options.'
-	},
-	{
-		id: 'svelte-loading-actions',
-		href: '/sveltekit/loading-actions',
-		track: 'Svelte & SvelteKit',
-		title: '17. Data Loading, Form Actions & Remote Functions',
-		category: 'SvelteKit Data & Actions',
-		tech: [
-			'+page.server.ts load',
-			'Form Actions',
-			'use:enhance',
-			'fail() validation',
-			'Optimistic UI'
-		],
-		description:
-			'Fetch type-safe data with server load functions, mutate state with progressive enhancement form actions, and implement optimistic updates.'
-	},
-	{
-		id: 'svelte-hooks-env-errors',
-		href: '/sveltekit/hooks-env-errors',
-		track: 'Svelte & SvelteKit',
-		title: '18. Server Hooks, Error Handling & Env Variables',
-		category: 'SvelteKit Server & Env',
-		tech: [
-			'hooks.server.ts',
-			'handle / handleFetch',
-			'error() vs fail()',
-			'+error.svelte',
-			'$env/static/private'
-		],
-		description:
-			'Intercept requests with server hooks, implement expected error contracts with custom +error.svelte views, and strictly isolate private secrets.'
-	},
-	{
-		id: 'svelte-adapters-deploy',
-		href: '/sveltekit/adapters-deploy',
-		track: 'Svelte & SvelteKit',
-		title: '19. SvelteKit Adapters & Production Deployment',
-		category: 'SvelteKit Adapters',
-		tech: [
-			'adapter-static',
-			'adapter-node',
-			'adapter-cloudflare',
-			'adapter-vercel',
-			'adapter-auto'
-		],
-		description:
-			'Select and configure the optimal SvelteKit deployment adapter for static edge CDN hosting, Node.js Docker containers, or serverless edge workers.'
-	},
-
-	// ==========================================
-	// Track 5: Vue 3.5 & Nuxt 4 Architecture
-	// ==========================================
-	{
-		id: 'nuxt-vue35-composables',
-		href: '/nuxt/vue35-composables',
-		track: 'Vue & Nuxt',
-		title: '20. Vue 3.5 Core Primitives & Composables',
-		category: 'Vue 3.5 & Composables',
-		tech: [
-			'Reactive Prop Destructure',
-			'useTemplateRef()',
-			'useId()',
-			'Custom Composables',
-			'SSR Hydration IDs'
-		],
-		description:
-			'Analyse Vue 3.5 reactive prop destructuring without toRefs, typed template references, SSR-safe ID generation, and modular composable lifecycles.'
-	},
-	{
-		id: 'nuxt-nuxt4-data',
-		href: '/nuxt/nuxt4-data',
-		track: 'Vue & Nuxt',
-		title: '21. Nuxt 4 Architecture, Nitro Hooks & useAsyncData',
-		category: 'Nuxt 4 & Nitro',
-		tech: [
-			'Nuxt 4 app/ structure',
-			'useAsyncData',
-			'useFetch',
-			'Server Routes (server/api)',
-			'Nitro Hooks'
-		],
-		description:
-			'Architect applications with Nuxt 4 forward-compatible directory layout, universal data fetching lifecycle with caching, and Nitro server extensions.'
-	},
-	{
-		id: 'nuxt-ui-design',
-		href: '/nuxt/nuxt-ui',
-		track: 'Vue & Nuxt',
-		title: '22. Nuxt UI & Headless Design Systems',
-		category: 'Nuxt UI & Design Systems',
-		tech: ['Nuxt UI v3', 'Reka UI', 'shadcn-svelte', 'Bits UI', 'CVA Tokens', 'Accessibility'],
-		description:
-			'Build design system components using Nuxt UI and shadcn-svelte headless primitives with Class Variance Authority (CVA) and Tailwind tokens.'
-	},
-
-	// ==========================================
-	// Track 6: Rendering, Serialisation & Security
+	// Track 4: Rendering, Serialisation & Security
 	// ==========================================
 	{
 		id: 'rendering-strategies',
 		href: '/rendering/strategies',
 		track: 'Rendering & Architecture',
-		title: '23. Rendering Strategies: SSG, SSR, Hybrid & CSR',
+		title: '14. Rendering Strategies: SSG, SSR, Hybrid & CSR',
 		category: 'Rendering Strategies',
 		tech: [
 			'Prerendering (SSG)',
@@ -417,7 +258,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'rendering-hydration-serialization',
 		href: '/rendering/hydration-serialization',
 		track: 'Rendering & Architecture',
-		title: '24. Hydration Engines & Data Serialisation',
+		title: '15. Hydration Engines & Data Serialisation',
 		category: 'Hydration & Serialisation',
 		tech: [
 			'Hydration Pipeline',
@@ -434,7 +275,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'rendering-csp-transitions',
 		href: '/rendering/csp-transitions',
 		track: 'Rendering & Architecture',
-		title: '25. Security: Strict CSP, Nonces & View Transitions',
+		title: '16. Security: Strict CSP, Nonces & View Transitions',
 		category: 'Web Security & Transitions',
 		tech: [
 			'Strict CSP',
@@ -448,13 +289,13 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// Track 7: APIs, Real-Time & Backend Data
+	// Track 5: APIs, Real-Time & Backend Data
 	// ==========================================
 	{
 		id: 'api-schema-rpc',
 		href: '/apis/schema-rpc',
 		track: 'APIs & Data Architecture',
-		title: '26. Schema Validation & Type-Safe RPC',
+		title: '17. Schema Validation & Type-Safe RPC',
 		category: 'API Architecture & RPC',
 		tech: [
 			'@standard-schema/spec',
@@ -470,7 +311,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'api-realtime-webhooks',
 		href: '/apis/realtime-webhooks',
 		track: 'APIs & Data Architecture',
-		title: '27. Real-Time Streaming & Webhook Signatures',
+		title: '18. Real-Time Streaming & Webhook Signatures',
 		category: 'Real-Time & Streaming',
 		tech: [
 			'Server-Sent Events (SSE)',
@@ -486,7 +327,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-databases-orm',
 		href: '/infra/databases-orm',
 		track: 'APIs & Data Architecture',
-		title: '28. Database Engines: Neon, Turso, libSQL, SQLite, PostgreSQL & postgres.js',
+		title: '19. Database Engines: Neon, Turso, libSQL, SQLite, PostgreSQL & postgres.js',
 		category: 'Backend & Data',
 		tech: [
 			'Neon Serverless',
@@ -503,7 +344,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-redis-ratelimit',
 		href: '/infra/redis-ratelimit',
 		track: 'APIs & Data Architecture',
-		title: '29. Edge Caching & Sliding Window Rate Limiting',
+		title: '20. Edge Caching & Sliding Window Rate Limiting',
 		category: 'Backend & Data',
 		tech: [
 			'@upstash/redis',
@@ -519,7 +360,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-better-auth',
 		href: '/infra/better-auth',
 		track: 'APIs & Data Architecture',
-		title: '30. Modern Authentication, Passkeys & Better Auth',
+		title: '21. Modern Authentication, Passkeys & Better Auth',
 		category: 'Auth & Security',
 		tech: [
 			'Better Auth',
@@ -535,7 +376,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-storage-s3-r2',
 		href: '/infra/storage-s3-r2',
 		track: 'APIs & Data Architecture',
-		title: '36. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads',
+		title: '22. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads',
 		category: 'Object Storage & R2',
 		tech: [
 			'@aws-sdk/client-s3',
@@ -550,13 +391,13 @@ export const curriculum: CurriculumModule[] = [
 	},
 
 	// ==========================================
-	// Track 8: Cloud, Operations, Monetisation & Licences
+	// Track 6: Cloud, Operations, Monetisation & Licences
 	// ==========================================
 	{
 		id: 'cloud-platforms-deploy',
 		href: '/cloud/platforms-deployment',
 		track: 'Cloud, Operations & Licences',
-		title: '31. Cloud Platforms: Cloudflare Workers, Vercel & Netlify',
+		title: '23. Cloud Platforms: Cloudflare Workers, Vercel & Netlify',
 		category: 'Cloud & Deployment',
 		tech: [
 			'Cloudflare Workers / Pages',
@@ -566,17 +407,17 @@ export const curriculum: CurriculumModule[] = [
 			'Deploy Options'
 		],
 		description:
-			'Evaluate deployment strategies across Cloudflare Workers, Vercel, and Netlify for Nuxt and SvelteKit, comparing V8 isolate latency with containerised nodes.'
+			'Evaluate deployment strategies across Cloudflare Workers, Vercel, and Netlify, comparing V8 isolate latency with containerised nodes.'
 	},
 	{
 		id: 'operations-testing',
 		href: '/operations/testing',
 		track: 'Cloud, Operations & Licences',
-		title: '32. Modern Testing Architecture: Vitest & Playwright',
+		title: '24. Modern Testing Architecture: Vitest & Playwright',
 		category: 'Testing & Quality',
 		tech: [
 			'Vitest',
-			'Svelte Testing Library',
+			'DOM Testing Library',
 			'Playwright E2E',
 			'Mock Service Worker (MSW)',
 			'Coverage Reports'
@@ -588,23 +429,23 @@ export const curriculum: CurriculumModule[] = [
 		id: 'operations-seo-analytics',
 		href: '/operations/seo-analytics',
 		track: 'Cloud, Operations & Licences',
-		title: '33. SEO, Metadata & Privacy-First Web Analytics',
+		title: '25. SEO, Metadata & Privacy-First Web Analytics',
 		category: 'SEO & Analytics',
 		tech: [
-			'svelte-meta-tags',
-			'Open Graph / Twitter Cards',
+			'HTML5 <head> Meta',
+			'Open Graph & Twitter Cards',
 			'JSON-LD Schema',
 			'Plausible / PostHog',
 			'Core Web Vitals'
 		],
 		description:
-			'Maximise search engine visibility with structured metadata and Open Graph cards while tracking telemetry via privacy-friendly, cookieless analytics.'
+			'Maximise search engine visibility with standard semantic metadata, Open Graph cards, and JSON-LD structured data while tracking cookieless analytics.'
 	},
 	{
 		id: 'business-monetization',
 		href: '/business/monetization',
 		track: 'Cloud, Operations & Licences',
-		title: '34. Site & Project Monetisation Models',
+		title: '26. Site & Project Monetisation Models',
 		category: 'Monetisation & Billing',
 		tech: [
 			'Polar.sh MoR',
@@ -620,7 +461,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'business-software-licenses',
 		href: '/business/software-licenses',
 		track: 'Cloud, Operations & Licences',
-		title: '35. Software Licence Types & Open Source Matrix',
+		title: '27. Software Licence Types & Open Source Matrix',
 		category: 'Software Licences',
 		tech: [
 			'MIT / Apache 2.0 / BSD',
@@ -636,7 +477,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'cloud-containers-iac',
 		href: '/cloud/containers-iac',
 		track: 'Cloud, Operations & Licences',
-		title: '37. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform',
+		title: '28. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform',
 		category: 'Containers & IaC',
 		tech: [
 			'Podman Rootless',
@@ -654,7 +495,7 @@ export const curriculum: CurriculumModule[] = [
 		href: '/operations/dev-environments',
 		track: 'Cloud, Operations & Licences',
 		title:
-			'38. Developer Workstations: Windows 11 WSL2 vs Fedora 44, VS Code vs VSCodium & Node 26',
+			'29. Developer Workstations: Windows 11 WSL2 vs Fedora 44, VS Code vs VSCodium & Node 26',
 		category: 'Developer Workstations',
 		tech: [
 			'Windows 11 WSL2',

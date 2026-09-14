@@ -7,7 +7,7 @@
 
 	let pageTitle = $state('Web Engine 2026: Reference Architecture');
 	let pageDesc = $state(
-		'Explore 35 production-grade engineering modules covering modern full-stack web standards.'
+		'Explore 29 production-grade engineering modules covering modern full-stack web standards.'
 	);
 	let pagePath = $state('https://web-engine26.pages.dev');
 
