@@ -42,7 +42,10 @@ export interface CurriculumModule {
 		| 'Testing & Quality'
 		| 'SEO & Analytics'
 		| 'Monetisation & Billing'
-		| 'Software Licences';
+		| 'Software Licences'
+		| 'Object Storage & R2'
+		| 'Containers & IaC'
+		| 'Developer Workstations';
 	tech: string[];
 	description: string;
 }
@@ -528,6 +531,23 @@ export const curriculum: CurriculumModule[] = [
 		description:
 			'Implement passwordless biometric passkeys, secure HttpOnly cookie session rotation, and modular authentication plugins with Better Auth.'
 	},
+	{
+		id: 'infra-storage-s3-r2',
+		href: '/infra/storage-s3-r2',
+		track: 'APIs & Data Architecture',
+		title: '36. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads',
+		category: 'Object Storage & R2',
+		tech: [
+			'@aws-sdk/client-s3',
+			'Cloudflare R2',
+			'Presigned URLs',
+			'Zero Egress',
+			'Multipart Uploads',
+			'Bucket Policies'
+		],
+		description:
+			'Architect scalable media and file storage with AWS SDK v3, presigned client upload tokens, and zero-egress Cloudflare R2 buckets.'
+	},
 
 	// ==========================================
 	// Track 8: Cloud, Operations, Monetisation & Licences
@@ -611,6 +631,42 @@ export const curriculum: CurriculumModule[] = [
 		],
 		description:
 			'Navigate permissive, copyleft, and source-available software licences with a comprehensive decision matrix and interactive legal compatibility advisor.'
+	},
+	{
+		id: 'cloud-containers-iac',
+		href: '/cloud/containers-iac',
+		track: 'Cloud, Operations & Licences',
+		title: '37. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform',
+		category: 'Containers & IaC',
+		tech: [
+			'Podman Rootless',
+			'Docker & OCI',
+			'AWS ECS / Fargate',
+			'Render PaaS',
+			'Terraform / OpenTofu',
+			'Wrangler IaC'
+		],
+		description:
+			'Compare rootless daemonless Podman with Docker, evaluate Container as a Service (ECS/Render) vs FaaS, and declare infrastructure with Terraform.'
+	},
+	{
+		id: 'operations-dev-environments',
+		href: '/operations/dev-environments',
+		track: 'Cloud, Operations & Licences',
+		title:
+			'38. Developer Workstations: Windows 11 WSL2 vs Fedora 44, VS Code vs VSCodium & Node 26',
+		category: 'Developer Workstations',
+		tech: [
+			'Windows 11 WSL2',
+			'Fedora 44 Linux',
+			'VS Code Remote',
+			'VSCodium (Open VSX)',
+			'Node.js 26 LTS',
+			'pnpm v12 Catalogs',
+			'OpenRemote'
+		],
+		description:
+			'Benchmark development workstation environments across Windows 11 WSL2 and native Fedora 44 Linux, comparing VS Code, VSCodium, Node 26, and OpenRemote.'
 	}
 ];
 

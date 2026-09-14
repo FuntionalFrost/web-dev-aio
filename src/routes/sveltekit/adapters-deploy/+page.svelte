@@ -126,5 +126,90 @@
 				</div>
 			</div>
 		</LabCard>
+
+		<!-- Simulator 2: adapter-node Production Topology & Docker/Podman -->
+		<LabCard
+			title="Node Server Production Topology (@sveltejs/adapter-node)"
+			badge="Production Runtime"
+		>
+			<div class="space-y-4 font-mono text-sm">
+				<div
+					class="rounded-2xl border border-indigo-200 bg-indigo-50/50 p-4 dark:border-indigo-900/50 dark:bg-indigo-950/30"
+				>
+					<span class="text-sm font-bold text-indigo-700 uppercase dark:text-indigo-300">
+						Standalone Node Server Environment Variables:
+					</span>
+					<div class="mt-2 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
+						<div
+							class="rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
+						>
+							<span class="font-bold text-indigo-600 dark:text-indigo-400"
+								>ORIGIN=https://yourapp.co.uk</span
+							>
+							<p class="mt-0.5 text-slate-600 dark:text-slate-400">
+								Enforces CSRF protection by matching Origin headers against your domain.
+							</p>
+						</div>
+						<div
+							class="rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
+						>
+							<span class="font-bold text-indigo-600 dark:text-indigo-400"
+								>PORT=3000 / HOST=0.0.0.0</span
+							>
+							<p class="mt-0.5 text-slate-600 dark:text-slate-400">
+								Binds to all network interfaces inside containerized networks.
+							</p>
+						</div>
+						<div
+							class="rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
+						>
+							<span class="font-bold text-indigo-600 dark:text-indigo-400"
+								>ADDRESS_HEADER=x-forwarded-for</span
+							>
+							<p class="mt-0.5 text-slate-600 dark:text-slate-400">
+								Resolves real client IP behind reverse proxies (Nginx / Cloudflare / Caddy).
+							</p>
+						</div>
+						<div
+							class="rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900"
+						>
+							<span class="font-bold text-indigo-600 dark:text-indigo-400"
+								>BODY_SIZE_LIMIT=10485760</span
+							>
+							<p class="mt-0.5 text-slate-600 dark:text-slate-400">
+								Configures maximum request body limit (e.g. 10 MB buffer).
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="rounded-2xl border border-slate-200 bg-slate-900 p-4 dark:border-slate-800">
+					<div class="flex items-center justify-between border-b border-slate-800 pb-2 text-sm">
+						<span class="font-bold text-slate-400">Multi-Stage Dockerfile (Docker / Podman)</span>
+						<span class="font-bold text-emerald-400">~80 MB Alpine Image</span>
+					</div>
+					<pre class="mt-3 overflow-x-auto text-sm leading-relaxed text-slate-200"><code
+							># Stage 1: Build
+FROM node:24-alpine AS builder
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install --frozen-lockfile
+COPY . .
+RUN pnpm build && pnpm prune --prod
+
+# Stage 2: Runtime
+FROM node:24-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production PORT=3000 HOST=0.0.0.0
+USER node
+COPY --from=builder --chown=node:node /app/build ./build
+COPY --from=builder --chown=node:node /app/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/package.json ./package.json
+EXPOSE 3000
+CMD ["node", "build/index.js"]</code
+						></pre>
+				</div>
+			</div>
+		</LabCard>
 	{/snippet}
 </LabShell>

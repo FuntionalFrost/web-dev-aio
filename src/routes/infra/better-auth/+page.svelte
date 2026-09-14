@@ -60,6 +60,71 @@
 		passkeyStep = 'idle';
 		simulatedCredential = null;
 	}
+
+	// 3. GitHub Apps vs OAuth vs Passkey Strategy Matrix
+	type AuthModelKey = 'github_app' | 'github_oauth' | 'passkey' | 'password';
+	let selectedAuthModel = $state<AuthModelKey>('github_app');
+
+	const authModelSpecs: Record<
+		AuthModelKey,
+		{
+			name: string;
+			type: string;
+			securityScore: string;
+			liability: string;
+			bestFor: string;
+			pros: string[];
+		}
+	> = {
+		github_app: {
+			name: 'GitHub App (Modern Standard)',
+			type: 'Fine-Grained Installation Token (JWT)',
+			securityScore: '99% (Strict Least Privilege)',
+			liability: 'Zero password storage; per-repository access tokens',
+			bestFor: 'CI/CD bots, developer tooling, multi-tenant SaaS integrations',
+			pros: [
+				'Fine-grained repository permissions (e.g. read PRs only on org/repo)',
+				'Short-lived 1-hour installation tokens minted via private RSA key',
+				'Higher API rate limits (up to 15,000 req/hr)'
+			]
+		},
+		github_oauth: {
+			name: 'GitHub OAuth App (Legacy)',
+			type: 'OAuth 2.0 PKCE User Token',
+			securityScore: '85% (Coarse Scopes)',
+			liability: 'Zero password storage; token persists until revoked',
+			bestFor: 'Simple 1-click developer social login',
+			pros: [
+				'Instant user onboarding with GitHub avatar, username, and email',
+				'Delegates 2FA and brute-force defence to GitHub',
+				'Frictionless for developer audiences'
+			]
+		},
+		passkey: {
+			name: 'WebAuthn Hardware Passkeys',
+			type: 'Asymmetric Public-Key Cryptography',
+			securityScore: '100% (Phishing Immune)',
+			liability: 'Zero secret liability (only public key stored in DB)',
+			bestFor: 'Zero-friction biometric consumer and enterprise authentication',
+			pros: [
+				'Immune to phishing and credential stuffing attacks',
+				'Biometric verification (TouchID, FaceID, Windows Hello)',
+				'Native Web Standards browser API'
+			]
+		},
+		password: {
+			name: 'Email + Password (Argon2id)',
+			type: 'Cryptographic Salted Hash',
+			securityScore: '60% (Vulnerable to Phishing/Reuse)',
+			liability: 'High liability; database stores sensitive password hashes',
+			bestFor: 'Universal legacy compatibility across all audiences',
+			pros: [
+				'Works for users without third-party accounts or biometrics',
+				'Requires strict rate limiting and mandatory 2FA/TOTP',
+				'Requires password reset and email verification workflows'
+			]
+		}
+	};
 </script>
 
 <LabShell codeHtml={data.codeHtml} rawCode={data.rawCode} filename={data.filename}>
@@ -232,6 +297,68 @@
 						</div>
 					</div>
 				{/if}
+			</div>
+		</LabCard>
+
+		<!-- Simulator 3: GitHub Apps vs OAuth Apps vs Auth Models -->
+		<LabCard title="Authentication Architecture & GitHub Integration" badge="Identity Strategy">
+			<div class="space-y-4 font-mono text-sm">
+				<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+					{#each ['github_app', 'github_oauth', 'passkey', 'password'] as const as ak (ak)}
+						<button
+							onclick={() => (selectedAuthModel = ak)}
+							class="rounded-xl border p-2.5 text-center text-sm font-bold transition {selectedAuthModel ===
+							ak
+								? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
+								: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
+						>
+							{authModelSpecs[ak].name.split(' ')[0]}
+						</button>
+					{/each}
+				</div>
+
+				<div
+					class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+				>
+					<div class="flex items-center justify-between">
+						<div>
+							<h4 class="text-base font-bold text-slate-900 dark:text-white">
+								{authModelSpecs[selectedAuthModel].name}
+							</h4>
+							<span class="text-sm text-indigo-600 dark:text-indigo-400">
+								{authModelSpecs[selectedAuthModel].type}
+							</span>
+						</div>
+						<div class="text-right">
+							<span class="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+								{authModelSpecs[selectedAuthModel].securityScore}
+							</span>
+						</div>
+					</div>
+
+					<div class="space-y-1.5 border-t border-slate-200 pt-2 text-sm dark:border-slate-800">
+						<div>
+							<span class="font-bold text-slate-500">Credential Liability:</span>
+							<p class="text-slate-800 dark:text-slate-200">
+								{authModelSpecs[selectedAuthModel].liability}
+							</p>
+						</div>
+						<div>
+							<span class="font-bold text-slate-500">Best For:</span>
+							<p class="text-slate-800 dark:text-slate-200">
+								{authModelSpecs[selectedAuthModel].bestFor}
+							</p>
+						</div>
+						<div>
+							<span class="font-bold text-slate-500">Key Properties:</span>
+							<ul class="mt-1 space-y-1 text-slate-700 dark:text-slate-300">
+								{#each authModelSpecs[selectedAuthModel].pros as pro (pro)}
+									<li>• {pro}</li>
+								{/each}
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</LabCard>
 	{/snippet}
