@@ -1,8 +1,43 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { page } from '$app/state';
+	import { replaceState } from '$app/navigation';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
 	let activeTrack = $state<string>('All');
 	let searchQuery = $state<string>('');
+
+	// Initialize from URL search params in the browser only (guards prerendering)
+	$effect(() => {
+		if (browser) {
+			const urlTrack = page.url.searchParams.get('track');
+			const urlQ = page.url.searchParams.get('q');
+			if (urlTrack && urlTrack !== activeTrack) {
+				activeTrack = urlTrack;
+			}
+			if (urlQ && urlQ !== searchQuery) {
+				searchQuery = urlQ;
+			}
+		}
+	});
+
+	$effect(() => {
+		if (!browser) return;
+		const url = new URL(page.url);
+		if (activeTrack !== 'All') {
+			url.searchParams.set('track', activeTrack);
+		} else {
+			url.searchParams.delete('track');
+		}
+		if (searchQuery.trim()) {
+			url.searchParams.set('q', searchQuery.trim());
+		} else {
+			url.searchParams.delete('q');
+		}
+		if (url.search !== page.url.search) {
+			replaceState(url, {});
+		}
+	});
 
 	let filteredModules = $derived(
 		curriculum.filter((mod) => {
@@ -32,8 +67,8 @@
 			Full-Stack Architecture Labs
 		</h1>
 		<p class="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-			35 production-grade engineering modules covering Svelte 5 Universal Runes & Async streaming,
-			SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes,
+			{curriculum.length} production-grade engineering modules covering Svelte 5 Universal Runes & Async
+			streaming, SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes,
 			SSG/SSR rendering strategies, strict CSP security, and software licence architectures.
 		</p>
 	</div>
@@ -78,7 +113,7 @@
 			<input
 				type="search"
 				bind:value={searchQuery}
-				placeholder="Filter 35 engineering labs..."
+				placeholder="Filter {curriculum.length} engineering labs..."
 				class="h-11 w-full rounded-xl border border-slate-300 bg-slate-50 pr-4 pl-10 font-mono text-base text-slate-900 placeholder-slate-400 transition focus:border-indigo-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-950"
 			/>
 		</div>
@@ -99,28 +134,31 @@
 							>
 								{mod.category}
 							</span>
-							<span class="font-mono text-sm text-slate-500 dark:text-slate-400">
-								{mod.track}
+							<span class="font-mono text-sm text-slate-400">
+								{mod.tech[0]}
 							</span>
 						</div>
-						<h2
-							class="text-lg font-bold tracking-tight text-slate-900 transition group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400"
-						>
-							{mod.title}
-						</h2>
-						<p class="text-base leading-relaxed text-slate-600 dark:text-slate-300">
-							{mod.description}
-						</p>
+
+						<div>
+							<h3
+								class="text-xl font-bold tracking-tight text-slate-900 transition group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400"
+							>
+								{mod.title}
+							</h3>
+							<p
+								class="mt-2 line-clamp-2 text-base leading-relaxed text-slate-600 dark:text-slate-300"
+							>
+								{mod.description}
+							</p>
+						</div>
 					</div>
 
-					<div
-						class="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-4 dark:border-slate-800/80"
-					>
-						{#each mod.tech as tag (tag)}
+					<div class="mt-6 flex flex-wrap items-center gap-1.5 pt-4">
+						{#each mod.tech as t (t)}
 							<span
-								class="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-sm font-medium text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
+								class="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
 							>
-								{tag}
+								{t}
 							</span>
 						{/each}
 					</div>
@@ -129,10 +167,22 @@
 		</div>
 	{:else}
 		<div
-			class="rounded-2xl border border-dashed border-slate-300 p-16 text-center font-mono text-base text-slate-500 dark:border-slate-800"
+			class="rounded-2xl border border-dashed border-slate-300 p-12 text-center dark:border-slate-800"
 		>
-			No modules found matching your search. Try searching for Svelte, Nitro, Bun, Adapters, or
-			Licences.
+			<span class="font-mono text-base text-slate-500 dark:text-slate-400">
+				No architectural modules matched "{searchQuery}".
+			</span>
+			<div class="mt-3">
+				<button
+					onclick={() => {
+						searchQuery = '';
+						activeTrack = 'All';
+					}}
+					class="font-mono text-sm font-bold text-indigo-600 hover:underline dark:text-indigo-400"
+				>
+					Reset filters
+				</button>
+			</div>
 		</div>
 	{/if}
 </div>

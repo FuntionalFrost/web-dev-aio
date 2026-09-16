@@ -1,51 +1,83 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { MetaTags, JsonLd } from 'svelte-meta-tags';
-	import { SITE } from '$lib/config/site';
+	import { SITE, siteConfig } from '$lib/config/site';
 	import { curriculum } from '$lib/data/curriculum';
 	import { buildJsonLd } from '$lib/seo/schema';
-
-	const cleanPath = (p: string) => p.replace(/\/$/, '') || '/';
+	import { cleanPath, toRouteKey } from '$lib/utils/url';
+	import type { PageSeoConfig } from 'yaxa-svelte';
 
 	let currentPath = $derived(cleanPath(page.url.pathname));
 	let isHome = $derived(currentPath === '/');
+	let isError = $derived(page.status >= 400);
 	let activeModule = $derived(curriculum.find((m) => cleanPath(m.href) === currentPath));
 
-	let title = $derived(activeModule ? activeModule.title : 'Modern Web Engineering Guide');
-	let description = $derived(activeModule?.description ?? SITE.description);
-	let canonicalUrl = $derived(isHome ? SITE.url : `${SITE.url}${currentPath}`);
+	// Prefer declarative SEO from page.data.seo when available
+	let pageSeo = $derived((page.data as { seo?: PageSeoConfig })?.seo);
+
+	let title = $derived(
+		isError
+			? '404 - Lab Not Found'
+			: (pageSeo?.title ?? (activeModule ? activeModule.title : 'Full-Stack Architecture Labs'))
+	);
+	let description = $derived(
+		isError
+			? siteConfig.description
+			: (pageSeo?.description ?? activeModule?.description ?? siteConfig.description)
+	);
+	let canonicalUrl = $derived(
+		isError
+			? `${siteConfig.url}/404`
+			: (pageSeo?.canonical ?? (isHome ? siteConfig.url : `${siteConfig.url}${currentPath}`))
+	);
+	let robots = $derived(isError ? 'noindex, nofollow' : 'index, follow');
+
+	let resolvedOgImage = $derived(
+		typeof pageSeo?.ogImage === 'string' ? pageSeo.ogImage : undefined
+	);
+
+	let ogImageUrl = $derived(
+		resolvedOgImage ??
+			(activeModule
+				? `${siteConfig.url}/og/${toRouteKey(activeModule.href)}`
+				: `${siteConfig.url}/og/default`)
+	);
 
 	let jsonLdSchemas = $derived(
-		buildJsonLd({
-			isHome,
-			activeModule,
-			canonicalUrl
-		})
+		isError
+			? []
+			: buildJsonLd({
+					isHome,
+					activeModule,
+					canonicalUrl
+				})
 	);
 </script>
 
 <MetaTags
 	{title}
-	titleTemplate={`%s | ${SITE.name}`}
+	titleTemplate={`%s | ${siteConfig.name}`}
 	{description}
 	canonical={canonicalUrl}
-	robots="index, follow"
+	{robots}
 	openGraph={{
 		type: activeModule ? 'article' : 'website',
 		url: canonicalUrl,
 		title: activeModule
-			? `${activeModule.title} | ${SITE.name}`
-			: `${SITE.name} | Architecture Guide`,
+			? `${activeModule.title} | ${siteConfig.name}`
+			: `${siteConfig.name} | Architecture Guide`,
 		description,
-		siteName: SITE.name,
+		siteName: siteConfig.name,
 		images: [
 			{
-				url: SITE.ogImage,
-				secureUrl: SITE.ogImage,
-				type: 'image/png',
+				url: ogImageUrl,
+				secureUrl: ogImageUrl,
+				type: 'image/svg+xml',
 				width: 1200,
 				height: 630,
-				alt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
+				alt: activeModule
+					? `${activeModule.title} - ${siteConfig.name}`
+					: `${siteConfig.name} Architecture`
 			}
 		],
 		...(activeModule
@@ -53,20 +85,23 @@
 					article: {
 						section: activeModule.track,
 						tags: activeModule.tech,
-						authors: [SITE.author]
+						authors: [siteConfig.author?.name ?? SITE.author],
+						publishedTime: '2026-01-15T00:00:00Z'
 					}
 				}
 			: {})
 	}}
 	twitter={{
 		cardType: 'summary_large_image',
-		title: activeModule ? `${activeModule.title} | ${SITE.name}` : SITE.name,
+		title: activeModule ? `${activeModule.title} | ${siteConfig.name}` : siteConfig.name,
 		description,
-		image: SITE.ogImage,
-		imageAlt: activeModule ? `${activeModule.title} - ${SITE.name}` : `${SITE.name} Architecture`
+		image: ogImageUrl,
+		imageAlt: activeModule
+			? `${activeModule.title} - ${siteConfig.name}`
+			: `${siteConfig.name} Architecture`
 	}}
 	additionalMetaTags={[
-		{ name: 'author', content: SITE.author },
+		{ name: 'author', content: siteConfig.author?.name ?? SITE.author },
 		{
 			name: 'keywords',
 			content: activeModule ? `${activeModule.tech.join(', ')}, ${SITE.keywords}` : SITE.keywords
@@ -74,4 +109,6 @@
 	]}
 />
 
-<JsonLd schema={jsonLdSchemas} />
+{#if jsonLdSchemas.length > 0}
+	<JsonLd schema={jsonLdSchemas} />
+{/if}

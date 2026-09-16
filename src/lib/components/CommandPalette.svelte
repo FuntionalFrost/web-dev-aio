@@ -1,41 +1,27 @@
 <script lang="ts">
+	import { CommandPalette as YaxaCommandPalette, type CommandItem } from 'yaxa-svelte';
 	import { curriculum } from '$lib/data/curriculum';
 	import { goto } from '$app/navigation';
 
 	let isOpen = $state(false);
-	let searchQuery = $state('');
 
-	let filtered = $derived(
-		curriculum.filter((m) => {
-			const q = searchQuery.toLowerCase().trim();
-			return (
-				!q ||
-				m.title.toLowerCase().includes(q) ||
-				m.description.toLowerCase().includes(q) ||
-				m.category.toLowerCase().includes(q) ||
-				m.tech.some((t) => t.toLowerCase().includes(q))
-			);
-		})
-	);
+	const items: CommandItem[] = curriculum.map((m) => ({
+		id: m.id,
+		label: m.title,
+		description: `${m.category} • ${m.tech.join(', ')}`,
+		group: m.track,
+		href: m.href,
+		onSelect: () => {
+			isOpen = false;
+			goto(m.href);
+		}
+	}));
 
 	function handleKeydown(e: KeyboardEvent) {
 		if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
 			e.preventDefault();
 			isOpen = !isOpen;
 		}
-		if (e.key === 'Escape' && isOpen) {
-			isOpen = false;
-		}
-	}
-
-	function selectModule(href: string) {
-		isOpen = false;
-		searchQuery = '';
-		goto(href);
-	}
-
-	function focusOnMount(node: HTMLElement) {
-		node.focus();
 	}
 </script>
 
@@ -59,67 +45,8 @@
 	</kbd>
 </button>
 
-<!-- Modal Palette Overlay -->
-{#if isOpen}
-	<div
-		role="button"
-		tabindex="0"
-		aria-label="Close command palette overlay"
-		onclick={() => (isOpen = false)}
-		onkeydown={(e) => e.key === 'Escape' && (isOpen = false)}
-		class="fixed inset-0 z-50 flex items-start justify-center bg-slate-950/60 p-4 pt-16 backdrop-blur-sm sm:pt-24"
-	>
-		<div
-			role="dialog"
-			tabindex="-1"
-			aria-modal="true"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-			class="w-full max-w-2xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
-		>
-			<div class="flex items-center border-b border-slate-200 px-4 dark:border-slate-800">
-				<span class="text-lg text-slate-500 dark:text-slate-400">🔍</span>
-				<input
-					use:focusOnMount
-					type="text"
-					bind:value={searchQuery}
-					placeholder="Search modules, tech tags, or topics (e.g. Svelte, Nitro, Bun, Adapters)..."
-					class="h-14 w-full bg-transparent px-3 font-mono text-base text-slate-900 focus:outline-none dark:text-slate-100"
-				/>
-				<button
-					onclick={() => (isOpen = false)}
-					class="rounded-lg px-2 py-1 font-mono text-sm font-semibold text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-200"
-				>
-					ESC
-				</button>
-			</div>
-
-			<div class="max-h-96 overflow-y-auto p-3">
-				{#each filtered as mod (mod.id)}
-					<button
-						onclick={() => selectModule(mod.href)}
-						class="flex w-full items-start justify-between rounded-xl p-3.5 text-left transition hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
-					>
-						<div class="space-y-1 pr-3">
-							<span class="block font-mono text-base font-bold text-slate-900 dark:text-slate-100">
-								{mod.title}
-							</span>
-							<span class="line-clamp-1 block text-sm text-slate-600 dark:text-slate-300">
-								{mod.description}
-							</span>
-						</div>
-						<span
-							class="shrink-0 rounded-md bg-slate-100 px-2.5 py-1 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-						>
-							{mod.category}
-						</span>
-					</button>
-				{:else}
-					<div class="p-10 text-center font-mono text-base text-slate-500 dark:text-slate-400">
-						No matching engineering labs found.
-					</div>
-				{/each}
-			</div>
-		</div>
-	</div>
-{/if}
+<YaxaCommandPalette
+	bind:open={isOpen}
+	{items}
+	placeholder="Search curriculum labs, runtimes, or APIs..."
+/>

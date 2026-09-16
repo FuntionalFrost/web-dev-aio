@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { theme } from '$lib/state/theme.svelte';
+	import { theme } from 'yaxa-svelte';
 </script>
 
 <button
-	onclick={theme.toggle}
-	aria-label="Switch to {theme.current === 'dark' ? 'light' : 'dark'} mode"
+	onclick={() => theme.toggle()}
+	aria-label="Switch to {theme.resolvedTheme === 'dark' ? 'light' : 'dark'} mode"
 	class="relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800"
 >
-	{#if theme.current === 'dark'}
+	{#if theme.resolvedTheme === 'dark'}
 		<!-- Sun Icon Glyph -->
 		<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
 			<path

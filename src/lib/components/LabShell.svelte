@@ -4,6 +4,7 @@
 	import LabPagination from '$lib/components/LabPagination.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import { curriculum } from '$lib/data/curriculum';
+	import { cleanPath } from '$lib/utils/url';
 	import { SITE } from '$lib/config/site';
 
 	let {
@@ -13,6 +14,7 @@
 		codeHtml,
 		rawCode,
 		filename,
+		guideHtml,
 		guide,
 		children,
 		lab,
@@ -24,13 +26,12 @@
 		codeHtml?: string;
 		rawCode?: string;
 		filename?: string;
+		guideHtml?: string;
 		guide?: Snippet;
 		children?: Snippet;
 		lab?: Snippet;
 		sandbox?: Snippet;
 	} = $props();
-
-	const cleanPath = (p: string) => p.replace(/\/$/, '');
 
 	// Resolve active curriculum module by moduleId or current route path
 	let mod = $derived(
@@ -68,7 +69,14 @@
 			</div>
 		{/if}
 
-		{#if guide}
+		{#if guideHtml}
+			<div
+				class="space-y-4 text-base leading-relaxed sm:text-lg [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_li]:mt-2 [&_ul]:list-disc [&_ul]:pl-5"
+			>
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html guideHtml}
+			</div>
+		{:else if guide}
 			<div
 				class="space-y-4 text-base leading-relaxed sm:text-lg [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-slate-900 [&_h3]:dark:text-white [&_li]:mt-2 [&_ul]:list-disc [&_ul]:pl-5"
 			>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { curriculum } from '$lib/data/curriculum';
 </script>
 
 <div class="flex min-h-[70vh] flex-col items-center justify-center space-y-4 p-6 text-center">
@@ -13,7 +14,7 @@
 		Lab Route Not Found
 	</h1>
 	<p class="max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-		The architectural module or simulator you requested does not exist or has moved in the 35-module
+		The architectural module or simulator you requested does not exist or has moved in the {curriculum.length}-module
 		curriculum.
 	</p>
 	<div class="flex gap-3 pt-4">

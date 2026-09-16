@@ -1,0 +1,136 @@
+<script lang="ts">
+	import LabCard from '$lib/components/LabCard.svelte';
+
+	type StrategyKey = 'ssg' | 'ssr' | 'hybrid' | 'csr';
+	let selectedStrategy = $state<StrategyKey>('ssg');
+
+	const comparisonData: Record<
+		StrategyKey,
+		{
+			title: string;
+			ttfb: string;
+			fcp: string;
+			seoRating: string;
+			hostingCost: string;
+			bestFor: string;
+			description: string;
+		}
+	> = {
+		ssg: {
+			title: 'Static Site Generation (SSG / Prerendering)',
+			ttfb: '10 - 25ms (Edge CDN Cache)',
+			fcp: '80 - 150ms',
+			seoRating: 'Perfect (100% pre-rendered HTML)',
+			hostingCost: '$0 (Zero compute, static object storage)',
+			bestFor: 'Documentation, blogs, marketing portals, ecommerce catalog shells',
+			description:
+				'HTML is rendered once during build time and distributed globally across edge CDN caches.'
+		},
+		ssr: {
+			title: 'Server-Side Rendering (SSR)',
+			ttfb: '120 - 350ms (Dynamic compute)',
+			fcp: '280 - 450ms',
+			seoRating: 'Excellent (Fresh dynamic server HTML)',
+			hostingCost: 'Standard Serverless / Node compute charges',
+			bestFor: 'Personalised user dashboards, authenticated views, dynamic live feeds',
+			description:
+				'HTML is synthesised dynamically on every incoming request on the server runtime.'
+		},
+		hybrid: {
+			title: 'Hybrid / Incremental Static Regeneration (ISR)',
+			ttfb: '20 - 60ms (Stale-While-Revalidate)',
+			fcp: '140 - 220ms',
+			seoRating: 'Excellent',
+			hostingCost: 'Minimal on-demand revalidation compute',
+			bestFor: 'High-traffic content hubs with periodic cache invalidation',
+			description:
+				'Static CDN caching with automated background revalidation on interval or webhook trigger.'
+		},
+		csr: {
+			title: 'Client-Side Rendering (CSR / SPA)',
+			ttfb: '15 - 30ms (Static empty HTML shell)',
+			fcp: '600 - 1200ms (Waits for client JS bundle download)',
+			seoRating: 'Requires search bot JavaScript execution',
+			hostingCost: '$0 static hosting',
+			bestFor: 'Internal enterprise backoffices, heavy offline SaaS tools',
+			description:
+				'Browser downloads a blank shell and executes JavaScript to render the entire UI in-memory.'
+		}
+	};
+</script>
+
+<LabCard title="Rendering Architecture Decision Matrix" badge="Rendering Tradeoffs">
+	<div class="space-y-4 font-mono text-sm">
+		<div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
+			{#each ['ssg', 'ssr', 'hybrid', 'csr'] as const as key (key)}
+				<button
+					onclick={() => (selectedStrategy = key)}
+					class="rounded-xl border p-2.5 text-center text-sm font-bold uppercase transition sm:text-sm {selectedStrategy ===
+					key
+						? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
+						: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
+				>
+					{key}
+				</button>
+			{/each}
+		</div>
+
+		<div
+			class="space-y-3 rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950"
+		>
+			<div>
+				<h4 class="text-base font-bold text-slate-900 dark:text-white">
+					{comparisonData[selectedStrategy].title}
+				</h4>
+				<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+					{comparisonData[selectedStrategy].description}
+				</p>
+			</div>
+
+			<div class="grid grid-cols-2 gap-3 pt-1">
+				<div
+					class="rounded-xl border border-indigo-200 bg-indigo-50/50 p-3 dark:border-indigo-900 dark:bg-indigo-950/40"
+				>
+					<span class="text-sm font-bold text-indigo-600 uppercase dark:text-indigo-400"
+						>TTFB (Time to First Byte):</span
+					>
+					<p class="mt-0.5 text-base font-bold text-slate-900 dark:text-white">
+						{comparisonData[selectedStrategy].ttfb}
+					</p>
+				</div>
+				<div
+					class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3 dark:border-emerald-900 dark:bg-emerald-950/40"
+				>
+					<span class="text-sm font-bold text-emerald-600 uppercase dark:text-emerald-400"
+						>FCP (First Contentful Paint):</span
+					>
+					<p class="mt-0.5 text-base font-bold text-slate-900 dark:text-white">
+						{comparisonData[selectedStrategy].fcp}
+					</p>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-2 gap-3">
+				<div>
+					<span class="text-sm font-bold text-slate-500 uppercase">SEO Visibility:</span>
+					<p class="mt-0.5 text-sm font-semibold text-slate-800 dark:text-slate-200">
+						{comparisonData[selectedStrategy].seoRating}
+					</p>
+				</div>
+				<div>
+					<span class="text-sm font-bold text-slate-500 uppercase">Infrastructure Cost:</span>
+					<p class="mt-0.5 text-sm font-semibold text-slate-800 dark:text-slate-200">
+						{comparisonData[selectedStrategy].hostingCost}
+					</p>
+				</div>
+			</div>
+
+			<div class="border-t border-slate-200 pt-2 dark:border-slate-800">
+				<span class="text-sm font-bold text-indigo-600 uppercase">Recommended Use Case:</span>
+				<p class="mt-0.5 text-sm font-bold text-slate-900 dark:text-white">
+					{comparisonData[selectedStrategy].bestFor}
+				</p>
+			</div>
+		</div>
+	</div>
+</LabCard>
