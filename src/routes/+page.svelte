@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
+	import { Badge } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
 	let activeTrack = $state<string>('All');
@@ -129,11 +130,9 @@
 				>
 					<div class="space-y-3.5">
 						<div class="flex items-center justify-between">
-							<span
-								class="rounded-md bg-indigo-50 px-2.5 py-1 font-mono text-sm font-bold tracking-wide text-indigo-600 uppercase dark:bg-indigo-950/60 dark:text-indigo-400"
-							>
+							<Badge variant="soft" color="primary" size="sm">
 								{mod.category}
-							</span>
+							</Badge>
 							<span class="font-mono text-sm text-slate-400">
 								{mod.tech[0]}
 							</span>
@@ -155,11 +154,9 @@
 
 					<div class="mt-6 flex flex-wrap items-center gap-1.5 pt-4">
 						{#each mod.tech as t (t)}
-							<span
-								class="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
-							>
+							<Badge variant="subtle" color="neutral" size="xs">
 								{t}
-							</span>
+							</Badge>
 						{/each}
 					</div>
 				</a>

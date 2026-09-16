@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import 'yaxa-svelte/yaxa.css';
-	import { YaxaApp } from 'yaxa-svelte';
+	import { YaxaApp, Slideover, Breadcrumb, useShortcuts, theme } from 'yaxa-svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import SEO from '$lib/components/SEO.svelte';
@@ -19,6 +19,20 @@
 		curriculum.find((m) => cleanPath(m.href) === cleanPath(page.url.pathname))
 	);
 	let mobileDrawerOpen = $state(false);
+
+	let breadcrumbItems = $derived(
+		activeModule
+			? [
+					{ label: 'Home', href: '/' },
+					{ label: activeModule.track, href: `/?track=${encodeURIComponent(activeModule.track)}` },
+					{ label: activeModule.title }
+				]
+			: [{ label: 'Home', href: '/' }]
+	);
+
+	useShortcuts({
+		t: () => theme.toggle()
+	});
 
 	onNavigate((navigation) => {
 		mobileDrawerOpen = false;
@@ -87,27 +101,14 @@
 			</div>
 		</aside>
 
-		<!-- Mobile Drawer Overlay -->
-		{#if mobileDrawerOpen}
-			<div
-				role="button"
-				tabindex="0"
-				aria-label="Close navigation overlay"
-				onclick={() => (mobileDrawerOpen = false)}
-				onkeydown={(e) => e.key === 'Escape' && (mobileDrawerOpen = false)}
-				class="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm md:hidden"
-			></div>
-		{/if}
-
-		<!-- Mobile Navigation Drawer -->
-		<aside
-			class="fixed inset-y-0 left-0 z-50 w-88 transform bg-white p-6 shadow-2xl transition-transform duration-200 md:hidden dark:bg-slate-900 {mobileDrawerOpen
-				? 'translate-x-0'
-				: '-translate-x-full'}"
+		<!-- Accessible Mobile Navigation Drawer via Yaxa Slideover -->
+		<Slideover
+			bind:open={mobileDrawerOpen}
+			side="left"
+			title="Curriculum Tracks"
+			class="w-88 md:hidden"
 		>
-			<div
-				class="flex items-center justify-between border-b border-slate-200 pb-4 dark:border-slate-800"
-			>
+			{#snippet header()}
 				<div class="flex items-center gap-2.5">
 					<div
 						class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 font-mono text-sm font-bold text-white"
@@ -118,16 +119,9 @@
 						>Curriculum Tracks</span
 					>
 				</div>
-				<button
-					onclick={() => (mobileDrawerOpen = false)}
-					aria-label="Close navigation drawer"
-					class="rounded-lg p-1.5 text-base text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
-				>
-					✕
-				</button>
-			</div>
+			{/snippet}
 
-			<nav class="mt-4 max-h-[calc(100vh-8rem)] space-y-6 overflow-y-auto pr-2">
+			<nav class="space-y-6 overflow-y-auto pr-2">
 				{#each groupedTracks as group, i (group.track)}
 					<div class="space-y-1.5">
 						<span
@@ -140,6 +134,7 @@
 								{@const active = cleanPath(page.url.pathname) === cleanPath(mod.href)}
 								<a
 									href={mod.href}
+									onclick={() => (mobileDrawerOpen = false)}
 									class="block rounded-xl px-3 py-2 text-sm font-medium transition {active
 										? 'bg-indigo-50 font-bold text-indigo-950 dark:bg-indigo-950/60 dark:text-indigo-200'
 										: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
@@ -151,7 +146,7 @@
 					</div>
 				{/each}
 			</nav>
-		</aside>
+		</Slideover>
 
 		<!-- Main Content Area -->
 		<div class="flex min-w-0 flex-1 flex-col overflow-x-hidden">
@@ -167,18 +162,8 @@
 						☰
 					</button>
 
-					<div
-						class="hidden items-center gap-2 font-mono text-sm text-slate-500 sm:flex dark:text-slate-400"
-					>
-						<a href={resolve('/')} class="transition hover:text-slate-900 dark:hover:text-white"
-							>Home</a
-						>
-						{#if activeModule}
-							<span>/</span>
-							<span>{activeModule.track}</span>
-							<span>/</span>
-							<span class="font-bold text-slate-900 dark:text-slate-100">{activeModule.title}</span>
-						{/if}
+					<div class="hidden sm:block">
+						<Breadcrumb items={breadcrumbItems} class="font-mono text-sm" />
 					</div>
 				</div>
 

@@ -4,7 +4,8 @@ import { toRouteKey } from '$lib/utils/url';
 import {
 	generateWebSiteSchema,
 	generateArticleSchema,
-	generateBreadcrumbSchema
+	generateBreadcrumbSchema,
+	generateSoftwareSourceCodeSchema
 } from 'yaxa-svelte';
 
 export interface SchemaContext {
@@ -20,6 +21,7 @@ export function buildJsonLd({
 }: SchemaContext): Array<Record<string, unknown>> {
 	if (isHome) {
 		const webSiteSchema = generateWebSiteSchema(siteConfig);
+		const sourceCodeSchema = generateSoftwareSourceCodeSchema(siteConfig);
 		const itemListSchema = {
 			'@context': 'https://schema.org',
 			'@type': 'ItemList',
@@ -35,7 +37,11 @@ export function buildJsonLd({
 			}))
 		};
 
-		return [webSiteSchema as Record<string, unknown>, itemListSchema];
+		return [
+			webSiteSchema as Record<string, unknown>,
+			sourceCodeSchema as Record<string, unknown>,
+			itemListSchema
+		];
 	}
 
 	if (activeModule) {
@@ -72,10 +78,27 @@ export function buildJsonLd({
 			inLanguage: 'en-US'
 		};
 
+		const softwareSourceCodeSchema = {
+			'@context': 'https://schema.org',
+			'@type': 'SoftwareSourceCode',
+			name: activeModule.title,
+			description: activeModule.description,
+			programmingLanguage: activeModule.category,
+			runtimePlatform: activeModule.track,
+			codeRepository: siteConfig.project?.repositoryUrl,
+			license: 'https://opensource.org/licenses/MIT',
+			author: {
+				'@type': 'Organization',
+				name: siteConfig.name,
+				url: siteConfig.url
+			}
+		};
+
 		return [
 			articleSchema as Record<string, unknown>,
 			breadcrumbsSchema as Record<string, unknown>,
-			learningResourceSchema
+			learningResourceSchema,
+			softwareSourceCodeSchema
 		];
 	}
 

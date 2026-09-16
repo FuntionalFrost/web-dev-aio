@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { Badge } from 'yaxa-svelte';
 
 	let {
 		title,
@@ -24,11 +25,9 @@
 			{title}
 		</span>
 		{#if badge}
-			<span
-				class="rounded-md bg-slate-100 px-2.5 py-1 font-mono text-sm font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-			>
+			<Badge variant="subtle" color="neutral" size="sm">
 				{badge}
-			</span>
+			</Badge>
 		{/if}
 	</div>
 

@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { CommandPalette as YaxaCommandPalette, type CommandItem } from 'yaxa-svelte';
+	import {
+		CommandPalette as YaxaCommandPalette,
+		Kbd,
+		useShortcuts,
+		type CommandItem
+	} from 'yaxa-svelte';
 	import { curriculum } from '$lib/data/curriculum';
 	import { goto } from '$app/navigation';
 
@@ -17,15 +22,13 @@
 		}
 	}));
 
-	function handleKeydown(e: KeyboardEvent) {
-		if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+	useShortcuts({
+		'meta_k, ctrl_k': (e) => {
 			e.preventDefault();
 			isOpen = !isOpen;
 		}
-	}
+	});
 </script>
-
-<svelte:window onkeydown={handleKeydown} />
 
 <!-- Prominent Navbar Search Trigger -->
 <button
@@ -38,11 +41,7 @@
 		<span class="hidden sm:inline">Search labs...</span>
 		<span class="sm:hidden">Search...</span>
 	</span>
-	<kbd
-		class="rounded-md border border-slate-300 bg-white px-2 py-0.5 font-mono text-sm font-semibold text-slate-600 shadow-xs dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
-	>
-		⌘K
-	</kbd>
+	<Kbd size="sm">⌘K</Kbd>
 </button>
 
 <YaxaCommandPalette
