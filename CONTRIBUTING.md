@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This guide covers everything you ne
 
 ## Project Overview
 
-Web Engine 2026 is a static educational portal — 35 interactive engineering labs across 8 tracks covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes & Async Svelte), Tailwind CSS v4, and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
+Web Engine 2026 is a static educational portal — 29 interactive engineering labs across 6 tracks covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes & Async Svelte), Tailwind CSS v4, Yaxa UI, and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
 
 ---
 
@@ -14,8 +14,8 @@ Web Engine 2026 is a static educational portal — 35 interactive engineering la
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) ≥ 20
-- [pnpm](https://pnpm.io/) ≥ 9 (`npm install -g pnpm`)
+- [Node.js](https://nodejs.org/) ≥ 22
+- [pnpm](https://pnpm.io/) ≥ 10 (`npm install -g pnpm`)
 
 ### Setup
 
@@ -47,33 +47,55 @@ The dev server will be available at `http://localhost:5173`.
 
 ```
 src/
+├── content/
+│   └── labs/             # Pure Markdown curriculum labs (*.md) with typed frontmatter
 ├── lib/
-│   ├── components/       # Shared UI components (LabShell, CodeBlock, CommandPalette…)
-│   ├── config/site.ts    # Site-wide metadata (URL, name, OG image)
+│   ├── components/       # Shared UI components (LabShell, CodeBlock, CommandPalette, SEO…)
+│   ├── config/site.ts    # Centralised typed SiteConfig (URL, SEO, robots, social links)
 │   ├── data/
-│   │   ├── curriculum.ts # Module metadata — titles, tracks, descriptions, hrefs
-│   │   └── snippets.ts   # Code snippets shown in each module's CodeBlock
+│   │   ├── curriculum.ts # Module curriculum metadata & track groupings
+│   │   └── snippets.ts   # Code snippets for each lab
 │   ├── server/
-│   │   ├── labs.ts       # Shared server load function (highlights code at build time)
-│   │   └── shiki.ts      # Shiki highlighter setup
-│   └── state/
-│       └── theme.svelte.ts # Dark/light theme global state
+│   │   ├── labs.ts       # Content collection loader (import.meta.glob with in-memory caching)
+│   │   ├── markdown.ts   # Frontmatter parser & Shiki markdown HTML renderer
+│   │   └── shiki.ts      # Shiki syntax highlighter setup
+│   └── simulators/       # Interactive Svelte 5 Runes simulator cards for each lab
 └── routes/
-    ├── +layout.svelte    # Root layout — sidebar, navbar, CommandPalette, MetaTags
-    ├── +page.svelte      # Home page — module grid with filter/search
-    └── [track]/[slug]/
-        ├── +page.server.ts  # Load function — looks up snippet, highlights it
-        └── +page.svelte     # Lab page — guide panel + interactive simulator
+    ├── +layout.svelte    # Root layout — YaxaApp shell, sidebar, CommandPalette, Breadcrumb
+    ├── +page.svelte      # Home page — searchable, filterable module catalog
+    ├── [segment]/[slug]/ # Consolidated dynamic route for all 29 labs (prerendered via entries())
+    ├── api/og/           # Prerendered default vector Open Graph preview card
+    ├── og/[...slug]/     # Prerendered per-module vector Open Graph preview cards
+    ├── site.webmanifest/ # Dynamic PWA web app manifest endpoint
+    ├── sitemap.xml/      # Dynamic sitemap with content-driven lastmod dates
+    └── sitemap.xsl/      # XSL stylesheet for human-readable sitemaps in browsers
 ```
 
 ---
 
 ## How to Add a New Lab Module
 
-1. **Add metadata** to [`src/lib/data/curriculum.ts`](src/lib/data/curriculum.ts) — `id`, `href`, `track`, `title`, `category`, `tech[]`, `description`.
-2. **Add a code snippet** to [`src/lib/data/snippets.ts`](src/lib/data/snippets.ts) — keyed by the route path (e.g. `'foundations/html5'`).
-3. **Create the route** — add `src/routes/<track>/<slug>/+page.server.ts` (copy any existing one, it uses `createLabLoader()`) and `+page.svelte`.
-4. **Implement the lab** — use `<LabShell>` with `{#snippet guide()}` for the explanation and `{#snippet lab()}` for the interactive simulator.
+1. **Add the Markdown Lab**: Create `src/content/labs/<segment>_<slug>.md` with structured YAML frontmatter:
+   ```markdown
+   ---
+   id: 'my-lab-id'
+   title: '30. My Lab Title'
+   track: 'Foundations & Tooling'
+   category: 'Category Name'
+   segment: 'foundations'
+   slug: 'my-lab'
+   tech: ['Tech 1', 'Tech 2']
+   description: 'Brief overview of the lab.'
+   snippetLang: 'typescript'
+   lastmod: '2026-09-16'
+   ---
+
+   <h3>Lab Guide Heading</h3>
+   <p>Content goes here...</p>
+   ```
+2. **Add metadata** to [`src/lib/data/curriculum.ts`](src/lib/data/curriculum.ts) matching your segment and slug.
+3. **Add a code snippet** to [`src/lib/data/snippets.ts`](src/lib/data/snippets.ts) keyed by `'<segment>/<slug>'`.
+4. **(Optional) Add an Interactive Simulator**: Create `src/lib/simulators/MyLabDemo.svelte` and register it in `src/lib/simulators/index.ts`. No new route folders needed—the dynamic route handles it automatically!
 
 ---
 
