@@ -7,6 +7,7 @@ An interactive, zero-server educational portal and reference architecture for mo
 ## Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/) (Static Site Generation via `@sveltejs/adapter-static`)
+- **UI & Headless Primitives:** [Yaxa UI](https://yaxa.vercel.app/) (`yaxa-svelte` v1.5.2 — accessible Bits UI primitives, Command Palette, Slideover, Badges, and theme engine)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (`@theme` tokens, container queries, CSS-first architecture)
 - **Type System:** [TypeScript 6](https://www.typescriptlang.org/) (Strict modules, type-safe RPCs, Standard Schema, const generics)
 - **Runtimes & Engines:** Node.js 24 LTS, Bun 1.2, Deno 2.2, UnJS Nitro, Hono v4

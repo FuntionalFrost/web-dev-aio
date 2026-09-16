@@ -98,6 +98,17 @@
 						</div>
 					{/each}
 				</nav>
+
+				<div
+					class="mt-auto border-t border-slate-200/80 pt-4 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+				>
+					Built with Svelte 5 & <a
+						href="https://yaxa.vercel.app"
+						target="_blank"
+						rel="noreferrer"
+						class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Yaxa UI</a
+					>
+				</div>
 			</div>
 		</aside>
 
@@ -117,6 +128,19 @@
 					</div>
 					<span class="text-sm font-bold tracking-wider text-slate-900 uppercase dark:text-white"
 						>Curriculum Tracks</span
+					>
+				</div>
+			{/snippet}
+
+			{#snippet footer()}
+				<div
+					class="border-t border-slate-200/80 pt-3 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+				>
+					Built with Svelte 5 & <a
+						href="https://yaxa.vercel.app"
+						target="_blank"
+						rel="noreferrer"
+						class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Yaxa UI</a
 					>
 				</div>
 			{/snippet}
