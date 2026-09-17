@@ -53,6 +53,7 @@ export function buildJsonLd({
 			url: canonicalUrl,
 			image: ogImageUrl,
 			datePublished: '2026-01-15T00:00:00Z',
+			dateModified: '2026-09-17T00:00:00Z',
 			authorName: siteConfig.author?.name ?? 'Web Engine 2026 Team'
 		});
 
@@ -72,7 +73,7 @@ export function buildJsonLd({
 			description: activeModule.description,
 			url: canonicalUrl,
 			educationalLevel: 'Intermediate/Advanced',
-			learningResourceType: 'Lab Exercise',
+			learningResourceType: 'Interactive Architecture Lab',
 			competencyRequired: activeModule.tech.join(', '),
 			teaches: activeModule.category,
 			inLanguage: 'en-US'
@@ -83,7 +84,7 @@ export function buildJsonLd({
 			'@type': 'SoftwareSourceCode',
 			name: activeModule.title,
 			description: activeModule.description,
-			programmingLanguage: activeModule.category,
+			programmingLanguage: activeModule.tech.join(', '),
 			runtimePlatform: activeModule.track,
 			codeRepository: siteConfig.project?.repositoryUrl,
 			license: 'https://opensource.org/licenses/MIT',

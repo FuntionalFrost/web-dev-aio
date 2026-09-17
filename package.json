@@ -38,6 +38,6 @@
 		"vite": "^8.3.0"
 	},
 	"dependencies": {
-		"yaxa-svelte": "1.5.2"
+		"yaxa-svelte": "1.10.0"
 	}
 }

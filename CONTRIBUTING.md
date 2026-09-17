@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This guide covers everything you ne
 
 ## Project Overview
 
-Web Engine 2026 is a static educational portal — 29 interactive engineering labs across 6 tracks covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes & Async Svelte), Tailwind CSS v4, Yaxa UI, and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
+Web Engine 2026 is a static educational portal — 29 interactive engineering labs across 6 tracks covering modern full-stack web development. It is built with SvelteKit 2 + Svelte 5 (Runes & Async Svelte), Tailwind CSS v4, [Yaxa UI](https://yaxa.vercel.app/) (`yaxa-svelte`), and TypeScript 6, and compiled to 100% static HTML/CSS/JS via `@sveltejs/adapter-static`.
 
 ---
 

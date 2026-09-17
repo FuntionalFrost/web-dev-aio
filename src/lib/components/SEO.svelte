@@ -68,6 +68,7 @@
 			: `${siteConfig.name} | Architecture Guide`,
 		description,
 		siteName: siteConfig.name,
+		locale: 'en_US',
 		images: [
 			{
 				url: ogImageUrl,
@@ -86,7 +87,9 @@
 						section: activeModule.track,
 						tags: activeModule.tech,
 						authors: [siteConfig.author?.name ?? SITE.author],
-						publishedTime: '2026-01-15T00:00:00Z'
+						publishedTime: '2026-01-15T00:00:00Z',
+						modifiedTime:
+							(page.data as { lab?: { lastmod?: string } })?.lab?.lastmod ?? '2026-09-17T00:00:00Z'
 					}
 				}
 			: {})
@@ -105,7 +108,10 @@
 		{
 			name: 'keywords',
 			content: activeModule ? `${activeModule.tech.join(', ')}, ${SITE.keywords}` : SITE.keywords
-		}
+		},
+		{ name: 'theme-color', content: '#4f46e5' },
+		{ name: 'apple-mobile-web-app-title', content: siteConfig.name },
+		{ name: 'application-name', content: siteConfig.name }
 	]}
 />
 

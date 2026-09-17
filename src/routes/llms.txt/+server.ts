@@ -32,7 +32,7 @@ Web Engine 2026 is an interactive reference architecture and engineering lab sui
 
 	doc += `## Core Technologies
 - Svelte 5 (Runes, snippets, reactive effects)
-- Yaxa UI (yaxa-svelte headless primitives, SEO helpers, and tokens: https://yaxa.vercel.app)
+- Yaxa UI (Powered by yaxa-svelte v1.10.0 headless primitives, SEO helpers, and tokens: https://yaxa.vercel.app)
 - Tailwind CSS v4 (@theme CSS-first engine)
 - TypeScript 6 (Strict literal inference, const type parameters)
 - SvelteKit 2 (Static prerendering, edge adapters)

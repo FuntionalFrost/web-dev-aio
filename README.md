@@ -7,7 +7,7 @@ An interactive, zero-server educational portal and reference architecture for mo
 ## Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/) (Static Site Generation via `@sveltejs/adapter-static`)
-- **UI & Headless Primitives:** [Yaxa UI](https://yaxa.vercel.app/) (`yaxa-svelte` v1.5.2 — accessible Bits UI primitives, Command Palette, Slideover, Badges, and theme engine)
+- **UI & Headless Primitives:** Powered by [Yaxa UI](https://yaxa.vercel.app/) (`yaxa-svelte` v1.10.0 — accessible Bits UI primitives, Command Palette, Slideover, Badges, and theme engine)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (`@theme` tokens, container queries, CSS-first architecture)
 - **Type System:** [TypeScript 6](https://www.typescriptlang.org/) (Strict modules, type-safe RPCs, Standard Schema, const generics)
 - **Runtimes & Engines:** Node.js 24 LTS, Bun 1.2, Deno 2.2, UnJS Nitro, Hono v4
@@ -39,3 +39,7 @@ The 29 interactive engineering modules are structured across 6 core tracks:
 - **Accessible Typography & Layouts:** Enforces minimum text size of `text-base` (or at least `text-sm`, completely avoiding `text-xs`) with responsive design for desktop and mobile.
 - **Full-Spectrum Search & Keyboard Navigation:** Global command palette (`⌘K`) for rapid navigation across all 29 modules and architectural topics.
 - **Edge Deployment Ready:** Pre-configured security headers (HSTS, CSP, nosniff, DENY) and immutable cache policies for Cloudflare Pages (`_headers`).
+
+---
+
+Made possible with [Yaxa UI](https://yaxa.vercel.app/) & [Svelte 5](https://svelte.dev/).

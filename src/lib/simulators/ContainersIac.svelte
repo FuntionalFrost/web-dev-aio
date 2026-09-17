@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LabCard from '$lib/components/LabCard.svelte';
+	import { CodeBlock } from 'yaxa-svelte';
 
 	type RuntimeKey = 'podman' | 'docker' | 'ecs_fargate' | 'render_caas';
 	let selectedRuntime = $state<RuntimeKey>('podman');
@@ -203,16 +204,12 @@ const service = new awsx.ecs.FargateService("web-engine-service", {
 			{/each}
 		</div>
 
-		<div class="rounded-2xl border border-slate-200 bg-slate-900 p-4 dark:border-slate-800">
-			<div class="flex items-center justify-between border-b border-slate-800 pb-2">
-				<span class="text-sm font-bold text-slate-400">
-					{iacTemplates[selectedIacTool].toolName}
-				</span>
-				<span class="text-sm text-emerald-400">Declarative Topology</span>
-			</div>
-			<pre class="mt-3 overflow-x-auto text-sm leading-relaxed text-slate-200"><code
-					>{iacTemplates[selectedIacTool].snippet}</code
-				></pre>
+		<div>
+			<CodeBlock
+				code={iacTemplates[selectedIacTool].snippet}
+				language={iacTemplates[selectedIacTool].lang}
+				filename={iacTemplates[selectedIacTool].toolName}
+			/>
 		</div>
 	</div>
 </LabCard>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LabCard from '$lib/components/LabCard.svelte';
+	import { Stepper, Alert, type StepItem } from 'yaxa-svelte';
 
 	// 1. Better Auth Session State
 	type UserSession = {
@@ -56,6 +57,22 @@
 		passkeyStep = 'idle';
 		simulatedCredential = null;
 	}
+
+	let currentStepIndex = $derived(
+		passkeyStep === 'challenge'
+			? 0
+			: passkeyStep === 'credential'
+				? 1
+				: passkeyStep === 'verified'
+					? 3
+					: -1
+	);
+
+	const passkeySteps: StepItem[] = [
+		{ id: 'challenge', title: '1. Challenge', description: 'Server Nonce' },
+		{ id: 'credential', title: '2. Biometric Sign', description: 'Hardware Enclave' },
+		{ id: 'verified', title: '3. Verified', description: 'Attestation Verified' }
+	];
 
 	// 3. GitHub Apps vs OAuth vs Passkey Strategy Matrix
 	type AuthModelKey = 'github_app' | 'github_oauth' | 'passkey' | 'password';
@@ -221,47 +238,27 @@
 			{/if}
 		</div>
 
-		<div class="grid grid-cols-3 gap-2 text-sm font-bold sm:text-sm">
-			<div
-				class="rounded-xl border p-3 text-center {passkeyStep === 'challenge' ||
-				passkeyStep === 'credential' ||
-				passkeyStep === 'verified'
-					? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
-					: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
-			>
-				1. Challenge
-			</div>
-			<div
-				class="rounded-xl border p-3 text-center {passkeyStep === 'credential' ||
-				passkeyStep === 'verified'
-					? 'border-indigo-500 bg-indigo-50 text-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200'
-					: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
-			>
-				2. Biometric Sign
-			</div>
-			<div
-				class="rounded-xl border p-3 text-center {passkeyStep === 'verified'
-					? 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
-					: 'border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400'}"
-			>
-				3. Verified ✓
-			</div>
+		<div
+			class="rounded-xl border border-slate-200 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-900/40"
+		>
+			<Stepper steps={passkeySteps} currentStep={currentStepIndex} clickable={false} />
 		</div>
 
 		{#if passkeyStep === 'verified' && simulatedCredential}
-			<div
-				class="space-y-1.5 rounded-2xl border border-emerald-500/40 bg-emerald-50/50 p-4 text-sm text-emerald-900 dark:bg-emerald-950/30 dark:text-emerald-300"
-			>
-				<div class="text-base font-bold">Credential Enrolled in Hardware Enclave:</div>
-				<div>
-					ID: <span class="font-bold text-slate-900 dark:text-white">{simulatedCredential.id}</span>
+			<Alert color="success" title="Credential Enrolled in Hardware Enclave">
+				<div class="mt-1 space-y-1 font-mono text-sm">
+					<div>
+						ID: <span class="font-bold text-slate-900 dark:text-white"
+							>{simulatedCredential.id}</span
+						>
+					</div>
+					<div>
+						Attestation: <span class="font-bold text-slate-900 dark:text-white"
+							>Public Key Stored in Database</span
+						>
+					</div>
 				</div>
-				<div>
-					Attestation: <span class="font-bold text-slate-900 dark:text-white"
-						>Public Key Stored in Database</span
-					>
-				</div>
-			</div>
+			</Alert>
 		{/if}
 	</div>
 </LabCard>

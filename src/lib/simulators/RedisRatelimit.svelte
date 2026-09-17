@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LabCard from '$lib/components/LabCard.svelte';
+	import { Alert } from 'yaxa-svelte';
 
 	// Sliding Window Rate Limiter Simulator State
 	const maxLimit = 5;
@@ -109,36 +110,43 @@
 					{/each}
 				</div>
 			</div>
-		</div>
+			{#if isRateLimited}
+				<Alert
+					color="error"
+					title="HTTP 429: Rate Limit Exceeded"
+					description="Active sliding window quota is exhausted (5 requests / 10s). Subsequent requests are dropped at the edge until older request timestamps expire."
+				/>
+			{/if}
 
-		<!-- Live Activity Log -->
-		<div
-			class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
-		>
-			<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
-				>Edge Gateway Response Log:</span
+			<!-- Live Activity Log -->
+			<div
+				class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
 			>
-			<div class="mt-2.5 space-y-2">
-				{#each requestLogs as log (log.id)}
-					<div
-						class="flex items-center justify-between border-b border-slate-200/60 pb-2 last:border-none dark:border-slate-800/60"
-					>
-						<span class="text-slate-500 dark:text-slate-400">[{log.time}]</span>
-						<span
-							class="text-sm font-bold {log.allowed
-								? 'text-emerald-600 dark:text-emerald-400'
-								: 'text-rose-600 dark:text-rose-400'}"
+				<span class="text-sm font-bold tracking-wider text-slate-400 uppercase"
+					>Edge Gateway Response Log:</span
+				>
+				<div class="mt-2.5 space-y-2">
+					{#each requestLogs as log (log.id)}
+						<div
+							class="flex items-center justify-between border-b border-slate-200/60 pb-2 last:border-none dark:border-slate-800/60"
 						>
-							{log.allowed ? '200 OK' : '429 TOO MANY REQUESTS'}
-						</span>
-						<span class="text-slate-500">Remaining: {log.remaining}</span>
-					</div>
-				{:else}
-					<div class="py-2 text-slate-500 dark:text-slate-400">
-						Click "Invoke" to simulate incoming edge requests.
-					</div>
-				{/each}
+							<span class="text-slate-500 dark:text-slate-400">[{log.time}]</span>
+							<span
+								class="text-sm font-bold {log.allowed
+									? 'text-emerald-600 dark:text-emerald-400'
+									: 'text-rose-600 dark:text-rose-400'}"
+							>
+								{log.allowed ? '200 OK' : '429 TOO MANY REQUESTS'}
+							</span>
+							<span class="text-slate-500">Remaining: {log.remaining}</span>
+						</div>
+					{:else}
+						<div class="py-2 text-slate-500 dark:text-slate-400">
+							Click "Invoke" to simulate incoming edge requests.
+						</div>
+					{/each}
+				</div>
 			</div>
 		</div>
-	</div>
-</LabCard>
+	</div></LabCard
+>

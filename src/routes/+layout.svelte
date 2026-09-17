@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import 'yaxa-svelte/yaxa.css';
-	import { YaxaApp, Slideover, Breadcrumb, useShortcuts, theme } from 'yaxa-svelte';
+	import { YaxaApp, Slideover, Breadcrumb, Tooltip, useShortcuts, theme } from 'yaxa-svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import CommandPalette from '$lib/components/CommandPalette.svelte';
 	import SEO from '$lib/components/SEO.svelte';
@@ -102,12 +102,12 @@
 				<div
 					class="mt-auto border-t border-slate-200/80 pt-4 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
 				>
-					Built with Svelte 5 & <a
+					Powered by <a
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noreferrer"
 						class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Yaxa UI</a
-					>
+					> & Svelte 5
 				</div>
 			</div>
 		</aside>
@@ -136,12 +136,12 @@
 				<div
 					class="border-t border-slate-200/80 pt-3 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
 				>
-					Built with Svelte 5 & <a
+					Powered by <a
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noreferrer"
 						class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Yaxa UI</a
-					>
+					> & Svelte 5
 				</div>
 			{/snippet}
 
@@ -193,7 +193,9 @@
 
 				<div class="flex items-center gap-3">
 					<CommandPalette />
-					<ThemeToggle />
+					<Tooltip text="Toggle theme (T)" side="bottom">
+						<ThemeToggle />
+					</Tooltip>
 				</div>
 			</header>
 

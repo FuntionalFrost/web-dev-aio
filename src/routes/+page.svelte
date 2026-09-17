@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
-	import { Badge } from 'yaxa-svelte';
+	import { Badge, Button, EmptyState, Input } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
 	let activeTrack = $state<string>('All');
@@ -80,42 +80,40 @@
 	>
 		<!-- Filter Pills -->
 		<div class="flex flex-wrap items-center gap-2">
-			<button
+			<Button
+				variant={activeTrack === 'All' ? 'solid' : 'subtle'}
+				color={activeTrack === 'All' ? 'primary' : 'neutral'}
+				size="sm"
+				class="rounded-xl font-mono text-sm"
 				onclick={() => (activeTrack = 'All')}
-				class="rounded-xl px-4 py-2 font-mono text-sm font-semibold transition-all {activeTrack ===
-				'All'
-					? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20'
-					: 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'}"
 			>
 				All ({curriculum.length})
-			</button>
+			</Button>
 
 			{#each TRACK_ORDER as track (track)}
 				{@const count = curriculum.filter((m) => m.track === track).length}
-				<button
+				<Button
+					variant={activeTrack === track ? 'solid' : 'subtle'}
+					color={activeTrack === track ? 'primary' : 'neutral'}
+					size="sm"
+					class="rounded-xl font-mono text-sm"
 					onclick={() => (activeTrack = track)}
-					class="rounded-xl px-4 py-2 font-mono text-sm font-semibold transition-all {activeTrack ===
-					track
-						? 'bg-indigo-600 text-white shadow-sm shadow-indigo-500/20'
-						: 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800'}"
 				>
 					{track} ({count})
-				</button>
+				</Button>
 			{/each}
 		</div>
 
-		<!-- Search Input -->
-		<div class="relative w-full shrink-0 lg:w-80">
-			<span
-				class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-base text-slate-500 dark:text-slate-400"
-			>
-				🔍
-			</span>
-			<input
+		<!-- Search Input via Yaxa Input -->
+		<div class="w-full shrink-0 lg:w-80">
+			<Input
 				type="search"
 				bind:value={searchQuery}
 				placeholder="Filter {curriculum.length} engineering labs..."
-				class="h-11 w-full rounded-xl border border-slate-300 bg-slate-50 pr-4 pl-10 font-mono text-base text-slate-900 placeholder-slate-400 transition focus:border-indigo-500 focus:bg-white focus:outline-none dark:border-slate-800 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:bg-slate-950"
+				icon="search"
+				clearable
+				size="md"
+				class="rounded-xl font-mono text-sm"
 			/>
 		</div>
 	</div>
@@ -163,23 +161,45 @@
 			{/each}
 		</div>
 	{:else}
-		<div
-			class="rounded-2xl border border-dashed border-slate-300 p-12 text-center dark:border-slate-800"
+		<EmptyState
+			title="No architectural modules found"
+			description={`No engineering modules matched "${searchQuery}".`}
+			icon="search"
+			size="md"
+			class="border-dashed"
 		>
-			<span class="font-mono text-base text-slate-500 dark:text-slate-400">
-				No architectural modules matched "{searchQuery}".
-			</span>
-			<div class="mt-3">
-				<button
+			{#snippet actions()}
+				<Button
+					variant="soft"
+					color="primary"
+					size="sm"
+					class="font-mono text-sm"
 					onclick={() => {
 						searchQuery = '';
 						activeTrack = 'All';
 					}}
-					class="font-mono text-sm font-bold text-indigo-600 hover:underline dark:text-indigo-400"
 				>
 					Reset filters
-				</button>
-			</div>
-		</div>
+				</Button>
+			{/snippet}
+		</EmptyState>
 	{/if}
+
+	<footer
+		class="mt-16 border-t border-slate-200/80 pt-8 text-center font-mono text-sm text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+	>
+		Made possible with <a
+			href="https://yaxa.vercel.app"
+			target="_blank"
+			rel="noreferrer"
+			class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Yaxa UI</a
+		>
+		&
+		<a
+			href="https://svelte.dev"
+			target="_blank"
+			rel="noreferrer"
+			class="font-bold text-indigo-600 hover:underline dark:text-indigo-400">Svelte 5</a
+		>
+	</footer>
 </div>
