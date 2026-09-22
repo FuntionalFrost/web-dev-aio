@@ -5,24 +5,12 @@
 	import { Badge, Button, EmptyState, Input } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
-	let activeTrack = $state<string>('All');
-	let searchQuery = $state<string>('');
+	// Initialize directly from URL — safe for static prerender (page.url is available at mount)
+	let activeTrack = $state<string>(page.url.searchParams.get('track') ?? 'All');
+	let searchQuery = $state<string>(page.url.searchParams.get('q') ?? '');
 
-	// Initialize from URL search params in the browser only (guards prerendering)
-	$effect(() => {
-		if (browser) {
-			const urlTrack = page.url.searchParams.get('track');
-			const urlQ = page.url.searchParams.get('q');
-			if (urlTrack && urlTrack !== activeTrack) {
-				activeTrack = urlTrack;
-			}
-			if (urlQ && urlQ !== searchQuery) {
-				searchQuery = urlQ;
-			}
-		}
-	});
-
-	$effect(() => {
+	// Call this from user-interaction handlers only — never from a reactive $effect.
+	function updateUrl() {
 		if (!browser) return;
 		const url = new URL(page.url);
 		if (activeTrack !== 'All') {
@@ -38,7 +26,7 @@
 		if (url.search !== page.url.search) {
 			replaceState(url, {});
 		}
-	});
+	}
 
 	let filteredModules = $derived(
 		curriculum.filter((mod) => {
@@ -85,7 +73,10 @@
 				color={activeTrack === 'All' ? 'primary' : 'neutral'}
 				size="sm"
 				class="rounded-xl font-mono text-sm"
-				onclick={() => (activeTrack = 'All')}
+				onclick={() => {
+					activeTrack = 'All';
+					updateUrl();
+				}}
 			>
 				All ({curriculum.length})
 			</Button>
@@ -97,7 +88,10 @@
 					color={activeTrack === track ? 'primary' : 'neutral'}
 					size="sm"
 					class="rounded-xl font-mono text-sm"
-					onclick={() => (activeTrack = track)}
+					onclick={() => {
+						activeTrack = track;
+						updateUrl();
+					}}
 				>
 					{track} ({count})
 				</Button>
@@ -109,6 +103,7 @@
 			<Input
 				type="search"
 				bind:value={searchQuery}
+				oninput={() => updateUrl()}
 				placeholder="Filter {curriculum.length} engineering labs..."
 				icon="search"
 				clearable
@@ -177,6 +172,7 @@
 					onclick={() => {
 						searchQuery = '';
 						activeTrack = 'All';
+						updateUrl();
 					}}
 				>
 					Reset filters

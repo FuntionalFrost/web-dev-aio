@@ -5,7 +5,6 @@
 	import { curriculum } from '$lib/data/curriculum';
 	import { buildJsonLd } from '$lib/seo/schema';
 	import { cleanPath, toRouteKey } from '$lib/utils/url';
-	import type { PageSeoConfig } from 'yaxa-svelte';
 
 	let currentPath = $derived(cleanPath(page.url.pathname));
 	let isHome = $derived(currentPath === '/');
@@ -13,7 +12,7 @@
 	let activeModule = $derived(curriculum.find((m) => cleanPath(m.href) === currentPath));
 
 	// Prefer declarative SEO from page.data.seo when available
-	let pageSeo = $derived((page.data as { seo?: PageSeoConfig })?.seo);
+	let pageSeo = $derived(page.data?.seo);
 
 	let title = $derived(
 		isError
@@ -73,7 +72,7 @@
 			{
 				url: ogImageUrl,
 				secureUrl: ogImageUrl,
-				type: 'image/svg+xml',
+				type: 'image/png',
 				width: 1200,
 				height: 630,
 				alt: activeModule
@@ -88,8 +87,7 @@
 						tags: activeModule.tech,
 						authors: [siteConfig.author?.name ?? SITE.author],
 						publishedTime: '2026-01-15T00:00:00Z',
-						modifiedTime:
-							(page.data as { lab?: { lastmod?: string } })?.lab?.lastmod ?? '2026-09-17T00:00:00Z'
+						modifiedTime: page.data?.lab?.lastmod ?? '2026-09-17T00:00:00Z'
 					}
 				}
 			: {})
