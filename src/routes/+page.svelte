@@ -5,9 +5,10 @@
 	import { Badge, Button, EmptyState, Input } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
-	// Initialize directly from URL — safe for static prerender (page.url is available at mount)
-	let activeTrack = $state<string>(page.url.searchParams.get('track') ?? 'All');
-	let searchQuery = $state<string>(page.url.searchParams.get('q') ?? '');
+	// Initialize from URL params on the client; fall back to safe defaults during prerender.
+	// page.url.searchParams throws on the server when prerendering is enabled.
+	let activeTrack = $state<string>(browser ? (page.url.searchParams.get('track') ?? 'All') : 'All');
+	let searchQuery = $state<string>(browser ? (page.url.searchParams.get('q') ?? '') : '');
 
 	// Call this from user-interaction handlers only — never from a reactive $effect.
 	function updateUrl() {
