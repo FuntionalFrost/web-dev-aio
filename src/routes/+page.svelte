@@ -2,13 +2,11 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
 	import { replaceState } from '$app/navigation';
-	import { Badge, Button, EmptyState, Input } from 'yaxa-svelte';
+	import { Badge, Button, EmptyState } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
 	// Initialize from URL params on the client; fall back to safe defaults during prerender.
-	// page.url.searchParams throws on the server when prerendering is enabled.
 	let activeTrack = $state<string>(browser ? (page.url.searchParams.get('track') ?? 'All') : 'All');
-	let searchQuery = $state<string>(browser ? (page.url.searchParams.get('q') ?? '') : '');
 
 	// Call this from user-interaction handlers only — never from a reactive $effect.
 	function updateUrl() {
@@ -19,29 +17,13 @@
 		} else {
 			url.searchParams.delete('track');
 		}
-		if (searchQuery.trim()) {
-			url.searchParams.set('q', searchQuery.trim());
-		} else {
-			url.searchParams.delete('q');
-		}
 		if (url.search !== page.url.search) {
 			replaceState(url, {});
 		}
 	}
 
 	let filteredModules = $derived(
-		curriculum.filter((mod) => {
-			const matchesTrack = activeTrack === 'All' || mod.track === activeTrack;
-			const q = searchQuery.toLowerCase().trim();
-			const matchesQuery =
-				!q ||
-				mod.title.toLowerCase().includes(q) ||
-				mod.description.toLowerCase().includes(q) ||
-				mod.category.toLowerCase().includes(q) ||
-				mod.tech.some((t) => t.toLowerCase().includes(q));
-
-			return matchesTrack && matchesQuery;
-		})
+		curriculum.filter((mod) => activeTrack === 'All' || mod.track === activeTrack)
 	);
 </script>
 
@@ -63,55 +45,38 @@
 		</p>
 	</div>
 
-	<!-- Unified Toolbar: Filter Tabs + Search -->
+	<!-- Unified Filter Toolbar (Track Pills) -->
 	<div
-		class="flex flex-col gap-5 border-y border-slate-200/80 py-6 lg:flex-row lg:items-center lg:justify-between dark:border-slate-800/80"
+		class="flex flex-wrap items-center gap-2 border-y border-slate-200/80 py-5 dark:border-slate-800/80"
 	>
-		<!-- Filter Pills -->
-		<div class="flex flex-wrap items-center gap-2">
+		<Button
+			variant={activeTrack === 'All' ? 'solid' : 'subtle'}
+			color={activeTrack === 'All' ? 'primary' : 'neutral'}
+			size="sm"
+			class="rounded-xl font-mono text-sm"
+			onclick={() => {
+				activeTrack = 'All';
+				updateUrl();
+			}}
+		>
+			All ({curriculum.length})
+		</Button>
+
+		{#each TRACK_ORDER as track (track)}
+			{@const count = curriculum.filter((m) => m.track === track).length}
 			<Button
-				variant={activeTrack === 'All' ? 'solid' : 'subtle'}
-				color={activeTrack === 'All' ? 'primary' : 'neutral'}
+				variant={activeTrack === track ? 'solid' : 'subtle'}
+				color={activeTrack === track ? 'primary' : 'neutral'}
 				size="sm"
 				class="rounded-xl font-mono text-sm"
 				onclick={() => {
-					activeTrack = 'All';
+					activeTrack = track;
 					updateUrl();
 				}}
 			>
-				All ({curriculum.length})
+				{track} ({count})
 			</Button>
-
-			{#each TRACK_ORDER as track (track)}
-				{@const count = curriculum.filter((m) => m.track === track).length}
-				<Button
-					variant={activeTrack === track ? 'solid' : 'subtle'}
-					color={activeTrack === track ? 'primary' : 'neutral'}
-					size="sm"
-					class="rounded-xl font-mono text-sm"
-					onclick={() => {
-						activeTrack = track;
-						updateUrl();
-					}}
-				>
-					{track} ({count})
-				</Button>
-			{/each}
-		</div>
-
-		<!-- Search Input via Yaxa Input -->
-		<div class="w-full shrink-0 lg:w-80">
-			<Input
-				type="search"
-				bind:value={searchQuery}
-				oninput={() => updateUrl()}
-				placeholder="Filter {curriculum.length} engineering labs..."
-				icon="search"
-				clearable
-				size="md"
-				class="rounded-xl font-mono text-sm"
-			/>
-		</div>
+		{/each}
 	</div>
 
 	<!-- Cards Grid -->
@@ -159,8 +124,8 @@
 	{:else}
 		<EmptyState
 			title="No architectural modules found"
-			description={`No engineering modules matched "${searchQuery}".`}
-			icon="search"
+			description="No engineering modules found in this category."
+			icon="folder"
 			size="md"
 			class="border-dashed"
 		>
@@ -171,12 +136,11 @@
 					size="sm"
 					class="font-mono text-sm"
 					onclick={() => {
-						searchQuery = '';
 						activeTrack = 'All';
 						updateUrl();
 					}}
 				>
-					Reset filters
+					Reset track filter
 				</Button>
 			{/snippet}
 		</EmptyState>

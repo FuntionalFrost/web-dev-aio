@@ -1,9 +1,16 @@
 <script lang="ts">
 	import { theme } from 'yaxa-svelte';
+
+	function handleToggle() {
+		theme.toggle();
+		if (typeof document !== 'undefined') {
+			document.documentElement.dataset.theme = theme.resolvedTheme;
+		}
+	}
 </script>
 
 <button
-	onclick={() => theme.toggle()}
+	onclick={handleToggle}
 	aria-label="Switch to {theme.resolvedTheme === 'dark' ? 'light' : 'dark'} mode"
 	class="relative flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800"
 >

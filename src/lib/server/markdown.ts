@@ -132,7 +132,7 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
 		// Inline code
 		.replace(
 			/`([^`]+)`/g,
-			'<code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-sm dark:bg-slate-800">$1</code>'
+			'<code class="rounded-md border border-slate-200/90 bg-slate-100/90 px-1.5 py-0.5 font-mono text-sm font-semibold text-slate-900 dark:border-slate-800 dark:bg-slate-800/80 dark:text-slate-100">$1</code>'
 		)
 		// Blockquotes
 		.replace(

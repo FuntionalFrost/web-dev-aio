@@ -25,14 +25,22 @@
 		<script>
 			(function () {
 				try {
-					const saved = localStorage.getItem('theme');
+					const saved = localStorage.getItem('yaxa-theme') || localStorage.getItem('theme');
 					const prefDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-					const theme = saved || (prefDark ? 'dark' : 'light');
+					const isDark =
+						saved === 'dark' || (!saved && prefDark) || (saved === 'system' && prefDark);
+					const theme = isDark ? 'dark' : 'light';
 					document.documentElement.dataset.theme = theme;
 					document.documentElement.style.colorScheme = theme;
+					if (isDark) {
+						document.documentElement.classList.add('dark');
+					} else {
+						document.documentElement.classList.remove('dark');
+					}
 				} catch (_) {
 					document.documentElement.dataset.theme = 'dark';
 					document.documentElement.style.colorScheme = 'dark';
+					document.documentElement.classList.add('dark');
 				}
 			})();
 		</script>

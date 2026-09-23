@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
-	import { Badge, Breadcrumb } from 'yaxa-svelte';
+	import { Badge } from 'yaxa-svelte';
 	import LabPagination from '$lib/components/LabPagination.svelte';
 	import CodeBlock from '$lib/components/CodeBlock.svelte';
 	import { curriculum } from '$lib/data/curriculum';
@@ -44,23 +44,17 @@
 	let title = $derived(propTitle ?? mod?.title ?? 'Engineering Lab');
 	let description = $derived(propDescription ?? mod?.description ?? SITE.description);
 	let interactiveSnippet = $derived(children ?? lab ?? sandbox);
-
-	let breadcrumbItems = $derived(
-		mod
-			? [
-					{ label: 'Curriculum', href: '/' },
-					{ label: mod.track, href: `/?track=${encodeURIComponent(mod.track)}` },
-					{ label: mod.title }
-				]
-			: [{ label: 'Curriculum', href: '/' }, { label: title }]
-	);
 </script>
 
 <div class="grid grid-cols-1 gap-8 p-6 sm:p-10 lg:grid-cols-2">
 	<!-- Left Column: Guide & CodeBlock -->
 	<div class="prose flex max-w-none flex-col justify-start prose-slate dark:prose-invert">
-		<div class="not-prose mb-3 flex flex-wrap items-center gap-3">
-			<Breadcrumb items={breadcrumbItems} class="font-mono text-xs" />
+		<div class="not-prose mb-3 flex flex-wrap items-center gap-2.5">
+			<span
+				class="inline-block rounded-lg bg-indigo-50 px-2.5 py-1 font-mono text-xs font-bold tracking-wider text-indigo-600 uppercase dark:bg-indigo-950/60 dark:text-indigo-400"
+			>
+				{mod?.track ?? 'Engineering Track'}
+			</span>
 			<Badge variant="soft" color="primary" size="sm">
 				{mod?.category ?? 'Architecture Guide'}
 			</Badge>

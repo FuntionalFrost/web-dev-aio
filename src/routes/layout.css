@@ -1,10 +1,11 @@
 @import 'tailwindcss';
+@source '../../node_modules/yaxa-svelte';
 
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 @plugin '@tailwindcss/typography';
 
-/* 1. Shiki Syntax Highlighting & Readable Typography */
+/* 1. Shiki Syntax Highlighting & Crisp Readable Typography */
 .shiki {
 	background-color: transparent !important;
 	font-family: var(
@@ -16,7 +17,7 @@
 		Consolas,
 		monospace
 	) !important;
-	font-size: 0.95rem !important; /* Highly readable font size (~15.2px) */
+	font-size: 0.95rem !important;
 	line-height: 1.75 !important;
 }
 
@@ -24,14 +25,6 @@
 	font-family: inherit !important;
 	font-size: inherit !important;
 	line-height: inherit !important;
-}
-
-.shiki span {
-	color: var(--shiki-light);
-}
-
-[data-theme='dark'] .shiki span {
-	color: var(--shiki-dark);
 }
 
 /* 2. Global Interactive Primitives & Validation States */
@@ -59,6 +52,89 @@ input:user-invalid {
 	.prose :where(code):not(:where([class~='not-prose'] *))::after {
 		content: '' !important;
 	}
+}
+
+/* 4. Cross-Browser Theme-Synchronized Adaptive Scrollbars */
+:root {
+	color-scheme: light;
+	scrollbar-color: rgb(203 213 225) transparent; /* slate-300 in light mode */
+}
+
+:root.dark,
+:root[data-theme='dark'],
+.dark {
+	color-scheme: dark;
+	scrollbar-color: rgb(51 65 85) transparent; /* slate-700 in dark mode */
+}
+
+* {
+	scrollbar-color: inherit;
+}
+
+/* WebKit (Chrome, Edge, Safari, Opera) Smooth Scrollbars */
+::-webkit-scrollbar {
+	width: 9px;
+	height: 9px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(203 213 225 / 0.85);
+	border-radius: 9999px;
+	border: 2px solid transparent;
+	background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(148 163 184);
+}
+
+:is(.dark, [data-theme='dark']) ::-webkit-scrollbar-thumb,
+.dark ::-webkit-scrollbar-thumb,
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+	background-color: rgb(71 85 105 / 0.85);
+}
+
+:is(.dark, [data-theme='dark']) ::-webkit-scrollbar-thumb:hover,
+.dark ::-webkit-scrollbar-thumb:hover,
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(100 116 139);
+}
+
+/* 5. Command Palette & Dialogs Theme Synchronization */
+:is(.dark, [data-theme='dark']) [role='dialog'] .bg-white {
+	background-color: #0f172a !important; /* slate-900 */
+	border-color: #1e293b !important; /* slate-800 */
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] input {
+	color: #f8fafc !important;
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] .border-neutral-200 {
+	border-color: #1e293b !important;
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] .bg-neutral-50\/80,
+:is(.dark, [data-theme='dark']) [role='dialog'] .border-neutral-100 {
+	background-color: #020617 !important; /* slate-950 */
+	border-color: #1e293b !important;
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] .text-neutral-700 {
+	color: #cbd5e1 !important; /* slate-300 */
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] .text-neutral-900 {
+	color: #f8fafc !important; /* slate-50 */
+}
+
+:is(.dark, [data-theme='dark']) [role='dialog'] .hover\:bg-neutral-100:hover {
+	background-color: #1e293b !important; /* slate-800 */
 }
 
 html {
