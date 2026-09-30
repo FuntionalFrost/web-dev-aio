@@ -7,7 +7,8 @@ export interface CurriculumModule {
 		| 'Modern ECMAScript'
 		| 'Rendering & Architecture'
 		| 'APIs & Data Architecture'
-		| 'Cloud, Operations & Licences';
+		| 'Cloud, Operations & Licences'
+		| 'Security, Privacy & EU Regulations';
 	title: string;
 	category:
 		| 'HTML5 & Standards'
@@ -34,7 +35,12 @@ export interface CurriculumModule {
 		| 'Monetisation & Billing'
 		| 'Software Licences'
 		| 'Containers & IaC'
-		| 'Developer Workstations';
+		| 'Developer Workstations'
+		| 'Defensive Web Security'
+		| 'Privacy & Tracking Defense'
+		| 'Oblivious Protocols & Anonymity'
+		| 'Bot Governance & Anti-Scraping'
+		| 'EU Compliance & Governance';
 	tech: string[];
 	description: string;
 }
@@ -45,7 +51,8 @@ export const TRACK_ORDER: Array<CurriculumModule['track']> = [
 	'Modern ECMAScript',
 	'Rendering & Architecture',
 	'APIs & Data Architecture',
-	'Cloud, Operations & Licences'
+	'Cloud, Operations & Licences',
+	'Security, Privacy & EU Regulations'
 ];
 
 export const curriculum: CurriculumModule[] = [
@@ -514,6 +521,95 @@ export const curriculum: CurriculumModule[] = [
 		],
 		description:
 			'Benchmark development workstation environments across Windows 11 WSL2 and native Fedora 44 Linux, comparing VS Code, VSCodium, Node 26, and OpenRemote.'
+	},
+
+	// ==========================================
+	// Track 7: Security, Privacy, Anonymity & EU Regulations
+	// ==========================================
+	{
+		id: 'security-defensive-headers',
+		href: '/security/defensive-headers',
+		track: 'Security, Privacy & EU Regulations',
+		title: '30. Modern Web Security: Strict CSP Level 3, Nonces & Isolation',
+		category: 'Defensive Web Security',
+		tech: [
+			'Strict CSP Level 3',
+			'COOP / COEP / CORP',
+			'Subresource Integrity (SRI)',
+			'Trusted Types API',
+			'Sanitizer API',
+			'Permissions-Policy'
+		],
+		description:
+			'Harden full-stack web applications with strict cryptographic CSP Level 3 nonces, Cross-Origin Opener/Embedder Isolation, Trusted Types, and fine-grained Permissions Policy.'
+	},
+	{
+		id: 'security-privacy-fingerprinting',
+		href: '/security/privacy-fingerprinting',
+		track: 'Security, Privacy & EU Regulations',
+		title: '31. Web Privacy Engineering, Tracking Defenses & Anti-Fingerprinting',
+		category: 'Privacy & Tracking Defense',
+		tech: [
+			'Global Privacy Control (GPC)',
+			'Anti-Fingerprinting Jitter',
+			'CHIPS Partitioned Cookies',
+			'CNAME Cloaking Defense',
+			'Link Decoration Stripping',
+			'Ephemeral Storage'
+		],
+		description:
+			'Protect user privacy against canvas/audio/font entropy fingerprinting, bounce tracking, CNAME cloaking, and implement Sec-GPC compliance with partitioned cookies.'
+	},
+	{
+		id: 'security-anonymity-oblivious',
+		href: '/security/anonymity-oblivious',
+		track: 'Security, Privacy & EU Regulations',
+		title: '32. Web Anonymity: Oblivious HTTP (OHTTP) & Private State Tokens',
+		category: 'Oblivious Protocols & Anonymity',
+		tech: [
+			'Oblivious HTTP (RFC 9458)',
+			'Private State Tokens (RFC 9578)',
+			'Onion-Location Header',
+			'Blind Signatures',
+			'Zero-Knowledge Verifiers',
+			'Differential Privacy'
+		],
+		description:
+			'Decouple client network identities from application payloads with Oblivious HTTP (OHTTP), issue fraud-preventing Private State Tokens, and integrate onion routing.'
+	},
+	{
+		id: 'security-bots-crawlers-scraping',
+		href: '/security/bots-crawlers-scraping',
+		track: 'Security, Privacy & EU Regulations',
+		title: '33. Robots, AI Web Scrapers & Bot Mitigation Architecture',
+		category: 'Bot Governance & Anti-Scraping',
+		tech: [
+			'RFC 9309 Robots Protocol',
+			'llms.txt Discovery',
+			'X-Robots-Tag: noai',
+			'EU Article 4 TDM',
+			'JA4 TLS Fingerprinting',
+			'Proof-of-Work (Altcha / Turnstile)'
+		],
+		description:
+			'Govern AI/LLM crawlers with RFC 9309 and llms.txt, enforce machine-readable EU TDM reservations, analyze JA4 TLS fingerprints, and deploy zero-tracking Proof-of-Work bot defenses.'
+	},
+	{
+		id: 'compliance-eu-regulations',
+		href: '/compliance/eu-regulations',
+		track: 'Security, Privacy & EU Regulations',
+		title: '34. EU Data Regulations: GDPR, ePrivacy, DMA/DSA & EU AI Act',
+		category: 'EU Compliance & Governance',
+		tech: [
+			'GDPR DSAR Automation',
+			'ePrivacy Cookieless Model',
+			'DMA / DSA Portability',
+			'EU AI Act Disclosures',
+			'EU Sovereign Data Residency',
+			'Audit Trails'
+		],
+		description:
+			'Implement robust compliance architectures for GDPR erasure/export webhooks, ePrivacy consent state machines, EU AI Act content transparency, and EU data sovereignty routing.'
 	}
 ];
 

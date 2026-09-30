@@ -862,5 +862,179 @@ export const recommendedStack: WorkstationProfile = {
   packageManager: 'pnpm v12 (Catalogs)',
   iotPlatform: 'OpenRemote IoT'
 };`
+	},
+
+	// ==========================================
+	// Track 7: Security, Privacy, Anonymity & EU Regulations
+	// ==========================================
+	'security/defensive-headers': {
+		lang: 'typescript',
+		code: `// 1. Strict Cryptographic Nonce & Defensive Headers Middleware
+import type { Handle } from '@sveltejs/kit';
+
+export const handle: Handle = async ({ event, resolve }) => {
+  const nonce = crypto.randomUUID();
+  event.locals.nonce = nonce;
+
+  const response = await resolve(event, {
+    transformPageChunk: ({ html }) => html.replace(/%nonce%/g, nonce)
+  });
+
+  // Strict CSP Level 3 + Cross-Origin Isolation + Permissions Policy
+  response.headers.set(
+    'Content-Security-Policy',
+    \`default-src 'self'; script-src 'self' 'nonce-\${nonce}' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; require-trusted-types-for 'script';\`
+  );
+  response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+  response.headers.set('Cross-Origin-Resource-Policy', 'same-origin');
+  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()');
+
+  return response;
+};`
+	},
+
+	'security/privacy-fingerprinting': {
+		lang: 'typescript',
+		code: `// 1. Global Privacy Control (GPC) & Partitioned Cookie (CHIPS) Enforcement
+export function evaluatePrivacyHeaders(headers: Headers) {
+  const gpcSignal = headers.get('Sec-GPC') === '1';
+  const dntSignal = headers.get('DNT') === '1';
+
+  return {
+    privacyMode: gpcSignal || dntSignal,
+    trackingAuthorized: !gpcSignal,
+    // Enforce Partitioned (CHIPS) and Strict storage cookies
+    cookieAttributes: [
+      'SameSite=Strict',
+      'Secure',
+      'HttpOnly',
+      'Partitioned',
+      'Path=/'
+    ].join('; ')
+  };
+}
+
+// 2. Client-Side Anti-Fingerprinting Canvas Noise Injection
+export function protectCanvasFingerprint(canvas: HTMLCanvasElement) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  const originalGetImageData = ctx.getImageData.bind(ctx);
+
+  ctx.getImageData = (sx: number, sy: number, sw: number, sh: number) => {
+    const imageData = originalGetImageData(sx, sy, sw, sh);
+    const data = imageData.data;
+    // Micro-jitter pixel values to defeat deterministic hashing
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = Math.min(255, Math.max(0, data[i] + (Math.random() < 0.5 ? 1 : -1)));
+    }
+    return imageData;
+  };
+}`
+	},
+
+	'security/anonymity-oblivious': {
+		lang: 'typescript',
+		code: `// 1. Oblivious HTTP (OHTTP / RFC 9458) Request Encapsulation
+export interface OHttpConfig {
+  gatewayUrl: string;
+  relayUrl: string;
+  keyConfig: Uint8Array; // HPKE Public Key
+}
+
+export async function sendObliviousRequest(
+  config: OHttpConfig,
+  requestPayload: Uint8Array
+): Promise<Uint8Array> {
+  // Client encrypts payload for Gateway using HPKE (RFC 9180)
+  const encryptedPayload = await encryptHpke(config.keyConfig, requestPayload);
+
+  // Client routes via Relay (Relay only sees Client IP, never plaintext)
+  const response = await fetch(config.relayUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'message/ohttp-req' },
+    body: encryptedPayload
+  });
+
+  const encryptedResponse = new Uint8Array(await response.arrayBuffer());
+  return decryptHpke(config.keyConfig, encryptedResponse);
+}
+
+// 2. Onion Routing Header for Tor Anonymity
+export function setTorOnionHeader(headers: Headers, onionAddress: string) {
+  headers.set('Onion-Location', \`http://\${onionAddress}.onion\`);
+}`
+	},
+
+	'security/bots-crawlers-scraping': {
+		lang: 'typescript',
+		code: `// 1. RFC 9309 Robots & AI Crawler Governance Engine
+export const AI_SCRAPERS = ['GPTBot', 'ClaudeBot', 'PerplexityBot', 'Bytespider', 'CCBot', 'Google-Extended'] as const;
+
+export function evaluateCrawlerPermission(userAgent: string, path: string): { allow: boolean; reason: string } {
+  const isAiScraper = AI_SCRAPERS.some(bot => userAgent.toLowerCase().includes(bot.toLowerCase()));
+  
+  if (isAiScraper && path.startsWith('/labs/')) {
+    return { allow: false, reason: 'EU Copyright Directive Art 4 TDM Reservation' };
+  }
+  return { allow: true, reason: 'Public Documentation Read Allowed' };
+}
+
+// 2. Client-Side Proof-of-Work (PoW) Anti-Bot Challenge (Altcha standard)
+export async function solvePowChallenge(challenge: string, difficulty: number): Promise<number> {
+  let nonce = 0;
+  const encoder = new TextEncoder();
+  while (true) {
+    const data = encoder.encode(\`\${challenge}:\${nonce}\`);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = new Uint8Array(hashBuffer);
+    
+    // Check leading zero bits
+    let leadingZeros = 0;
+    for (const byte of hashArray) {
+      if (byte === 0) leadingZeros += 8;
+      else {
+        leadingZeros += Math.clz32(byte) - 24;
+        break;
+      }
+    }
+    if (leadingZeros >= difficulty) return nonce;
+    nonce++;
+  }
+}`
+	},
+
+	'compliance/eu-regulations': {
+		lang: 'typescript',
+		code: `// 1. GDPR Right-to-Erasure (Article 17) & Portability (Article 20) DSAR Webhook
+import { z } from 'zod';
+
+export const DsarRequestSchema = z.object({
+  requestId: z.string().uuid(),
+  userId: z.string().min(1),
+  action: z.enum(['export_all', 'rectify', 'erase_permanently']),
+  verificationToken: z.string().min(32),
+  timestamp: z.string().datetime()
+});
+
+export async function processGdprErasure(userId: string, auditLog: (entry: string) => Promise<void>) {
+  // 1. Wipe PII from primary relational tables
+  // 2. Invalidate active Better Auth sessions
+  // 3. Delete presigned S3/R2 assets
+  // 4. Append immutable, anonymized tombstone in audit log
+  await auditLog(\`GDPR Erasure completed for user hash: \${await hashIdentifier(userId)}\`);
+  return { success: true, erasedAt: new Date().toISOString() };
+}
+
+// 2. EU AI Act Article 50 Content Provenance Transparency Metadata
+export function generateAiProvenanceHeader(isAiGenerated: boolean) {
+  return {
+    'X-Content-Source': isAiGenerated ? 'Synthetic-AI-Generated' : 'Human-Verified-Source',
+    'X-AI-Compliance': 'EU-AI-Act-Article-50',
+    'tdm-reservation': '1' // EU TDM Reservation
+  };
+}`
 	}
 };

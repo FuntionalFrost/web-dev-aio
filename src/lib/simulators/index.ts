@@ -29,6 +29,11 @@ import Monetization from './Monetization.svelte';
 import SoftwareLicenses from './SoftwareLicenses.svelte';
 import ContainersIac from './ContainersIac.svelte';
 import DevEnvironments from './DevEnvironments.svelte';
+import DefensiveHeaders from './DefensiveHeaders.svelte';
+import PrivacyFingerprinting from './PrivacyFingerprinting.svelte';
+import AnonymityOblivious from './AnonymityOblivious.svelte';
+import BotsCrawlersScraping from './BotsCrawlersScraping.svelte';
+import EuRegulations from './EuRegulations.svelte';
 
 export const simulators: Record<string, Component> = {
 	html5: Html5,
@@ -59,5 +64,10 @@ export const simulators: Record<string, Component> = {
 	monetization: Monetization,
 	'software-licenses': SoftwareLicenses,
 	'containers-iac': ContainersIac,
-	'dev-environments': DevEnvironments
+	'dev-environments': DevEnvironments,
+	'defensive-headers': DefensiveHeaders,
+	'privacy-fingerprinting': PrivacyFingerprinting,
+	'anonymity-oblivious': AnonymityOblivious,
+	'bots-crawlers-scraping': BotsCrawlersScraping,
+	'eu-regulations': EuRegulations
 };

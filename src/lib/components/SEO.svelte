@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { MetaTags, JsonLd } from 'svelte-meta-tags';
-	import { SITE, siteConfig } from '$lib/config/site';
+	import { Seo } from 'yaxa-svelte';
+	import { siteConfig } from '$lib/config/site';
 	import { curriculum } from '$lib/data/curriculum';
 	import { buildJsonLd } from '$lib/seo/schema';
 	import { cleanPath, toRouteKey } from '$lib/utils/url';
@@ -17,7 +17,7 @@
 	let title = $derived(
 		isError
 			? '404 - Lab Not Found'
-			: (pageSeo?.title ?? (activeModule ? activeModule.title : 'Full-Stack Architecture Labs'))
+			: (pageSeo?.title ?? (activeModule ? activeModule.title : undefined))
 	);
 	let description = $derived(
 		isError
@@ -29,7 +29,6 @@
 			? `${siteConfig.url}/404`
 			: (pageSeo?.canonical ?? (isHome ? siteConfig.url : `${siteConfig.url}${currentPath}`))
 	);
-	let robots = $derived(isError ? 'noindex, nofollow' : 'index, follow');
 
 	let resolvedOgImage = $derived(
 		typeof pageSeo?.ogImage === 'string' ? pageSeo.ogImage : undefined
@@ -40,6 +39,12 @@
 			(activeModule
 				? `${siteConfig.url}/og/${toRouteKey(activeModule.href)}`
 				: `${siteConfig.url}/og/default`)
+	);
+
+	let keywords = $derived(
+		activeModule
+			? [...activeModule.tech, ...(siteConfig.seo?.keywords ?? [])]
+			: (siteConfig.seo?.keywords ?? [])
 	);
 
 	let jsonLdSchemas = $derived(
@@ -53,66 +58,13 @@
 	);
 </script>
 
-<MetaTags
+<Seo
 	{title}
-	titleTemplate={`%s | ${siteConfig.name}`}
 	{description}
 	canonical={canonicalUrl}
-	{robots}
-	openGraph={{
-		type: activeModule ? 'article' : 'website',
-		url: canonicalUrl,
-		title: activeModule
-			? `${activeModule.title} | ${siteConfig.name}`
-			: `${siteConfig.name} | Architecture Guide`,
-		description,
-		siteName: siteConfig.name,
-		locale: 'en_US',
-		images: [
-			{
-				url: ogImageUrl,
-				secureUrl: ogImageUrl,
-				type: 'image/png',
-				width: 1200,
-				height: 630,
-				alt: activeModule
-					? `${activeModule.title} - ${siteConfig.name}`
-					: `${siteConfig.name} Architecture`
-			}
-		],
-		...(activeModule
-			? {
-					article: {
-						section: activeModule.track,
-						tags: activeModule.tech,
-						authors: [siteConfig.author?.name ?? SITE.author],
-						publishedTime: '2026-01-15T00:00:00Z',
-						modifiedTime: page.data?.lab?.lastmod ?? '2026-09-17T00:00:00Z'
-					}
-				}
-			: {})
-	}}
-	twitter={{
-		cardType: 'summary_large_image',
-		title: activeModule ? `${activeModule.title} | ${siteConfig.name}` : siteConfig.name,
-		description,
-		image: ogImageUrl,
-		imageAlt: activeModule
-			? `${activeModule.title} - ${siteConfig.name}`
-			: `${siteConfig.name} Architecture`
-	}}
-	additionalMetaTags={[
-		{ name: 'author', content: siteConfig.author?.name ?? SITE.author },
-		{
-			name: 'keywords',
-			content: activeModule ? `${activeModule.tech.join(', ')}, ${SITE.keywords}` : SITE.keywords
-		},
-		{ name: 'theme-color', content: '#4f46e5' },
-		{ name: 'apple-mobile-web-app-title', content: siteConfig.name },
-		{ name: 'application-name', content: siteConfig.name }
-	]}
+	ogImage={ogImageUrl}
+	noindex={isError}
+	nofollow={isError}
+	{keywords}
+	schema={jsonLdSchemas}
 />
-
-{#if jsonLdSchemas.length > 0}
-	<JsonLd schema={jsonLdSchemas} />
-{/if}
