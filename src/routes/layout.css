@@ -17,8 +17,8 @@
 		Consolas,
 		monospace
 	) !important;
-	font-size: 0.95rem !important;
-	line-height: 1.75 !important;
+	font-size: 0.875rem !important;
+	line-height: 1.7 !important;
 }
 
 .shiki code {

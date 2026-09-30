@@ -158,7 +158,7 @@ export async function renderMarkdownToHtml(markdown: string): Promise<string> {
 		})
 		.join('\n');
 
-	// 3. Re-inject highlighted code blocks with Shiki
+	// 3. Re-inject highlighted code blocks with Shiki (JavaScript engine)
 	for (let i = 0; i < codeBlocks.length; i++) {
 		const { lang, code } = JSON.parse(codeBlocks[i]);
 		const highlighted = await highlightCode(code, lang);

@@ -7,7 +7,19 @@ export async function getHighlighter(): Promise<Highlighter> {
 	if (!highlighterPromise) {
 		highlighterPromise = createHighlighter({
 			themes: ['github-dark-dimmed'],
-			langs: ['typescript', 'javascript', 'html', 'css', 'svelte', 'vue', 'json', 'yaml', 'bash'],
+			langs: [
+				'typescript',
+				'javascript',
+				'html',
+				'css',
+				'svelte',
+				'vue',
+				'json',
+				'yaml',
+				'bash',
+				'sql',
+				'python'
+			],
 			engine: createJavaScriptRegexEngine()
 		});
 	}
