@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type DsarAction = 'export' | 'erase' | 'rectify';
 	let selectedDsar = $state<DsarAction>('export');

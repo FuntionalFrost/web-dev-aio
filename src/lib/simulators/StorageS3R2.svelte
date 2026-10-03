@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	// Simulator 1: Presigned URL Generator State
 	type StorageBucket = 'cloudflare-r2-media' | 'aws-s3-prod-assets' | 'tigris-global';

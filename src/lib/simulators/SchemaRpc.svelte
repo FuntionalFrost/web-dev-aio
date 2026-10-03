@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	// Simulated Runtime Form State
 	let username = $state('ada');

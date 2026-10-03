@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let simulatedCiStatus = $state<'idle' | 'running' | 'success'>('idle');
 	let completedSteps = $state<string[]>([]);

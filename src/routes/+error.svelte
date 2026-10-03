@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { curriculum } from '$lib/data/curriculum';
+	import { curriculum } from '#lib/data/curriculum.js';
 </script>
 
 <div class="flex min-h-[70vh] flex-col items-center justify-center space-y-4 p-6 text-center">

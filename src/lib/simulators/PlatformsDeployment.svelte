@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type PlatformKey = 'cloudflare' | 'vercel' | 'netlify';
 	let selectedPlatform = $state<PlatformKey>('cloudflare');

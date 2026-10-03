@@ -1,6 +1,6 @@
 <script lang="ts">
-	import LabShell from '$lib/components/LabShell.svelte';
-	import { simulators } from '$lib/simulators';
+	import LabShell from '#lib/components/LabShell.svelte';
+	import { simulators } from '#lib/simulators/index.js';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

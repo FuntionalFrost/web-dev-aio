@@ -1,16 +1,10 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
+	"extends": "$app/tsconfig",
 	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"]
-		},
-		"ignoreDeprecations": "6.0",
 		"rewriteRelativeImportExtensions": true,
 		"sourceMap": true,
 		"strict": true,
 		"skipLibCheck": true
 	},
-	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+	"include": ["src"]
 }

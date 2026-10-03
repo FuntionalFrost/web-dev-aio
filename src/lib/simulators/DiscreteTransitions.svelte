@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let dialogElement = $state<HTMLDialogElement | null>(null);
 	let isModalOpen = $state(false);

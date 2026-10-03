@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { curriculum } from '$lib/data/curriculum';
-	import { cleanPath } from '$lib/utils/url';
+	import { curriculum } from '#lib/data/curriculum.js';
+	import { cleanPath } from '#lib/utils/url.js';
 
 	let currentIndex = $derived(
 		curriculum.findIndex((m) => cleanPath(m.href) === cleanPath(page.url.pathname))

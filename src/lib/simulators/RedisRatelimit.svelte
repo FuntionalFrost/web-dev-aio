@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 	import { Alert } from 'yaxa-svelte';
 
 	// Sliding Window Rate Limiter Simulator State

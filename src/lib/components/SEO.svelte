@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { Seo } from 'yaxa-svelte';
-	import { siteConfig } from '$lib/config/site';
-	import { curriculum } from '$lib/data/curriculum';
-	import { buildJsonLd } from '$lib/seo/schema';
-	import { cleanPath, toRouteKey } from '$lib/utils/url';
+	import { siteConfig } from '#lib/config/site.js';
+	import { curriculum } from '#lib/data/curriculum.js';
+	import { buildJsonLd } from '#lib/seo/schema.js';
+	import { cleanPath, toRouteKey } from '#lib/utils/url.js';
 
 	let currentPath = $derived(cleanPath(page.url.pathname));
 	let isHome = $derived(currentPath === '/');

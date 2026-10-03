@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let rawInput = $state('Modern Web Architecture 2026');
 	let containerWidthClass = $state('w-full');

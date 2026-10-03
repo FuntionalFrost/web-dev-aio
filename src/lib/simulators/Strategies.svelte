@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type StrategyKey = 'ssg' | 'ssr' | 'hybrid' | 'csr';
 	let selectedStrategy = $state<StrategyKey>('ssg');

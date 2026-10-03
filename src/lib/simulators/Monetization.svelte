@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type MonetisationModel = 'mor' | 'stripe' | 'paywall' | 'tokens';
 	let selectedModel = $state<MonetisationModel>('mor');

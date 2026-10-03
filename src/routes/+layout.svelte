@@ -2,14 +2,14 @@
 	import './layout.css';
 	import 'yaxa-svelte/yaxa.css';
 	import { YaxaApp, Slideover, Breadcrumb, Tooltip, useShortcuts, theme } from 'yaxa-svelte';
-	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
-	import CommandPalette from '$lib/components/CommandPalette.svelte';
-	import SEO from '$lib/components/SEO.svelte';
+	import ThemeToggle from '#lib/components/ThemeToggle.svelte';
+	import CommandPalette from '#lib/components/CommandPalette.svelte';
+	import SEO from '#lib/components/SEO.svelte';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
-	import { curriculum, getCurriculumByTrack } from '$lib/data/curriculum';
-	import { SITE, siteConfig } from '$lib/config/site';
-	import { cleanPath } from '$lib/utils/url';
+	import { curriculum, getCurriculumByTrack } from '#lib/data/curriculum.js';
+	import { SITE, siteConfig } from '#lib/config/site.js';
+	import { cleanPath } from '#lib/utils/url.js';
 
 	let { children } = $props();
 

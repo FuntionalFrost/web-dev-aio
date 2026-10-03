@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { Badge, Button, EmptyState } from 'yaxa-svelte';
-	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
+	import { curriculum, TRACK_ORDER } from '#lib/data/curriculum.js';
 
 	// Initialize from URL params on the client; fall back to safe defaults during prerender.
 	let activeTrack = $state<string>(browser ? (page.url.searchParams.get('track') ?? 'All') : 'All');

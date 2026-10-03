@@ -1,6 +1,6 @@
 import type { RequestHandler } from './$types';
-import { SITE } from '$lib/config/site';
-import { getCurriculumByTrack } from '$lib/data/curriculum';
+import { SITE } from '#lib/config/site.js';
+import { getCurriculumByTrack } from '#lib/data/curriculum.js';
 
 export const prerender = true;
 

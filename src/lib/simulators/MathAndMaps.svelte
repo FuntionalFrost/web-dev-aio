@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let numbers = $state<number[]>([0.1, 0.2, 0.3]);
 	let standardSum = $derived(numbers.reduce((acc, curr) => acc + curr, 0));

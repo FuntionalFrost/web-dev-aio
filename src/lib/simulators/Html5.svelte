@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let dialogElement: HTMLDialogElement;
 	let dialogResult = $state<string>('No action taken');

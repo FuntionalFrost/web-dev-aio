@@ -1,7 +1,7 @@
 import { generateOgSvg } from 'yaxa-svelte';
-import { siteConfig } from '$lib/config/site';
-import { curriculum } from '$lib/data/curriculum';
-import { toRouteKey } from '$lib/utils/url';
+import { siteConfig } from '#lib/config/site.js';
+import { curriculum } from '#lib/data/curriculum.js';
+import { toRouteKey } from '#lib/utils/url.js';
 import type { EntryGenerator, RequestHandler } from './$types';
 
 export const prerender = true;

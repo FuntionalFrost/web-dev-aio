@@ -44,5 +44,9 @@
 	},
 	"dependencies": {
 		"yaxa-svelte": "1.13.2"
+	},
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
 	}
 }

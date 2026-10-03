@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let simulatedNonce = $state('rAnd0mN0nc3Str1ng==');
 	let isStrictDynamic = $state(true);

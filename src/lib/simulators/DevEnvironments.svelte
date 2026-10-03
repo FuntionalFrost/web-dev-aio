@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type OsKey = 'wsl2' | 'fedora44' | 'macos';
 	let selectedOs = $state<OsKey>('fedora44');

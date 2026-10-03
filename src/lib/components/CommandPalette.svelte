@@ -5,7 +5,7 @@
 		useShortcuts,
 		type CommandItem
 	} from 'yaxa-svelte';
-	import { curriculum } from '$lib/data/curriculum';
+	import { curriculum } from '#lib/data/curriculum.js';
 	import { goto } from '$app/navigation';
 
 	let isOpen = $state(false);

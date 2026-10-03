@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 export interface SnippetDefinition {
 	code: string;
 	lang?:
@@ -601,7 +602,7 @@ export async function protectApiEndpoint(clientIp: string) {
 		code: `import { betterAuth } from 'better-auth';
 import { passkey } from 'better-auth/plugins/passkey';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { db } from '$lib/server/db';
+import { db } from '#lib/server/db';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, { provider: 'pg' }),

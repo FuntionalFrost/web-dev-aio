@@ -33,9 +33,6 @@ export default defineConfig({
 			adapter: adapter({
 				fallback: '404.html'
 			}),
-			alias: {
-				$lib: 'src/lib'
-			},
 			paths: {
 				relative: false
 			},
@@ -62,5 +59,10 @@ export default defineConfig({
 			}
 		}),
 		yaxa()
-	]
+	],
+	resolve: {
+		alias: {
+			'#lib/styles/yaxa.css': 'yaxa-svelte/yaxa.css'
+		}
+	}
 });

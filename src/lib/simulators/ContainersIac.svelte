@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 	import { CodeBlock } from 'yaxa-svelte';
 
 	type RuntimeKey = 'podman' | 'docker' | 'ecs_fargate' | 'render_caas';

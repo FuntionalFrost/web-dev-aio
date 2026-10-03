@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 	import { Stepper, Alert, type StepItem } from 'yaxa-svelte';
 
 	// 1. Better Auth Session State

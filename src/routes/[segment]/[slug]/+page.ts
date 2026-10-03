@@ -1,6 +1,6 @@
-import { curriculum } from '$lib/data/curriculum';
-import { snippets } from '$lib/data/snippets';
-import { siteConfig } from '$lib/config/site';
+import { curriculum } from '#lib/data/curriculum.js';
+import { snippets } from '#lib/data/snippets.js';
+import { siteConfig } from '#lib/config/site.js';
 import { definePageSeo } from 'yaxa-svelte';
 import { error } from '@sveltejs/kit';
 import type { EntryGenerator, PageLoad } from './$types';

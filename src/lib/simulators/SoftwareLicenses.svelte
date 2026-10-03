@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type LicenceCategory =
 		'All' | 'Permissive' | 'Weak Copyleft' | 'Strong Copyleft' | 'Source-Available';

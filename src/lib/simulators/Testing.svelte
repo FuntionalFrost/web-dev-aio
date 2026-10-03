@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let testSuiteState = $state<'idle' | 'running' | 'passed'>('idle');
 	let testLogs = $state<string[]>([]);

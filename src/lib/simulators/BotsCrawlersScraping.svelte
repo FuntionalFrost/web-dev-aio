@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type BotKey = 'gptbot' | 'claudebot' | 'bytespider' | 'googlebot';
 	let selectedBot = $state<BotKey>('gptbot');

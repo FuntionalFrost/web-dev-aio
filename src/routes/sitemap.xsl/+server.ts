@@ -1,5 +1,5 @@
 import { createSitemapXslHandler } from 'yaxa-svelte';
-import { siteConfig } from '$lib/config/site';
+import { siteConfig } from '#lib/config/site.js';
 
 export const prerender = true;
 

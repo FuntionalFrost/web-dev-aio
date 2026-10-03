@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let containerWidth = $state(450);
 	let selectedAssetType = $state<'avif' | 'webp' | 'png'>('avif');

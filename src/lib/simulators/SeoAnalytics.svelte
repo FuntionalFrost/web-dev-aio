@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	let pageTitle = $state('Web Engine 2026: Reference Architecture');
 	let pageDesc = $state(

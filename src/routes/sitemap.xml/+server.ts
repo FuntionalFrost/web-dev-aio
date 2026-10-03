@@ -1,6 +1,6 @@
 import { createSitemapHandler } from 'yaxa-svelte';
-import { siteConfig } from '$lib/config/site';
-import { curriculum } from '$lib/data/curriculum';
+import { siteConfig } from '#lib/config/site.js';
+import { curriculum } from '#lib/data/curriculum.js';
 
 export const prerender = true;
 

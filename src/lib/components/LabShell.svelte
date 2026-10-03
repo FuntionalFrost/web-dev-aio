@@ -2,11 +2,11 @@
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import { Badge } from 'yaxa-svelte';
-	import LabPagination from '$lib/components/LabPagination.svelte';
-	import CodeBlock from '$lib/components/CodeBlock.svelte';
-	import { curriculum } from '$lib/data/curriculum';
-	import { cleanPath } from '$lib/utils/url';
-	import { SITE } from '$lib/config/site';
+	import LabPagination from '#lib/components/LabPagination.svelte';
+	import CodeBlock from '#lib/components/CodeBlock.svelte';
+	import { curriculum } from '#lib/data/curriculum.js';
+	import { cleanPath } from '#lib/utils/url.js';
+	import { SITE } from '#lib/config/site.js';
 
 	let {
 		moduleId,

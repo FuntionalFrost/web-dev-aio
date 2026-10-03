@@ -1,5 +1,5 @@
 import { defineSiteConfig, type SiteConfig } from 'yaxa-svelte';
-import { curriculum } from '$lib/data/curriculum';
+import { curriculum } from '#lib/data/curriculum.js';
 
 export const LABS_COUNT = curriculum.length;
 

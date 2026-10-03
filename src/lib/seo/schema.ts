@@ -1,6 +1,6 @@
-import { SITE, siteConfig } from '$lib/config/site';
-import { curriculum, type CurriculumModule } from '$lib/data/curriculum';
-import { toRouteKey } from '$lib/utils/url';
+import { SITE, siteConfig } from '#lib/config/site.js';
+import { curriculum, type CurriculumModule } from '#lib/data/curriculum.js';
+import { toRouteKey } from '#lib/utils/url.js';
 import {
 	generateWebSiteSchema,
 	generateArticleSchema,

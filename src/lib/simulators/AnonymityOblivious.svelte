@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	type ProtocolMode = 'direct' | 'ohttp' | 'tor_onion';
 	let protocolMode = $state<ProtocolMode>('ohttp');

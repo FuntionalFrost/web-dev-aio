@@ -1,4 +1,4 @@
-import { siteConfig } from '$lib/config/site';
+import { siteConfig } from '#lib/config/site.js';
 import { definePageSeo } from 'yaxa-svelte';
 import type { PageLoad } from './$types';
 

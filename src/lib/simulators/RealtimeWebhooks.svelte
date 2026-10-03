@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabCard from '$lib/components/LabCard.svelte';
+	import LabCard from '#lib/components/LabCard.svelte';
 
 	// 1. SSE Real-Time Stream Simulator
 	let isSSEConnected = $state(false);
