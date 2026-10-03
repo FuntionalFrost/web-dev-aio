@@ -33,6 +33,9 @@ export default defineConfig({
 			adapter: adapter({
 				fallback: '404.html'
 			}),
+			alias: {
+				$lib: 'src/lib'
+			},
 			paths: {
 				relative: false
 			},

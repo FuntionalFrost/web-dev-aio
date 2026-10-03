@@ -49,7 +49,7 @@ export const snippets: Record<string, SnippetDefinition> = {
   console.log(match?.pathname.groups.id); // 'usr_998'
 
   const randomBytes = crypto.getRandomValues(new Uint8Array(16));
-</script>`
+<\/script>`
 	},
 
 	'foundations/styling-assets': {
@@ -739,10 +739,10 @@ export default defineConfig({
       "name": "Web Engine Team"
     }
   }
-  </script>
+  <\/script>
 
   <!-- 3. Privacy-First Cookieless Analytics -->
-  <script defer data-domain="web-engine26.pages.dev" src="https://plausible.io/js/script.js"></script>
+  <script defer data-domain="web-engine26.pages.dev" src="https://plausible.io/js/script.js"><\/script>
 </head>`
 	},
 
