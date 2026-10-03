@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
 	import { curriculum } from '$lib/data/curriculum';
 </script>
 
@@ -19,7 +18,7 @@
 	</p>
 	<div class="flex gap-3 pt-4">
 		<a
-			href={resolve('/')}
+			href="/"
 			class="rounded-xl bg-indigo-600 px-5 py-2.5 font-mono text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
 		>
 			Return to Labs Dashboard

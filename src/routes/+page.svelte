@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { page } from '$app/state';
-	import { replaceState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import { Badge, Button, EmptyState } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '$lib/data/curriculum';
 
@@ -11,14 +11,14 @@
 	// Call this from user-interaction handlers only — never from a reactive $effect.
 	function updateUrl() {
 		if (!browser) return;
-		const url = new URL(page.url);
+		const url = new URL(page.url.href);
 		if (activeTrack !== 'All') {
 			url.searchParams.set('track', activeTrack);
 		} else {
 			url.searchParams.delete('track');
 		}
 		if (url.search !== page.url.search) {
-			replaceState(url, {});
+			goto(url, { shallow: true, replace: true });
 		}
 	}
 
@@ -32,12 +32,13 @@
 	<div class="space-y-3">
 		<span
 			class="inline-block rounded-lg bg-indigo-50 px-3 py-1 font-mono text-sm font-bold tracking-wider text-indigo-600 uppercase dark:bg-indigo-950/60 dark:text-indigo-400"
+			>Engineering Labs & Architecture 2026</span
 		>
-			Engineering Labs & Architecture 2026
-		</span>
+
 		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
 			Full-Stack Architecture Labs
 		</h1>
+
 		<p class="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
 			{curriculum.length} production-grade engineering modules covering Svelte 5 Universal Runes & Async
 			streaming, SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes,

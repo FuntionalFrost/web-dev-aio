@@ -7,7 +7,6 @@
 	import SEO from '$lib/components/SEO.svelte';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
 	import { curriculum, getCurriculumByTrack } from '$lib/data/curriculum';
 	import { SITE, siteConfig } from '$lib/config/site';
 	import { cleanPath } from '$lib/utils/url';
@@ -35,6 +34,8 @@
 	});
 
 	onNavigate((navigation) => {
+		if (navigation.shallow) return;
+
 		mobileDrawerOpen = false;
 		if (!document.startViewTransition) return;
 		return new Promise((resolveNav) => {
@@ -57,7 +58,7 @@
 			class="sticky top-0 hidden h-screen w-88 shrink-0 flex-col border-r border-slate-200 bg-white/80 backdrop-blur-xl md:flex dark:border-slate-800/80 dark:bg-slate-900/40"
 		>
 			<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
-				<a href={resolve('/')} class="flex shrink-0 items-center gap-3">
+				<a href="/" class="flex shrink-0 items-center gap-3">
 					<div
 						class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-600 font-mono text-base font-bold text-white shadow-md shadow-indigo-500/20"
 					>
