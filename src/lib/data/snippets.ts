@@ -1,6 +1,17 @@
 export interface SnippetDefinition {
 	code: string;
-	lang?: 'typescript' | 'javascript' | 'html' | 'svelte' | 'vue' | 'css' | 'json' | 'yaml' | 'bash';
+	lang?:
+		| 'typescript'
+		| 'javascript'
+		| 'html'
+		| 'svelte'
+		| 'vue'
+		| 'css'
+		| 'json'
+		| 'yaml'
+		| 'bash'
+		| 'sql'
+		| 'python';
 }
 
 export const snippets: Record<string, SnippetDefinition> = {

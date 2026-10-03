@@ -1,24 +1,3 @@
----
-id: 'compliance-eu-regulations'
-title: '34. EU Data Regulations: GDPR, ePrivacy, DMA/DSA & EU AI Act'
-track: 'Security, Privacy & EU Regulations'
-category: 'EU Compliance & Governance'
-segment: 'compliance'
-slug: 'eu-regulations'
-tech:
-  [
-    'GDPR DSAR Automation',
-    'ePrivacy Cookieless Model',
-    'DMA / DSA Portability',
-    'EU AI Act Disclosures',
-    'EU Sovereign Data Residency',
-    'Audit Trails'
-  ]
-description: 'Implement robust compliance architectures for GDPR erasure/export webhooks, ePrivacy consent state machines, EU AI Act content transparency, and EU data sovereignty routing.'
-snippetLang: 'typescript'
-lastmod: '2026-09-30'
----
-
 <h3>EU Data Regulations & Compliance Engineering</h3>
 <p class="text-base sm:text-lg">
   Building compliant applications for the European Union requires technical guarantees baked directly into the system architecture, from data ingestion to storage and automated subject requests.

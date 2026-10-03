@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { curriculum } from '$lib/data/curriculum';
-
-	const cleanPath = (p: string) => p.replace(/\/$/, '');
+	import { cleanPath } from '$lib/utils/url';
 
 	let currentIndex = $derived(
 		curriculum.findIndex((m) => cleanPath(m.href) === cleanPath(page.url.pathname))

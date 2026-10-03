@@ -1,10 +1,10 @@
 import { siteConfig } from '$lib/config/site';
 import { definePageSeo } from 'yaxa-svelte';
-import type { PageServerLoad } from './$types';
+import type { PageLoad } from './$types';
 
 export const prerender = true;
 
-export const load: PageServerLoad = () => {
+export const load: PageLoad = () => {
 	return {
 		seo: definePageSeo({
 			title: 'Full-Stack Architecture Labs',

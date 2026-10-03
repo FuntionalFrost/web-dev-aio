@@ -1,24 +1,3 @@
----
-id: 'cloud-containers-iac'
-title: '28. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform'
-track: 'Cloud, Operations & Licences'
-category: 'Containers & IaC'
-segment: 'cloud'
-slug: 'containers-iac'
-tech:
-  [
-    'Podman Rootless',
-    'Docker & OCI',
-    'AWS ECS / Fargate',
-    'Render PaaS',
-    'Terraform / OpenTofu',
-    'Wrangler IaC'
-  ]
-description: 'Compare rootless daemonless Podman with Docker, evaluate Container as a Service (ECS/Render) vs FaaS, and declare infrastructure with Terraform.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform</h3>
 		<p class="text-base sm:text-lg">
 			Modern cloud applications bridge development and production through OCI container standards

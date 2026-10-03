@@ -14,6 +14,8 @@
 		description: propDescription,
 		codeHtml,
 		rawCode,
+		code,
+		language,
 		filename,
 		guideHtml,
 		guide,
@@ -26,6 +28,8 @@
 		description?: string;
 		codeHtml?: string;
 		rawCode?: string;
+		code?: string;
+		language?: string;
 		filename?: string;
 		guideHtml?: string;
 		guide?: Snippet;
@@ -67,9 +71,9 @@
 			{description}
 		</p>
 
-		{#if codeHtml}
+		{#if codeHtml || rawCode || code}
 			<div class="not-prose my-2">
-				<CodeBlock {codeHtml} {rawCode} {filename} />
+				<CodeBlock {codeHtml} {rawCode} {code} {language} {filename} />
 			</div>
 		{/if}
 

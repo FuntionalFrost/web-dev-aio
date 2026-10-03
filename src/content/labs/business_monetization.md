@@ -1,23 +1,3 @@
----
-id: 'business-monetization'
-title: '26. Site & Project Monetisation Models'
-track: 'Cloud, Operations & Licences'
-category: 'Monetisation & Billing'
-segment: 'business'
-slug: 'monetization'
-tech:
-  [
-    'Polar.sh MoR',
-    'Stripe Billing & Webhooks',
-    'LemonSqueezy',
-    'Tiered Pro Access',
-    'Usage Metering'
-  ]
-description: 'Monetise developer tools and SaaS platforms with Merchant of Record tax handling, subscription checkouts, paywalled feature gates, and usage metering.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Site & Project Monetisation Models</h3>
 		<p class="text-base sm:text-lg">
 			Monetising developer software tools, SaaS products, and open-source packages requires choosing

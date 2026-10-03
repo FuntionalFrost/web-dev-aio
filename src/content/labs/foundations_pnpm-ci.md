@@ -1,16 +1,3 @@
----
-id: 'foundation-pnpm-ci'
-title: '05. PNPM Workspaces, Monorepos & CI/CD Pipelines'
-track: 'Foundations & Tooling'
-category: 'Tooling & CI/CD'
-segment: 'foundations'
-slug: 'pnpm-ci'
-tech: ['pnpm-workspace', 'catalog: Protocol', 'ci.yml Matrix', 'GitHub Actions', 'Strict Lockfiles']
-description: 'Configure high-speed PNPM workspaces using the catalog protocol, immutable lockfile validation, and multi-OS GitHub Actions CI matrix pipelines.'
-snippetLang: 'yaml'
-lastmod: '2026-02-15'
----
-
 <h3>PNPM Workspaces & CI/CD Pipelines</h3>
 		<p class="text-base sm:text-lg">
 			PNPM workspaces combined with GitHub Actions provide deterministic, lightning-fast dependency

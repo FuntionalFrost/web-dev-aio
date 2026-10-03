@@ -1,16 +1,3 @@
----
-id: 'ecma-math-maps'
-title: '10. Precision Math, Maps & Modern Iterators'
-track: 'Modern ECMAScript'
-category: 'ECMAScript'
-segment: 'ecmascript'
-slug: 'math-and-maps'
-tech: ['Math.sumPrecise', 'Map.getOrInsert', 'Iterator Helpers', 'TS6 Strict Modules']
-description: 'Eliminate floating-point accumulation bugs with Math.sumPrecise, leverage Map key memoization, and compose lazy data pipelines with Iterator helpers.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Precision Math, Maps & Modern Iterators</h3>
 		<p class="text-base sm:text-lg">
 			ES2026 introduces native mathematical accuracy algorithms and collection ergonomics directly

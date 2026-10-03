@@ -1,24 +1,3 @@
----
-id: 'security-bots-crawlers-scraping'
-title: '33. Robots, AI Web Scrapers & Bot Mitigation Architecture'
-track: 'Security, Privacy & EU Regulations'
-category: 'Bot Governance & Anti-Scraping'
-segment: 'security'
-slug: 'bots-crawlers-scraping'
-tech:
-  [
-    'RFC 9309 Robots Protocol',
-    'llms.txt Discovery',
-    'X-Robots-Tag: noai',
-    'EU Article 4 TDM',
-    'JA4 TLS Fingerprinting',
-    'Proof-of-Work (Altcha / Turnstile)'
-  ]
-description: 'Govern AI/LLM crawlers with RFC 9309 and llms.txt, enforce machine-readable EU TDM reservations, analyze JA4 TLS fingerprints, and deploy zero-tracking Proof-of-Work bot defenses.'
-snippetLang: 'typescript'
-lastmod: '2026-09-30'
----
-
 <h3>Robots, AI Scrapers & Bot Defense Engineering</h3>
 <p class="text-base sm:text-lg">
   The explosion of autonomous AI scrapers and LLM retrieval agents necessitates modern machine-readable content protocols, lawful copyright opt-outs, and zero-tracking bot mitigation.

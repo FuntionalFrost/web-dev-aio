@@ -1,24 +1,3 @@
----
-id: 'runtime-engines'
-title: '06. Modern JS Runtimes: Node.js 24, Bun & Deno 2'
-track: 'Runtimes & Engines'
-category: 'JS Runtimes'
-segment: 'runtimes'
-slug: 'engines'
-tech:
-  [
-    'Node.js 24 LTS',
-    'Bun 1.2',
-    'Deno 2.2',
-    'Granular Permissions',
-    'Cold Starts',
-    'Web APIs Parity'
-  ]
-description: 'Benchmark execution speed, cold-start latency, package management performance, security sandbox permissions, and Web API parity across top runtimes.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Modern JavaScript Runtimes: Node.js 24, Bun & Deno 2</h3>
 		<p class="text-base sm:text-lg">
 			The JavaScript runtime landscape in 2026 offers distinct trade-offs across execution engines,

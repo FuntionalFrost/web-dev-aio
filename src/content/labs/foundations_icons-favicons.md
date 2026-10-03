@@ -1,16 +1,3 @@
----
-id: 'foundation-icons-favicons'
-title: '04. Modern Icons & Responsive Favicon Systems'
-track: 'Foundations & Tooling'
-category: 'Icons & Assets'
-segment: 'foundations'
-slug: 'icons-favicons'
-tech: ['SVG Favicons', 'Dark/Light Media', 'Web App Manifest', 'CSS Mask Icons', 'DOM Optimisation']
-description: 'Design theme-reactive SVG favicons, Apple touch icons, PWA manifest configurations, and high-performance single-node CSS mask icon systems.'
-snippetLang: 'html'
-lastmod: '2026-02-15'
----
-
 <h3>Modern Icon & Favicon Systems</h3>
 		<p class="text-base sm:text-lg">
 			Modern web standards eliminate large icon sprite libraries by leveraging responsive SVG

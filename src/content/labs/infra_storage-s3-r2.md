@@ -1,24 +1,3 @@
----
-id: 'infra-storage-s3-r2'
-title: '22. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads'
-track: 'APIs & Data Architecture'
-category: 'Object Storage & R2'
-segment: 'infra'
-slug: 'storage-s3-r2'
-tech:
-  [
-    '@aws-sdk/client-s3',
-    'Cloudflare R2',
-    'Presigned URLs',
-    'Zero Egress',
-    'Multipart Uploads',
-    'Bucket Policies'
-  ]
-description: 'Architect scalable media and file storage with AWS SDK v3, presigned client upload tokens, and zero-egress Cloudflare R2 buckets.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads</h3>
 		<p class="text-base sm:text-lg">
 			Modern file architectures decouple binary storage from application compute. Instead of routing

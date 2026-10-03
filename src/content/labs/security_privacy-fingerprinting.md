@@ -1,24 +1,3 @@
----
-id: 'security-privacy-fingerprinting'
-title: '31. Web Privacy Engineering, Tracking Defenses & Anti-Fingerprinting'
-track: 'Security, Privacy & EU Regulations'
-category: 'Privacy & Tracking Defense'
-segment: 'security'
-slug: 'privacy-fingerprinting'
-tech:
-  [
-    'Global Privacy Control (GPC)',
-    'Anti-Fingerprinting Jitter',
-    'CHIPS Partitioned Cookies',
-    'CNAME Cloaking Defense',
-    'Link Decoration Stripping',
-    'Ephemeral Storage'
-  ]
-description: 'Protect user privacy against canvas/audio/font entropy fingerprinting, bounce tracking, CNAME cloaking, and implement Sec-GPC compliance with partitioned cookies.'
-snippetLang: 'typescript'
-lastmod: '2026-09-30'
----
-
 <h3>Privacy Engineering & Anti-Fingerprinting Architecture</h3>
 <p class="text-base sm:text-lg">
   As third-party cookies are deprecated, covert tracking vectors like device entropy fingerprinting, CNAME cloaking, and bounce tracking have become the primary threat to web privacy.

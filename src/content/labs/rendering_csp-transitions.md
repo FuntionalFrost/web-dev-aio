@@ -1,23 +1,3 @@
----
-id: 'rendering-csp-transitions'
-title: '16. Security: Strict CSP, Nonces & View Transitions'
-track: 'Rendering & Architecture'
-category: 'Web Security & Transitions'
-segment: 'rendering'
-slug: 'csp-transitions'
-tech:
-  [
-    'Strict CSP',
-    'Nonce-based Security',
-    'Frame Sandboxing',
-    'View Transitions API',
-    'Morph Transitions'
-  ]
-description: 'Harden web applications against XSS with cryptographic CSP nonces, strict headers, and coordinate fluid page animations with View Transitions.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Security: Strict CSP, Nonces & View Transitions</h3>
 		<p class="text-base sm:text-lg">
 			Securing web applications against Cross-Site Scripting (XSS) and clickjacking with strict

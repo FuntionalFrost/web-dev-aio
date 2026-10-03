@@ -1,24 +1,3 @@
----
-id: 'rendering-hydration-serialization'
-title: '15. Hydration Engines & Data Serialisation'
-track: 'Rendering & Architecture'
-category: 'Hydration & Serialisation'
-segment: 'rendering'
-slug: 'hydration-serialization'
-tech:
-  [
-    'Hydration Pipeline',
-    'Island Hydration',
-    'Streaming SSR',
-    'devalue',
-    'SuperJSON',
-    'Data Boundaries'
-  ]
-description: 'Examine the client hydration lifecycle, partial/island hydration models, streaming SSR, and safe complex data serialisation with devalue.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Hydration Engines & Data Serialisation</h3>
 		<p class="text-base sm:text-lg">
 			Passing state across the server-to-client boundary requires specialised serialisers like <code

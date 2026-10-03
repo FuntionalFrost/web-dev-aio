@@ -1,16 +1,3 @@
----
-id: 'infra-better-auth'
-title: '21. Modern Authentication, Passkeys & Better Auth'
-track: 'APIs & Data Architecture'
-category: 'Auth & Security'
-segment: 'infra'
-slug: 'better-auth'
-tech: ['Better Auth', 'WebAuthn Passkeys', 'HttpOnly Cookies', 'Session Rotation', 'PKCE OAuth']
-description: 'Implement passwordless biometric passkeys, secure HttpOnly cookie session rotation, and modular authentication plugins with Better Auth.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Modern Authentication, Passkeys & Better Auth</h3>
 		<p class="text-base sm:text-lg">
 			Better Auth provides a comprehensive TypeScript authentication runtime with passwordless

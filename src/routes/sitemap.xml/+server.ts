@@ -1,6 +1,6 @@
 import { createSitemapHandler } from 'yaxa-svelte';
 import { siteConfig } from '$lib/config/site';
-import { getAllLabs } from '$lib/server/labs';
+import { curriculum } from '$lib/data/curriculum';
 
 export const prerender = true;
 
@@ -21,19 +21,21 @@ export const GET = createSitemapHandler({
 		}
 	],
 	dynamicRoutes: async () => {
-		const labs = await getAllLabs();
-		return labs.map((l) => ({
-			loc: `/${l.segment}/${l.slug}`,
-			lastmod: l.lastmod,
-			changefreq: 'weekly' as const,
-			priority: 0.8,
-			images: [
-				{
-					loc: `${siteConfig.url}/og/${l.segment}/${l.slug}`,
-					title: `${l.title} — ${l.track}`,
-					caption: l.description
-				}
-			]
-		}));
+		return curriculum.map((l) => {
+			const parts = l.href.replace(/^\//, '').split('/');
+			return {
+				loc: l.href,
+				lastmod: '2026-09-30',
+				changefreq: 'weekly' as const,
+				priority: 0.8,
+				images: [
+					{
+						loc: `${siteConfig.url}/og/${parts[0]}/${parts[1]}`,
+						title: `${l.title} — ${l.track}`,
+						caption: l.description
+					}
+				]
+			};
+		});
 	}
 });

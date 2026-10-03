@@ -1,23 +1,3 @@
----
-id: 'api-schema-rpc'
-title: '17. Schema Validation & Type-Safe RPC'
-track: 'APIs & Data Architecture'
-category: 'API Architecture & RPC'
-segment: 'apis'
-slug: 'schema-rpc'
-tech:
-  [
-    '@standard-schema/spec',
-    'Zod / Valibot',
-    'Hono RPC',
-    'OpenAPI OAS 3.1',
-    'Remote Server Functions'
-  ]
-description: 'Enforce runtime boundaries with Standard Schema, auto-generate OpenAPI documentation, and implement end-to-end type-safe RPC contracts.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Schema Validation (Standard Schema) & Hono RPC</h3>
 		<p class="text-base sm:text-lg">
 			Standard Schema and Hono RPC eliminate boilerplate by providing end-to-end type safety between

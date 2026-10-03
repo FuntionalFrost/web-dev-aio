@@ -1,23 +1,3 @@
----
-id: 'foundation-ts'
-title: '03. TypeScript 6 & Strict Engineering'
-track: 'Foundations & Tooling'
-category: 'TypeScript 6'
-segment: 'foundations'
-slug: 'typescript'
-tech:
-  [
-    'satisfies operator',
-    'Const Type Parameters',
-    'Discriminated Unions',
-    'Exhaustiveness',
-    'Strict Modules'
-  ]
-description: 'Enforce sound type boundaries, literal type preservation with satisfies, const type parameters, discriminated unions, and strict modular compilation.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>TypeScript 6 & Modern Strict Typing</h3>
 		<p class="text-base sm:text-lg">
 			TypeScript 6 provides sound type inference, const type parameters, the <code>satisfies</code> operator,

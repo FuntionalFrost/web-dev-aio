@@ -1,16 +1,3 @@
----
-id: 'foundation-styling-assets'
-title: '02. Tailwind CSS v4, Styling & Asset Architecture'
-track: 'Foundations & Tooling'
-category: 'Tailwind CSS v4'
-segment: 'foundations'
-slug: 'styling-assets'
-tech: ['@theme Tokens', '@container Queries', 'Asset Pipeline', 'AVIF / WebP', 'Immutable Cache']
-description: 'Explore Tailwind CSS v4 CSS-first token configuration, container queries, modern layout systems, responsive image formats, and immutable asset delivery.'
-snippetLang: 'css'
-lastmod: '2026-02-15'
----
-
 <h3>Tailwind CSS v4 & Modern Asset Pipelines</h3>
 		<p class="text-base sm:text-lg">
 			Tailwind CSS v4 introduces a CSS-first architecture that eliminates <code

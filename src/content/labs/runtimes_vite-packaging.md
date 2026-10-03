@@ -1,16 +1,3 @@
----
-id: 'runtime-vite-packaging'
-title: '07. Vite 6 Architecture & Library Packaging'
-track: 'Runtimes & Engines'
-category: 'Build & Packaging'
-segment: 'runtimes'
-slug: 'vite-packaging'
-tech: ['Vite 6 / Rolldown', 'HMR Pipelines', 'TypeScript d.ts', 'unbuild', 'package.json exports']
-description: 'Understand Vite 6 next-gen bundling internals, lightning-fast HMR, TypeScript declaration generation, and multi-format npm library packaging with exports.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Vite 6 Architecture & Library Packaging</h3>
 		<p class="text-base sm:text-lg">
 			Modern frontend libraries use modern packaging standards including conditional <code

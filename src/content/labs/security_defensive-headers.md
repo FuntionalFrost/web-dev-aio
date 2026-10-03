@@ -1,24 +1,3 @@
----
-id: 'security-defensive-headers'
-title: '30. Modern Web Security: Strict CSP Level 3, Nonces & Isolation'
-track: 'Security, Privacy & EU Regulations'
-category: 'Defensive Web Security'
-segment: 'security'
-slug: 'defensive-headers'
-tech:
-  [
-    'Strict CSP Level 3',
-    'COOP / COEP / CORP',
-    'Subresource Integrity (SRI)',
-    'Trusted Types API',
-    'Sanitizer API',
-    'Permissions-Policy'
-  ]
-description: 'Harden full-stack web applications with strict cryptographic CSP Level 3 nonces, Cross-Origin Opener/Embedder Isolation, Trusted Types, and fine-grained Permissions Policy.'
-snippetLang: 'typescript'
-lastmod: '2026-09-30'
----
-
 <h3>Modern Web Security & Defensive Architecture</h3>
 <p class="text-base sm:text-lg">
   Comprehensive browser-side defense-in-depth requires more than basic sanitization. Modern web architectures in 2026 rely on cryptographic nonces, execution boundaries, and hardware isolation headers to render entire classes of injection and timing attacks obsolete.

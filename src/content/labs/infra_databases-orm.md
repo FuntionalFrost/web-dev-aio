@@ -1,24 +1,3 @@
----
-id: 'infra-databases-orm'
-title: '19. Database Engines: Neon, Turso, libSQL, SQLite, PostgreSQL & postgres.js'
-track: 'APIs & Data Architecture'
-category: 'Backend & Data'
-segment: 'infra'
-slug: 'databases-orm'
-tech:
-  [
-    'Neon Serverless',
-    'Turso & libSQL',
-    'postgres.js',
-    'SQLite & better-sqlite3',
-    'PostgreSQL (pg)',
-    'Drizzle ORM'
-  ]
-description: 'Architect high-performance data layers across Neon Serverless Postgres, Turso edge libSQL, postgres.js, embedded SQLite, and stateful PostgreSQL with Drizzle ORM.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Modern Database Engines & Drizzle ORM</h3>
 		<p class="text-base sm:text-lg">
 			Selecting the right database engine and transport protocol determines application latency,

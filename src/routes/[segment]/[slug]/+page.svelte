@@ -5,19 +5,49 @@
 
 	let { data }: { data: PageData } = $props();
 
-	let lab = $derived(data.lab);
-	let Simulator = $derived(simulators[lab.slug]);
+	let mod = $derived(data.mod);
+	let GuideComponent = $derived(data.component);
+	let Simulator = $derived(simulators[data.slug]);
+	let snippet = $derived(data.snippet);
+	let filename = $derived(
+		`${data.slug}.${
+			snippet?.lang === 'typescript'
+				? 'ts'
+				: snippet?.lang === 'html'
+					? 'html'
+					: snippet?.lang === 'svelte'
+						? 'svelte'
+						: snippet?.lang === 'css'
+							? 'css'
+							: snippet?.lang === 'vue'
+								? 'vue'
+								: snippet?.lang === 'json'
+									? 'json'
+									: snippet?.lang === 'yaml'
+										? 'yaml'
+										: snippet?.lang === 'bash'
+											? 'sh'
+											: snippet?.lang === 'sql'
+												? 'sql'
+												: snippet?.lang === 'python'
+													? 'py'
+													: 'ts'
+		}`
+	);
 </script>
 
 <LabShell
-	moduleId={lab.id}
-	title={lab.title}
-	description={lab.description}
-	codeHtml={lab.codeHtml}
-	rawCode={lab.rawCode}
-	filename={lab.filename}
-	guideHtml={lab.guideHtml}
+	moduleId={mod.id}
+	title={mod.title}
+	description={mod.description}
+	rawCode={snippet?.code}
+	language={snippet?.lang}
+	{filename}
 >
+	{#snippet guide()}
+		<GuideComponent />
+	{/snippet}
+
 	{#if Simulator}
 		<Simulator />
 	{/if}

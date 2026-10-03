@@ -1,16 +1,3 @@
----
-id: 'runtime-nitro-hono'
-title: '08. Universal Server Engines: Nitro & Hono'
-track: 'Runtimes & Engines'
-category: 'Server Engines'
-segment: 'runtimes'
-slug: 'nitro-hono'
-tech: ['UnJS Nitro', 'Hono Framework', 'Universal Presets', 'Typed Middleware', 'Hono RPC']
-description: 'Build portable server backends with UnJS Nitro (universal presets & auto-imports) and deploy ultra-lightweight, zero-overhead edge APIs with Hono.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Universal Server Engines: Nitro & Hono</h3>
 		<p class="text-base sm:text-lg">
 			Modern full-stack architectures decouple web servers from rigid hosting environments using

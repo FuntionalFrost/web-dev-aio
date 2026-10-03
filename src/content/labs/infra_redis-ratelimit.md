@@ -1,23 +1,3 @@
----
-id: 'infra-redis-ratelimit'
-title: '20. Edge Caching & Sliding Window Rate Limiting'
-track: 'APIs & Data Architecture'
-category: 'Backend & Data'
-segment: 'infra'
-slug: 'redis-ratelimit'
-tech:
-  [
-    '@upstash/redis',
-    '@upstash/ratelimit',
-    'Sliding Window Algorithm',
-    'Distributed Locks',
-    'Edge Tokens'
-  ]
-description: 'Deploy stateless HTTP Redis caching, defend APIs against brute force attacks with sliding window algorithms, and manage distributed edge state.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Edge Caching & Sliding Window Rate Limiting</h3>
 		<p class="text-base sm:text-lg">
 			Sliding window algorithms in Upstash Redis over stateless HTTP prevent traffic burst exploits

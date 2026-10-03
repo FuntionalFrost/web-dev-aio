@@ -1,23 +1,3 @@
----
-id: 'api-realtime-webhooks'
-title: '18. Real-Time Streaming & Webhook Signatures'
-track: 'APIs & Data Architecture'
-category: 'Real-Time & Streaming'
-segment: 'apis'
-slug: 'realtime-webhooks'
-tech:
-  [
-    'Server-Sent Events (SSE)',
-    'WebSockets',
-    'HMAC-SHA256',
-    'Timing-Safe Verify',
-    'Idempotency Keys'
-  ]
-description: 'Stream real-time telemetry over SSE and WebSockets, verify incoming webhook signatures with timing-safe HMAC, and prevent replay attacks.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Real-Time Streaming & Webhook Signatures</h3>
 		<p class="text-base sm:text-lg">
 			Choosing between unidirectional Server-Sent Events (SSE) and bidirectional WebSockets, and

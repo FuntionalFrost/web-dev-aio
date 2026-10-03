@@ -1,16 +1,3 @@
----
-id: 'ecma-binary-streams'
-title: '11. Binary Streams, Buffers & Container Layouts'
-track: 'Modern ECMAScript'
-category: 'ECMAScript'
-segment: 'ecmascript'
-slug: 'binary-streams'
-tech: ['Uint8Array.prototype.toBase64', 'toHex', 'Array.fromAsync', 'Tailwind v4 @container']
-description: 'Execute native browser-level Base64 and Hex conversions, stream async iterables, and construct modular container-responsive interfaces.'
-snippetLang: 'typescript'
-lastmod: '2026-02-15'
----
-
 <h3>Binary Streams, Buffers & Container Layouts</h3>
 		<p class="text-base sm:text-lg">
 			Native binary buffer transformations eliminate client-side polyfills for cryptography, file

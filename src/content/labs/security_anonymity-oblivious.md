@@ -1,24 +1,3 @@
----
-id: 'security-anonymity-oblivious'
-title: '32. Web Anonymity: Oblivious HTTP (OHTTP) & Private State Tokens'
-track: 'Security, Privacy & EU Regulations'
-category: 'Oblivious Protocols & Anonymity'
-segment: 'security'
-slug: 'anonymity-oblivious'
-tech:
-  [
-    'Oblivious HTTP (RFC 9458)',
-    'Private State Tokens (RFC 9578)',
-    'Onion-Location Header',
-    'Blind Signatures',
-    'Zero-Knowledge Verifiers',
-    'Differential Privacy'
-  ]
-description: 'Decouple client network identities from application payloads with Oblivious HTTP (OHTTP), issue fraud-preventing Private State Tokens, and integrate onion routing.'
-snippetLang: 'typescript'
-lastmod: '2026-09-30'
----
-
 <h3>Web Anonymity & Oblivious Protocol Architectures</h3>
 <p class="text-base sm:text-lg">
   Decoupling network identities (IP addresses, TLS signatures) from application layer requests enables true privacy-preserving telemetry, anti-fraud verifications, and anonymous browsing.
