@@ -18,6 +18,11 @@ export const GET = createSitemapHandler({
 					caption: siteConfig.description
 				}
 			]
+		},
+		{
+			loc: '/theme',
+			changefreq: 'monthly' as const,
+			priority: 0.6
 		}
 	],
 	dynamicRoutes: async () => {

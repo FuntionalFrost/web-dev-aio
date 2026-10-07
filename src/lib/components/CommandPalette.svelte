@@ -10,17 +10,30 @@
 
 	let isOpen = $state(false);
 
-	const items: CommandItem[] = curriculum.map((m) => ({
-		id: m.id,
-		label: m.title,
-		description: `${m.category} • ${m.tech.join(', ')}`,
-		group: m.track,
-		href: m.href,
-		onSelect: () => {
-			isOpen = false;
-			goto(m.href);
+	const items: CommandItem[] = [
+		...curriculum.map((m) => ({
+			id: m.id,
+			label: m.title,
+			description: `${m.category} • ${m.tech.join(', ')}`,
+			group: m.track,
+			href: m.href,
+			onSelect: () => {
+				isOpen = false;
+				goto(m.href);
+			}
+		})),
+		{
+			id: 'tool-theme-studio',
+			label: 'Theme Studio',
+			description: 'Customize design tokens, palettes, radius scale & export Tailwind CSS v4',
+			group: 'Design System',
+			href: '/theme',
+			onSelect: () => {
+				isOpen = false;
+				goto('/theme');
+			}
 		}
-	}));
+	];
 
 	useShortcuts({
 		'meta_k, ctrl_k': (e) => {
@@ -38,14 +51,14 @@
 >
 	<span class="flex items-center gap-2.5">
 		<span>🔍</span>
-		<span class="hidden sm:inline">Search labs...</span>
+		<span class="hidden sm:inline">Search labs & theme...</span>
 		<span class="sm:hidden">Search...</span>
 	</span>
-	<Kbd size="sm">⌘K</Kbd>
+	<Kbd combo={['meta', 'k']} size="sm" />
 </button>
 
 <YaxaCommandPalette
 	bind:open={isOpen}
 	{items}
-	placeholder="Search curriculum labs, runtimes, or APIs..."
+	placeholder="Search curriculum labs, runtimes, APIs, or theme..."
 />

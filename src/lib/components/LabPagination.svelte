@@ -22,7 +22,7 @@
 			{#if prevModule}
 				<a
 					href={prevModule.href}
-					class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-800 shadow-xs transition hover:border-indigo-500 hover:text-indigo-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-400 dark:hover:text-indigo-300"
+					class="yaxa-press hover:border-primary-500 hover:text-primary-600 dark:hover:border-primary-400 dark:hover:text-primary-300 flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-800 shadow-xs transition dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
 				>
 					<span class="text-base">←</span>
 					<div class="text-left">
@@ -40,10 +40,10 @@
 			{#if nextModule}
 				<a
 					href={nextModule.href}
-					class="flex items-center gap-2.5 rounded-xl bg-indigo-600 px-5 py-2.5 font-semibold text-white shadow-sm shadow-indigo-500/20 transition hover:bg-indigo-500"
+					class="yaxa-press bg-primary-600 shadow-primary-500/20 hover:bg-primary-500 flex items-center gap-2.5 rounded-xl px-5 py-2.5 font-semibold text-white shadow-sm transition"
 				>
 					<div class="text-right">
-						<span class="hidden text-sm text-indigo-200 uppercase sm:block">Next Module</span>
+						<span class="text-primary-200 hidden text-sm uppercase sm:block">Next Module</span>
 						<span class="block max-w-40 truncate font-bold sm:max-w-64">{nextModule.title}</span>
 					</div>
 					<span class="text-base">→</span>
@@ -51,7 +51,7 @@
 			{:else}
 				<a
 					href="/"
-					class="rounded-xl bg-emerald-600 px-5 py-2.5 text-base font-bold text-white shadow-sm shadow-emerald-500/20 transition hover:bg-emerald-500"
+					class="yaxa-press rounded-xl bg-emerald-600 px-5 py-2.5 text-base font-bold text-white shadow-sm shadow-emerald-500/20 transition hover:bg-emerald-500"
 				>
 					Curriculum Complete ✓
 				</a>

@@ -19,7 +19,7 @@
 	<div class="flex gap-3 pt-4">
 		<a
 			href="/"
-			class="rounded-xl bg-indigo-600 px-5 py-2.5 font-mono text-base font-bold text-white shadow-md shadow-indigo-500/20 transition hover:bg-indigo-500"
+			class="yaxa-press bg-primary-600 shadow-primary-500/20 hover:bg-primary-500 rounded-xl px-5 py-2.5 font-mono text-base font-bold text-white shadow-md transition"
 		>
 			Return to Labs Dashboard
 		</a>
