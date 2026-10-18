@@ -55,7 +55,7 @@
 	<div class="prose flex max-w-none flex-col justify-start prose-slate dark:prose-invert">
 		<div class="not-prose mb-3 flex flex-wrap items-center gap-2.5">
 			<span
-				class="bg-primary-50 text-primary-600 dark:bg-primary-950/60 dark:text-primary-400 inline-block rounded-lg px-2.5 py-1 font-mono text-xs font-bold tracking-wider uppercase transition-colors"
+				class="inline-block rounded-lg bg-primary-50 px-2.5 py-1 font-mono text-xs font-bold tracking-wider text-primary-600 uppercase transition-colors dark:bg-primary-950/60 dark:text-primary-400"
 			>
 				{mod?.track ?? 'Engineering Track'}
 			</span>

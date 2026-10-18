@@ -85,7 +85,7 @@
 		<div class="space-y-1.5">
 			<div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
 				<span class="font-semibold tracking-wider uppercase">Accent Color</span>
-				<span class="text-primary-600 dark:text-primary-400 font-bold capitalize"
+				<span class="font-bold text-primary-600 capitalize dark:text-primary-400"
 					>{theme.accent}</span
 				>
 			</div>
@@ -96,7 +96,7 @@
 						onclick={() => theme.setAccent(key as AccentName)}
 						class="group relative flex h-7 w-7 items-center justify-center rounded-lg border transition {theme.accent ===
 						key
-							? 'border-primary-500 ring-primary-500/30 ring-2'
+							? 'border-primary-500 ring-2 ring-primary-500/30'
 							: 'border-transparent hover:border-slate-300 dark:hover:border-slate-700'}"
 						title={pal.name}
 					>
@@ -122,7 +122,7 @@
 						onclick={() => theme.setNeutral(key as NeutralName)}
 						class="rounded-lg border px-1.5 py-1 text-center text-[10px] font-medium capitalize transition {theme.neutral ===
 						key
-							? 'border-primary-500 bg-primary-50 text-primary-950 dark:bg-primary-950/50 dark:text-primary-200 font-bold'
+							? 'border-primary-500 bg-primary-50 font-bold text-primary-950 dark:bg-primary-950/50 dark:text-primary-200'
 							: 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800 dark:text-slate-300'}"
 					>
 						{key}
@@ -167,7 +167,7 @@
 			<a
 				href="/theme"
 				onclick={() => (open = false)}
-				class="text-primary-600 dark:text-primary-400 font-bold hover:underline"
+				class="font-bold text-primary-600 hover:underline dark:text-primary-400"
 			>
 				Theme Studio →
 			</a>

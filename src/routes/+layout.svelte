@@ -1,6 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import 'yaxa-svelte/yaxa.css';
 	import { YaxaApp, Slideover, Breadcrumb, useShortcuts, theme } from 'yaxa-svelte';
 	import ThemeToggle from '#lib/components/ThemeToggle.svelte';
 	import CommandPalette from '#lib/components/CommandPalette.svelte';
@@ -22,17 +21,20 @@
 
 	let breadcrumbItems = $derived(
 		isThemeStudio
-			? [{ label: 'Home', href: '/' }, { label: 'Theme Studio' }]
+			? [
+					{ label: 'Home', href: '/', icon: 'home' },
+					{ label: 'Theme Studio', icon: 'sparkles' }
+				]
 			: activeModule
 				? [
-						{ label: 'Home', href: '/' },
+						{ label: 'Home', href: '/', icon: 'home' },
 						{
 							label: activeModule.track,
 							href: `/?track=${encodeURIComponent(activeModule.track)}`
 						},
 						{ label: activeModule.title }
 					]
-				: [{ label: 'Home', href: '/' }]
+				: [{ label: 'Home', href: '/', icon: 'home' }]
 	);
 
 	useShortcuts({
@@ -71,7 +73,7 @@
 			<div class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto p-5">
 				<a href="/" class="flex shrink-0 items-center gap-3">
 					<div
-						class="bg-primary-600 shadow-primary-500/20 flex h-10 w-10 items-center justify-center rounded-xl font-mono text-base font-bold text-white shadow-md transition-colors"
+						class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-600 font-mono text-base font-bold text-white shadow-md shadow-primary-500/20 transition-colors"
 					>
 						26
 					</div>
@@ -90,7 +92,7 @@
 					{#each groupedTracks as group, i (group.track)}
 						<div class="space-y-1.5">
 							<span
-								class="text-primary-600 dark:text-primary-400 block px-2 font-mono text-sm font-bold tracking-wider uppercase transition-colors"
+								class="block px-2 font-mono text-sm font-bold tracking-wider text-primary-600 uppercase transition-colors dark:text-primary-400"
 							>
 								0{i + 1}. {group.track}
 							</span>
@@ -100,7 +102,7 @@
 									<a
 										href={mod.href}
 										class="flex items-center rounded-xl px-3 py-2 text-sm font-medium transition {active
-											? 'bg-primary-50 text-primary-950 dark:bg-primary-950/60 dark:text-primary-200 font-bold shadow-xs'
+											? 'bg-primary-50 font-bold text-primary-950 shadow-xs dark:bg-primary-950/60 dark:text-primary-200'
 											: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 									>
 										<span class="leading-relaxed">{mod.title}</span>
@@ -120,7 +122,7 @@
 						<a
 							href="/theme"
 							class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
-								? 'bg-primary-50 text-primary-950 dark:bg-primary-950/60 dark:text-primary-200 font-bold shadow-xs'
+								? 'bg-primary-50 font-bold text-primary-950 shadow-xs dark:bg-primary-950/60 dark:text-primary-200'
 								: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 						>
 							<span>🎨 Theme Studio</span>
@@ -135,7 +137,7 @@
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noreferrer"
-						class="text-primary-600 dark:text-primary-400 font-bold hover:underline">Yaxa UI 1.15</a
+						class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
 					> & Svelte 5
 				</div>
 			</div>
@@ -151,7 +153,7 @@
 			{#snippet header()}
 				<div class="flex items-center gap-2.5">
 					<div
-						class="bg-primary-600 flex h-8 w-8 items-center justify-center rounded-lg font-mono text-sm font-bold text-white"
+						class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-600 font-mono text-sm font-bold text-white"
 					>
 						26
 					</div>
@@ -169,7 +171,7 @@
 						href="https://yaxa.vercel.app"
 						target="_blank"
 						rel="noreferrer"
-						class="text-primary-600 dark:text-primary-400 font-bold hover:underline">Yaxa UI 1.15</a
+						class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
 					> & Svelte 5
 				</div>
 			{/snippet}
@@ -178,7 +180,7 @@
 				{#each groupedTracks as group, i (group.track)}
 					<div class="space-y-1.5">
 						<span
-							class="text-primary-600 dark:text-primary-400 block font-mono text-sm font-bold tracking-wider uppercase"
+							class="block font-mono text-sm font-bold tracking-wider text-primary-600 uppercase dark:text-primary-400"
 						>
 							0{i + 1}. {group.track}
 						</span>
@@ -189,7 +191,7 @@
 									href={mod.href}
 									onclick={() => (mobileDrawerOpen = false)}
 									class="block rounded-xl px-3 py-2 text-sm font-medium transition {active
-										? 'bg-primary-50 text-primary-950 dark:bg-primary-950/60 dark:text-primary-200 font-bold'
+										? 'bg-primary-50 font-bold text-primary-950 dark:bg-primary-950/60 dark:text-primary-200'
 										: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 								>
 									{mod.title}
@@ -209,7 +211,7 @@
 						href="/theme"
 						onclick={() => (mobileDrawerOpen = false)}
 						class="block rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
-							? 'bg-primary-50 text-primary-950 dark:bg-primary-950/60 dark:text-primary-200 font-bold'
+							? 'bg-primary-50 font-bold text-primary-950 dark:bg-primary-950/60 dark:text-primary-200'
 							: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 					>
 						🎨 Theme Studio

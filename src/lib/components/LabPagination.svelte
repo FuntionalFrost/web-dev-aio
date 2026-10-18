@@ -22,7 +22,7 @@
 			{#if prevModule}
 				<a
 					href={prevModule.href}
-					class="yaxa-press hover:border-primary-500 hover:text-primary-600 dark:hover:border-primary-400 dark:hover:text-primary-300 flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-800 shadow-xs transition dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
+					class="flex yaxa-press items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-800 shadow-xs transition hover:border-primary-500 hover:text-primary-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-primary-400 dark:hover:text-primary-300"
 				>
 					<span class="text-base">←</span>
 					<div class="text-left">
@@ -40,10 +40,10 @@
 			{#if nextModule}
 				<a
 					href={nextModule.href}
-					class="yaxa-press bg-primary-600 shadow-primary-500/20 hover:bg-primary-500 flex items-center gap-2.5 rounded-xl px-5 py-2.5 font-semibold text-white shadow-sm transition"
+					class="flex yaxa-press items-center gap-2.5 rounded-xl bg-primary-600 px-5 py-2.5 font-semibold text-white shadow-sm shadow-primary-500/20 transition hover:bg-primary-500"
 				>
 					<div class="text-right">
-						<span class="text-primary-200 hidden text-sm uppercase sm:block">Next Module</span>
+						<span class="hidden text-sm text-primary-200 uppercase sm:block">Next Module</span>
 						<span class="block max-w-40 truncate font-bold sm:max-w-64">{nextModule.title}</span>
 					</div>
 					<span class="text-base">→</span>

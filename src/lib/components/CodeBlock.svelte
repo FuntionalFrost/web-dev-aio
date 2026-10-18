@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CodeBlock as YaxaCodeBlock, Button, Icon, useToast } from 'yaxa-svelte';
+	import { CodeBlock as YaxaCodeBlock, Button, Icon, useToast, useClipboard } from 'yaxa-svelte';
 
 	let {
 		codeHtml,
@@ -31,24 +31,22 @@
 							: 'typescript')
 	);
 
-	let copied = $state(false);
 	const toast = useToast();
+	const clipboard = useClipboard({ timeout: 2000 });
 
-	function copyToClipboard() {
-		if (typeof navigator !== 'undefined' && navigator.clipboard) {
-			navigator.clipboard.writeText(textToCopy);
-			copied = true;
-			toast.success('Copied to clipboard', filename || `${detectedLang.toUpperCase()} snippet`);
-			setTimeout(() => {
-				copied = false;
-			}, 2000);
+	async function copyToClipboard() {
+		if (textToCopy) {
+			const success = await clipboard.copy(textToCopy);
+			if (success) {
+				toast.success('Copied to clipboard', filename || `${detectedLang.toUpperCase()} snippet`);
+			}
 		}
 	}
 </script>
 
 {#if codeHtml}
 	<div
-		class="relative my-4 overflow-hidden rounded-2xl border border-slate-800/90 bg-slate-950 font-mono text-base shadow-lg transition-all dark:border-slate-800 dark:shadow-2xl {className}"
+		class="relative my-4 overflow-hidden rounded-2xl border border-slate-800/90 bg-slate-950 font-mono text-base shadow-lg yaxa-surface-elevated transition-all dark:border-slate-800 dark:shadow-2xl {className}"
 	>
 		<div
 			class="flex items-center justify-between border-b border-slate-800/90 bg-slate-900/90 px-4 py-2.5 text-xs font-semibold text-slate-300 sm:text-sm"
@@ -73,11 +71,11 @@
 						size="xs"
 						variant="ghost"
 						onclick={copyToClipboard}
-						class="h-7 px-2.5 text-xs text-slate-400 hover:bg-slate-800 hover:text-white"
+						class="h-7 yaxa-press px-2.5 text-xs text-slate-400 hover:bg-slate-800 hover:text-white"
 						aria-label="Copy code to clipboard"
 					>
-						<Icon name={copied ? 'check' : 'copy'} size="xs" class="mr-1" />
-						{copied ? 'Copied' : 'Copy'}
+						<Icon name={clipboard.copied ? 'check' : 'copy'} size="xs" class="mr-1" />
+						{clipboard.copied ? 'Copied' : 'Copy'}
 					</Button>
 				{/if}
 			</div>

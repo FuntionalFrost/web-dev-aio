@@ -16,6 +16,7 @@
 			label: m.title,
 			description: `${m.category} • ${m.tech.join(', ')}`,
 			group: m.track,
+			icon: 'terminal',
 			href: m.href,
 			onSelect: () => {
 				isOpen = false;
@@ -27,6 +28,8 @@
 			label: 'Theme Studio',
 			description: 'Customize design tokens, palettes, radius scale & export Tailwind CSS v4',
 			group: 'Design System',
+			icon: 'sparkles',
+			shortcut: 'T',
 			href: '/theme',
 			onSelect: () => {
 				isOpen = false;

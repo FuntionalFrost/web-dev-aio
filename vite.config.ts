@@ -59,10 +59,5 @@ export default defineConfig({
 			}
 		}),
 		yaxa()
-	],
-	resolve: {
-		alias: {
-			'#lib/styles/yaxa.css': 'yaxa-svelte/yaxa.css'
-		}
-	}
+	]
 });

@@ -1,59 +1,28 @@
 @import 'tailwindcss';
-@source '../../node_modules/yaxa-svelte';
-
-@custom-variant dark (&:where(.dark, .dark *));
-
 @plugin '@tailwindcss/typography';
+@import 'yaxa-svelte/theme.css';
 
-/* 1. Shiki Syntax Highlighting & Crisp Readable Typography */
+/* 1. Shiki Syntax Highlighting */
 .shiki {
-	background-color: transparent !important;
-	font-family: var(
-		--font-mono,
-		ui-monospace,
-		SFMono-Regular,
-		Menlo,
-		Monaco,
-		Consolas,
-		monospace
-	) !important;
-	font-size: 0.875rem !important;
-	line-height: 1.7 !important;
+	background-color: transparent;
+	font-family: var(--font-mono);
+	font-size: 0.875rem;
+	line-height: 1.7;
 }
 
 .shiki code {
-	font-family: inherit !important;
-	font-size: inherit !important;
-	line-height: inherit !important;
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
 }
 
-/* 2. Global Interactive Primitives & Validation States */
-summary::-webkit-details-marker {
-	display: none;
-}
-summary {
-	list-style: none;
-}
-
-/* Post-interaction CSS constraint validation */
+/* 2. Post-interaction Constraint Validation */
 input:user-valid {
-	border-color: rgb(16 185 129 / 0.8) !important;
-	background-color: rgb(16 185 129 / 0.08) !important;
+	border-color: rgb(16 185 129 / 0.8);
+	background-color: rgb(16 185 129 / 0.08);
 }
 
-input:user-invalid {
-	border-color: rgb(244 63 94 / 0.8) !important;
-	background-color: rgb(244 63 94 / 0.08) !important;
-}
-
-/* 3. Strip Tailwind Typography backticks around inline <code> */
-@layer utilities {
-	.prose :where(code):not(:where([class~='not-prose'] *))::before,
-	.prose :where(code):not(:where([class~='not-prose'] *))::after {
-		content: '' !important;
-	}
-}
-
+/* 3. Document Smooth Scrolling & Layout Stability */
 html {
 	scrollbar-gutter: stable;
 	scroll-behavior: smooth;

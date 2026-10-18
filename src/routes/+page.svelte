@@ -31,7 +31,7 @@
 	<!-- Hero Section -->
 	<div class="space-y-3">
 		<span
-			class="bg-primary-50 text-primary-600 dark:bg-primary-950/60 dark:text-primary-400 inline-block rounded-lg px-3 py-1 font-mono text-sm font-bold tracking-wider uppercase transition-colors"
+			class="inline-block rounded-lg bg-primary-50 px-3 py-1 font-mono text-sm font-bold tracking-wider text-primary-600 uppercase transition-colors dark:bg-primary-950/60 dark:text-primary-400"
 		>
 			Engineering Labs & Architecture 2026
 		</span>
@@ -87,7 +87,7 @@
 			{#each filteredModules as mod (mod.id)}
 				<a
 					href={mod.href}
-					class="yaxa-surface-elevated group hover:border-primary-500/50 dark:hover:border-primary-500/50 flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/50"
+					class="group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm yaxa-surface-elevated transition-all hover:-translate-y-1 hover:border-primary-500/50 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/50 dark:hover:border-primary-500/50"
 				>
 					<div class="space-y-3.5">
 						<div class="flex items-center justify-between">
@@ -101,7 +101,7 @@
 
 						<div>
 							<h3
-								class="group-hover:text-primary-600 dark:group-hover:text-primary-400 text-xl font-bold tracking-tight text-slate-900 transition dark:text-white"
+								class="text-xl font-bold tracking-tight text-slate-900 transition group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-400"
 							>
 								{mod.title}
 							</h3>
@@ -155,14 +155,14 @@
 			href="https://yaxa.vercel.app"
 			target="_blank"
 			rel="noreferrer"
-			class="text-primary-600 dark:text-primary-400 font-bold hover:underline">Yaxa UI 1.15</a
+			class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
 		>
 		&
 		<a
 			href="https://svelte.dev"
 			target="_blank"
 			rel="noreferrer"
-			class="text-primary-600 dark:text-primary-400 font-bold hover:underline">Svelte 5</a
+			class="font-bold text-primary-600 hover:underline dark:text-primary-400">Svelte 5</a
 		>
 	</footer>
 </div>
