@@ -2,27 +2,13 @@
 @plugin '@tailwindcss/typography';
 @import 'yaxa-svelte/theme.css';
 
-/* 1. Shiki Syntax Highlighting */
-.shiki {
-	background-color: transparent;
-	font-family: var(--font-mono);
-	font-size: 0.875rem;
-	line-height: 1.7;
-}
-
-.shiki code {
-	font-family: inherit;
-	font-size: inherit;
-	line-height: inherit;
-}
-
-/* 2. Post-interaction Constraint Validation */
+/* 1. Post-interaction Constraint Validation */
 input:user-valid {
 	border-color: rgb(16 185 129 / 0.8);
 	background-color: rgb(16 185 129 / 0.08);
 }
 
-/* 3. Document Smooth Scrolling & Layout Stability */
+/* 2. Document Smooth Scrolling & Layout Stability */
 html {
 	scrollbar-gutter: stable;
 	scroll-behavior: smooth;

@@ -12,7 +12,6 @@
 		moduleId,
 		title: propTitle,
 		description: propDescription,
-		codeHtml,
 		rawCode,
 		code,
 		language,
@@ -26,7 +25,6 @@
 		moduleId?: string;
 		title?: string;
 		description?: string;
-		codeHtml?: string;
 		rawCode?: string;
 		code?: string;
 		language?: string;
@@ -71,9 +69,9 @@
 			{description}
 		</p>
 
-		{#if codeHtml || rawCode || code}
+		{#if rawCode || code}
 			<div class="not-prose my-2">
-				<CodeBlock {codeHtml} {rawCode} {code} {language} {filename} />
+				<CodeBlock {rawCode} {code} {language} {filename} />
 			</div>
 		{/if}
 

@@ -3,37 +3,26 @@
 	import { simulators } from '#lib/simulators/index.js';
 	import type { PageData } from './$types';
 
+	const EXT_MAP: Record<string, string> = {
+		typescript: 'ts',
+		html: 'html',
+		svelte: 'svelte',
+		css: 'css',
+		vue: 'vue',
+		json: 'json',
+		yaml: 'yaml',
+		bash: 'sh',
+		sql: 'sql',
+		python: 'py'
+	};
+
 	let { data }: { data: PageData } = $props();
 
 	let mod = $derived(data.mod);
-	let GuideComponent = $derived(data.component);
 	let Simulator = $derived(simulators[data.slug]);
 	let snippet = $derived(data.snippet);
-	let filename = $derived(
-		`${data.slug}.${
-			snippet?.lang === 'typescript'
-				? 'ts'
-				: snippet?.lang === 'html'
-					? 'html'
-					: snippet?.lang === 'svelte'
-						? 'svelte'
-						: snippet?.lang === 'css'
-							? 'css'
-							: snippet?.lang === 'vue'
-								? 'vue'
-								: snippet?.lang === 'json'
-									? 'json'
-									: snippet?.lang === 'yaml'
-										? 'yaml'
-										: snippet?.lang === 'bash'
-											? 'sh'
-											: snippet?.lang === 'sql'
-												? 'sql'
-												: snippet?.lang === 'python'
-													? 'py'
-													: 'ts'
-		}`
-	);
+	let ext = $derived(EXT_MAP[snippet?.lang ?? 'typescript'] ?? 'ts');
+	let filename = $derived(`${data.slug}.${ext}`);
 </script>
 
 <LabShell
@@ -43,11 +32,8 @@
 	rawCode={snippet?.code}
 	language={snippet?.lang}
 	{filename}
+	guideHtml={data.guideHtml}
 >
-	{#snippet guide()}
-		<GuideComponent />
-	{/snippet}
-
 	{#if Simulator}
 		<Simulator />
 	{/if}
