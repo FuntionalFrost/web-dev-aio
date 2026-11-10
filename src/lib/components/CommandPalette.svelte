@@ -35,6 +35,21 @@
 				isOpen = false;
 				goto('/theme');
 			}
+		},
+		{
+			id: 'external-github',
+			label: 'GitHub Repository',
+			description: 'View source code, report issues, and star on GitHub',
+			group: 'Community & Source',
+			icon: 'github',
+			shortcut: 'G',
+			href: 'https://github.com/FuntionalFrost/web-dev-aio',
+			onSelect: () => {
+				isOpen = false;
+				if (typeof window !== 'undefined') {
+					window.open('https://github.com/FuntionalFrost/web-dev-aio', '_blank');
+				}
+			}
 		}
 	];
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import './layout.css';
-	import { YaxaApp, Slideover, Breadcrumb, useShortcuts, theme } from 'yaxa-svelte';
+	import { YaxaApp, Slideover, Breadcrumb, useShortcuts, theme, Icon } from 'yaxa-svelte';
 	import ThemeToggle from '#lib/components/ThemeToggle.svelte';
 	import CommandPalette from '#lib/components/CommandPalette.svelte';
 	import SEO from '#lib/components/SEO.svelte';
@@ -131,14 +131,27 @@
 				</nav>
 
 				<div
-					class="mt-auto border-t border-slate-200/80 pt-4 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+					class="mt-auto flex items-center justify-between border-t border-slate-200/80 pt-4 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
 				>
-					Powered by <a
-						href="https://yaxa.vercel.app"
+					<div>
+						Powered by <a
+							href="https://yaxa.vercel.app"
+							target="_blank"
+							rel="noreferrer"
+							class="font-bold text-primary-600 hover:underline dark:text-primary-400"
+							>yaxa-svelte</a
+						> & Svelte 5
+					</div>
+					<a
+						href="https://github.com/FuntionalFrost/web-dev-aio"
 						target="_blank"
 						rel="noreferrer"
-						class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
-					> & Svelte 5
+						class="text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+						aria-label="GitHub repository"
+						title="GitHub repository"
+					>
+						<Icon name="github" size="sm" />
+					</a>
 				</div>
 			</div>
 		</aside>
@@ -165,14 +178,27 @@
 
 			{#snippet footer()}
 				<div
-					class="border-t border-slate-200/80 pt-3 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+					class="flex items-center justify-between border-t border-slate-200/80 pt-3 font-mono text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
 				>
-					Powered by <a
-						href="https://yaxa.vercel.app"
+					<div>
+						Powered by <a
+							href="https://yaxa.vercel.app"
+							target="_blank"
+							rel="noreferrer"
+							class="font-bold text-primary-600 hover:underline dark:text-primary-400"
+							>yaxa-svelte</a
+						> & Svelte 5
+					</div>
+					<a
+						href="https://github.com/FuntionalFrost/web-dev-aio"
 						target="_blank"
 						rel="noreferrer"
-						class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
-					> & Svelte 5
+						class="text-slate-500 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+						aria-label="GitHub repository"
+						title="GitHub repository"
+					>
+						<Icon name="github" size="sm" />
+					</a>
 				</div>
 			{/snippet}
 
@@ -239,9 +265,19 @@
 					</div>
 				</div>
 
-				<div class="flex items-center gap-3">
+				<div class="flex items-center gap-2 sm:gap-3">
 					<CommandPalette />
 					<ThemeToggle />
+					<a
+						href="https://github.com/FuntionalFrost/web-dev-aio"
+						target="_blank"
+						rel="noreferrer"
+						class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+						aria-label="GitHub repository"
+						title="GitHub repository"
+					>
+						<Icon name="github" size="sm" />
+					</a>
 				</div>
 			</header>
 

@@ -2,7 +2,7 @@
 	import { browser } from '$app/env';
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { Badge, Button, EmptyState } from 'yaxa-svelte';
+	import { Badge, Button, EmptyState, Icon } from 'yaxa-svelte';
 	import { curriculum, TRACK_ORDER } from '#lib/data/curriculum.js';
 
 	// Initialize from URL params on the client; fall back to safe defaults during prerender.
@@ -149,20 +149,32 @@
 	{/if}
 
 	<footer
-		class="mt-16 border-t border-slate-200/80 pt-8 text-center font-mono text-sm text-slate-500 dark:border-slate-800/80 dark:text-slate-400"
+		class="mt-16 flex flex-col items-center justify-center gap-2 border-t border-slate-200/80 pt-8 text-center font-mono text-sm text-slate-500 sm:flex-row sm:gap-4 dark:border-slate-800/80 dark:text-slate-400"
 	>
-		Made possible with <a
-			href="https://yaxa.vercel.app"
-			target="_blank"
-			rel="noreferrer"
-			class="font-bold text-primary-600 hover:underline dark:text-primary-400">Yaxa UI v2</a
-		>
-		&
+		<div>
+			Made possible with <a
+				href="https://yaxa.vercel.app"
+				target="_blank"
+				rel="noreferrer"
+				class="font-bold text-primary-600 hover:underline dark:text-primary-400">yaxa-svelte</a
+			>
+			&
+			<a
+				href="https://svelte.dev"
+				target="_blank"
+				rel="noreferrer"
+				class="font-bold text-primary-600 hover:underline dark:text-primary-400">Svelte 5</a
+			>
+		</div>
+		<span class="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
 		<a
-			href="https://svelte.dev"
+			href="https://github.com/FuntionalFrost/web-dev-aio"
 			target="_blank"
 			rel="noreferrer"
-			class="font-bold text-primary-600 hover:underline dark:text-primary-400">Svelte 5</a
+			class="inline-flex items-center gap-1.5 font-bold text-slate-700 hover:text-primary-600 hover:underline dark:text-slate-300 dark:hover:text-primary-400"
 		>
+			<Icon name="github" size="xs" />
+			<span>GitHub</span>
+		</a>
 	</footer>
 </div>
