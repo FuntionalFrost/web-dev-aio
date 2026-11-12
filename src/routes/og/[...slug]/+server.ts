@@ -1,4 +1,4 @@
-import { generateOgSvg } from 'yaxa-svelte';
+import { generateOgSvg } from 'yaxa-svelte/seo';
 import { siteConfig } from '#lib/config/site.js';
 import { curriculum } from '#lib/data/curriculum.js';
 import { toRouteKey } from '#lib/utils/url.js';

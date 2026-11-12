@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { Seo } from 'yaxa-svelte';
+	import { Seo } from 'yaxa-svelte/seo';
 	import { siteConfig } from '#lib/config/site.js';
 	import { curriculum } from '#lib/data/curriculum.js';
 	import { buildJsonLd } from '#lib/seo/schema.js';

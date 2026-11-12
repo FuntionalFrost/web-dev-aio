@@ -1,5 +1,5 @@
 import { siteConfig } from '#lib/config/site.js';
-import { definePageSeo } from 'yaxa-svelte';
+import { definePageSeo } from 'yaxa-svelte/seo';
 import type { PageLoad } from './$types';
 
 export const prerender = true;

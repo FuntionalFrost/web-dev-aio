@@ -2,7 +2,7 @@ import { curriculum } from '#lib/data/curriculum.js';
 import { guides } from '#lib/data/guides.js';
 import { snippets } from '#lib/data/snippets.js';
 import { siteConfig } from '#lib/config/site.js';
-import { definePageSeo } from 'yaxa-svelte';
+import { definePageSeo } from 'yaxa-svelte/seo';
 import { error } from '@sveltejs/kit';
 import type { EntryGenerator, PageLoad } from './$types';
 

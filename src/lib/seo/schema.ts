@@ -6,7 +6,7 @@ import {
 	generateArticleSchema,
 	generateBreadcrumbSchema,
 	generateSoftwareSourceCodeSchema
-} from 'yaxa-svelte';
+} from 'yaxa-svelte/seo';
 
 export interface SchemaContext {
 	isHome: boolean;

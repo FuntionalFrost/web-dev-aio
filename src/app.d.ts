@@ -70,7 +70,7 @@ declare global {
 		// interface Locals {}
 		interface PageData {
 			/** Declarative per-route SEO config (optional — only set by routes that export it from load) */
-			seo?: import('yaxa-svelte').PageSeoConfig;
+			seo?: import('yaxa-svelte/seo').PageSeoConfig;
 			/** Lab metadata for article structured data */
 			lab?: { lastmod?: string };
 		}

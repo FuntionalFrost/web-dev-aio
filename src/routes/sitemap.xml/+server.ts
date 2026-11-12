@@ -1,4 +1,4 @@
-import { createSitemapHandler } from 'yaxa-svelte';
+import { createSitemapHandler } from 'yaxa-svelte/seo';
 import { siteConfig } from '#lib/config/site.js';
 import { curriculum } from '#lib/data/curriculum.js';
 

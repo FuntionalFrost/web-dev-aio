@@ -1,4 +1,4 @@
-import { definePageSeo } from 'yaxa-svelte';
+import { definePageSeo } from 'yaxa-svelte/seo';
 
 export const prerender = true;
 
