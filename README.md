@@ -2,7 +2,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-web--engine26.pages.dev-emerald?style=for-the-badge&logo=cloudflarepages&logoColor=white)](https://web-engine26.pages.dev)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-FuntionalFrost%2Fweb--dev--aio-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/FuntionalFrost/web-dev-aio)
-[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.8.1-6366f1?style=for-the-badge)](https://yaxa.vercel.app)
+[![yaxa-svelte](https://img.shields.io/badge/yaxa--svelte-v2.10.0-6366f1?style=for-the-badge)](https://yaxa.vercel.app)
 [![Svelte 5](https://img.shields.io/badge/Svelte-5-orange?style=for-the-badge&logo=svelte&logoColor=white)](https://svelte.dev)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![TypeScript 6](https://img.shields.io/badge/TypeScript-6-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -17,7 +17,7 @@ An interactive, zero-server educational portal and reference architecture for mo
 ## Tech Stack
 
 - **Framework:** [SvelteKit 2](https://kit.svelte.dev/) + [Svelte 5](https://svelte.dev/) (Static Site Generation via `@sveltejs/adapter-static`)
-- **UI & Headless Primitives:** Powered by [yaxa-svelte](https://yaxa.vercel.app/) (v2.8.1 — accessible Bits UI primitives, Command Palette, Slideover, Badges, and Theme Studio)
+- **UI & Headless Primitives:** Powered by [yaxa-svelte](https://yaxa.vercel.app/) (v2.10.0 — accessible Bits UI primitives, Command Palette, Slideover, Badges, and Theme Studio)
 - **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) (`@theme` tokens, container queries, CSS-first architecture)
 - **Type System:** [TypeScript 6](https://www.typescriptlang.org/) (Strict modules, type-safe RPCs, Standard Schema, const generics)
 - **Runtimes & Engines:** Node.js 26, Bun 1.2, Deno 2.2, UnJS Nitro, Hono v4
