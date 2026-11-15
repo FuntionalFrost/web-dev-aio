@@ -1,50 +1,29 @@
-import type { RequestHandler } from './$types';
-import { SITE } from '#lib/config/site.js';
+import { createLlmsTxtHandler } from 'yaxa-svelte/seo';
+import { siteConfig } from '#lib/config/site.js';
 import { getCurriculumByTrack } from '#lib/data/curriculum.js';
 
 export const prerender = true;
 
-export const GET: RequestHandler = () => {
-	const tracks = getCurriculumByTrack();
+const tracks = getCurriculumByTrack();
 
-	let doc = `# ${SITE.name}
-
-> ${SITE.description}
-
-## Overview
-Web Engine 2026 is an interactive reference architecture and engineering lab suite demonstrating modern full-stack web standards, including Svelte 5 runes, Tailwind CSS v4 CSS-first theming, TypeScript 6 strict types, Drizzle ORM, Neon Postgres, Better Auth, and serverless Edge deployments.
-
-## Curriculum Modules
-
-`;
-
-	for (let i = 0; i < tracks.length; i++) {
-		const group = tracks[i];
-		doc += `### Track 0${i + 1}: ${group.track}\n\n`;
-
-		for (const mod of group.modules) {
-			doc += `- [${mod.title}](${SITE.url}${mod.href})\n`;
-			doc += `  - **Category**: ${mod.category}\n`;
-			doc += `  - **Technologies**: ${mod.tech.join(', ')}\n`;
-			doc += `  - **Description**: ${mod.description}\n\n`;
-		}
-	}
-
-	doc += `## Core Technologies
-- Svelte 5 (Runes, snippets, reactive effects)
-- yaxa-svelte (Powered by yaxa-svelte v2.10.0 headless primitives, Theme Studio, and tokens: https://yaxa.vercel.app)
-- Tailwind CSS v4 (@theme CSS-first engine)
-- TypeScript 6 (Strict literal inference, const type parameters)
-- SvelteKit 2 (Static prerendering, edge adapters)
-- Better Auth (Session management, passkeys)
-- Drizzle ORM + Neon Postgres (Serverless edge database)
-- Upstash Redis (Distributed rate limiting)
-`;
-
-	return new Response(doc, {
-		headers: {
-			'Content-Type': 'text/plain; charset=utf-8',
-			'Cache-Control': 'public, max-age=86400, stale-while-revalidate=86400'
-		}
-	});
-};
+export const GET = createLlmsTxtHandler({
+	config: siteConfig,
+	sections: tracks.map((group, i) => ({
+		title: `Track 0${i + 1}: ${group.track}`,
+		links: group.modules.map((mod) => ({
+			title: mod.title,
+			url: mod.href,
+			description: `${mod.category} [${mod.tech.join(', ')}] — ${mod.description}`
+		}))
+	})),
+	notes: [
+		'Svelte 5 Runes, snippets, and event handlers exclusively',
+		'yaxa-svelte (v2.10.0 headless primitives, Theme Studio, and tokens: https://yaxa.vercel.app)',
+		'Tailwind CSS v4 CSS-first theming with @theme tokens',
+		'TypeScript 6 strict literal inference and const type parameters',
+		'SvelteKit 2 static prerendering via @sveltejs/adapter-static',
+		'Better Auth session management and WebAuthn passkeys',
+		'Drizzle ORM + Neon Postgres serverless edge data layer',
+		'Upstash Redis distributed rate limiting'
+	]
+});

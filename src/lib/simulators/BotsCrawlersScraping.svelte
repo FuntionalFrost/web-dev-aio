@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LabCard from '#lib/components/LabCard.svelte';
+	import { AiChat, type AiMessage } from 'yaxa-svelte';
 
 	type BotKey = 'gptbot' | 'claudebot' | 'bytespider' | 'googlebot';
 	let selectedBot = $state<BotKey>('gptbot');
@@ -54,6 +55,76 @@
 			reason: 'Crawler permitted under RFC 9309 robots.txt and HTTP headers.'
 		};
 	});
+
+	// AI Agent Autonomous Ingestion Chat State
+	let chatMessages = $state<AiMessage[]>([
+		{
+			id: 'msg-1',
+			role: 'user',
+			content: 'Ingest and evaluate site context via /llms.txt'
+		},
+		{
+			id: 'msg-2',
+			role: 'assistant',
+			content: `I retrieved the site specification from \`/llms.txt\` and validated crawler directives:\n\n- **Site:** Web Engine 2026\n- **Permission:** Allowed (RFC 9309)\n- **Available Tracks:** 7 Tracks covering 34 engineering modules\n- **Core Stack:** Svelte 5 (Runes), yaxa-svelte v2.10.0, Tailwind CSS v4`,
+			thought: {
+				duration: 0.9,
+				text: 'Parsing HTTP headers, validating robots.txt directives, checking TDM opt-out flag...',
+				steps: [
+					'Request GET /llms.txt with crawler User-Agent',
+					'Verify X-Robots-Tag and EU Art 4 reservation',
+					'Parse Markdown sections for curriculum tracks'
+				]
+			},
+			tools: [
+				{
+					name: 'fetch_llms_txt',
+					status: 'success',
+					args: { endpoint: '/llms.txt', format: 'markdown' },
+					result: { status: 200, tracksFound: 7, modulesCount: 34 }
+				}
+			]
+		}
+	]);
+
+	function handleSendMessage(text: string) {
+		const isAiBot = selectedBot !== 'googlebot';
+		const isBlocked =
+			isAiBot && (enableNoaiHeader || enableTdmReservation) && selectedPath !== '/llms.txt';
+
+		chatMessages = [
+			...chatMessages,
+			{
+				id: `usr-${Date.now()}`,
+				role: 'user',
+				content: text
+			},
+			{
+				id: `bot-${Date.now()}`,
+				role: 'assistant',
+				content: isBlocked
+					? `⚠️ **Request Refused**: Target path \`${selectedPath}\` has machine-readable reservation directives active (*EU Art 4 TDM opt-out* / *X-Robots-Tag: noai*). Crawling halted in compliance with legal signals.`
+					: `✅ **Context Ingested**: Successfully loaded context for \`${selectedPath}\`. Crawl permitted under RFC 9309 robots guidelines.`,
+				thought: {
+					duration: 0.6,
+					text: `Evaluating crawler policy for ${botProfiles[selectedBot].name} against ${selectedPath}...`,
+					steps: [
+						`Inspect User-Agent: ${botProfiles[selectedBot].userAgent}`,
+						`Check HTTP response headers for noai/TDM`,
+						`Deliver compliance evaluation result`
+					]
+				},
+				tools: [
+					{
+						name: 'eval_bot_governance',
+						status: isBlocked ? 'error' : 'success',
+						args: { bot: selectedBot, path: selectedPath },
+						result: { allowed: !isBlocked, reason: evaluation.reason }
+					}
+				]
+			}
+		];
+	}
 
 	// Client-Side Proof-of-Work (PoW) Anti-Bot Challenge Simulator
 	let powDifficulty = $state(10);
@@ -168,6 +239,34 @@
 				</span>
 			</div>
 			<p class="text-xs text-slate-700 dark:text-slate-300">{evaluation.reason}</p>
+		</div>
+
+		<!-- AI Agent Autonomous Ingestion Simulator via AiChat -->
+		<div
+			class="space-y-2 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950"
+		>
+			<div class="flex items-center justify-between">
+				<span class="text-xs font-bold text-slate-700 dark:text-slate-300">
+					Autonomous Agent Ingestion & Tool Call Preview
+				</span>
+				<span
+					class="rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-bold text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300"
+				>
+					{botProfiles[selectedBot].name}
+				</span>
+			</div>
+			<p class="text-xs text-slate-600 dark:text-slate-400">
+				Live preview of how an AI crawler or LLM coding assistant reasons, invokes tools, and parses <code
+					class="rounded bg-slate-200 px-1 py-0.5 dark:bg-slate-800">/llms.txt</code
+				> when inspecting Web Engine 2026.
+			</p>
+			<AiChat
+				messages={chatMessages}
+				assistantName={botProfiles[selectedBot].name}
+				placeholder="Prompt the crawler agent or ask about /llms.txt..."
+				onsend={handleSendMessage}
+				class="h-[360px] rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+			/>
 		</div>
 
 		<!-- Client-Side Proof-of-Work Challenge (Altcha standard) -->
