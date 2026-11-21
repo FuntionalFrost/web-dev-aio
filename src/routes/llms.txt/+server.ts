@@ -18,7 +18,7 @@ export const GET = createLlmsTxtHandler({
 	})),
 	notes: [
 		'Svelte 5 Runes, snippets, and event handlers exclusively',
-		'yaxa-svelte (v2.10.0 headless primitives, Theme Studio, and tokens: https://yaxa.vercel.app)',
+		'yaxa-svelte (v2.10.1 headless primitives, Theme Studio, and tokens: https://yaxa.vercel.app)',
 		'Tailwind CSS v4 CSS-first theming with @theme tokens',
 		'TypeScript 6 strict literal inference and const type parameters',
 		'SvelteKit 2 static prerendering via @sveltejs/adapter-static',

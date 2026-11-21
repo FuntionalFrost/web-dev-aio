@@ -66,7 +66,7 @@
 		{
 			id: 'msg-2',
 			role: 'assistant',
-			content: `I retrieved the site specification from \`/llms.txt\` and validated crawler directives:\n\n- **Site:** Web Engine 2026\n- **Permission:** Allowed (RFC 9309)\n- **Available Tracks:** 7 Tracks covering 34 engineering modules\n- **Core Stack:** Svelte 5 (Runes), yaxa-svelte v2.10.0, Tailwind CSS v4`,
+			content: `I retrieved the site specification from \`/llms.txt\` and validated crawler directives:\n\n- **Site:** Web Engine 2026\n- **Permission:** Allowed (RFC 9309)\n- **Available Tracks:** 7 Tracks covering 34 engineering modules\n- **Core Stack:** Svelte 5 (Runes), yaxa-svelte v2.10.1, Tailwind CSS v4`,
 			thought: {
 				duration: 0.9,
 				text: 'Parsing HTTP headers, validating robots.txt directives, checking TDM opt-out flag...',
