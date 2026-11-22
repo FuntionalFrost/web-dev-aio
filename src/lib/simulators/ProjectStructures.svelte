@@ -6,7 +6,7 @@
 
 	const topologies: Record<StructureType, { title: string; desc: string; tree: string[] }> = {
 		sveltekit: {
-			title: 'SvelteKit 2 Production Architecture',
+			title: 'SvelteKit 3 Production Architecture',
 			desc: 'Strict client/server separation with Universal Runes, +page server data pipelines, and hooks.',
 			tree: [
 				'src/',
@@ -69,7 +69,7 @@
 					? 'border-indigo-500 bg-indigo-50 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300'
 					: 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400'}"
 			>
-				SvelteKit 2
+				SvelteKit 3
 			</button>
 			<button
 				onclick={() => (selectedType = 'nuxt4')}

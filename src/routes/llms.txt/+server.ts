@@ -21,7 +21,7 @@ export const GET = createLlmsTxtHandler({
 		'yaxa-svelte (v2.10.1 headless primitives, Theme Studio, and tokens: https://yaxa.vercel.app)',
 		'Tailwind CSS v4 CSS-first theming with @theme tokens',
 		'TypeScript 6 strict literal inference and const type parameters',
-		'SvelteKit 2 static prerendering via @sveltejs/adapter-static',
+		'SvelteKit 3 static prerendering via @sveltejs/adapter-static',
 		'Better Auth session management and WebAuthn passkeys',
 		'Drizzle ORM + Neon Postgres serverless edge data layer',
 		'Upstash Redis distributed rate limiting'

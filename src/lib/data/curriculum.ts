@@ -148,10 +148,10 @@ export const curriculum: CurriculumModule[] = [
 		id: 'runtime-engines',
 		href: '/runtimes/engines',
 		track: 'Runtimes & Engines',
-		title: '06. Modern JS Runtimes: Node.js 24, Bun & Deno 2',
+		title: '06. Modern JS Runtimes: Node.js 26, Bun & Deno 2',
 		category: 'JS Runtimes',
 		tech: [
-			'Node.js 24 LTS',
+			'Node.js 26 LTS',
 			'Bun 1.2',
 			'Deno 2.2',
 			'Granular Permissions',
@@ -165,17 +165,17 @@ export const curriculum: CurriculumModule[] = [
 		id: 'runtime-vite-packaging',
 		href: '/runtimes/vite-packaging',
 		track: 'Runtimes & Engines',
-		title: '07. Vite 6 Architecture & Library Packaging',
+		title: '07. Vite 8 Architecture & Library Packaging',
 		category: 'Build & Packaging',
 		tech: [
-			'Vite 6 / Rolldown',
+			'Vite 8 / Rolldown',
 			'HMR Pipelines',
 			'TypeScript d.ts',
 			'unbuild',
 			'package.json exports'
 		],
 		description:
-			'Understand Vite 6 next-gen bundling internals, lightning-fast HMR, TypeScript declaration generation, and multi-format npm library packaging with exports.'
+			'Understand Vite 8 next-gen bundling internals, lightning-fast HMR, TypeScript declaration generation, and multi-format npm library packaging with exports.'
 	},
 	{
 		id: 'runtime-nitro-hono',
@@ -247,6 +247,16 @@ export const curriculum: CurriculumModule[] = [
 		description:
 			'Enforce automatic resource cleanup on block-scope exit with explicit resource management and decouple asynchronous lifecycle resolvers.'
 	},
+	{
+		id: 'ecmascript-metaprogramming',
+		href: '/ecmascript/metaprogramming',
+		track: 'Modern ECMAScript',
+		title: '14. Metaprogramming: Proxy Traps & Type Transforms',
+		category: 'ECMAScript',
+		tech: ['Proxy', 'Reflect', 'Mapped Types', 'Conditional Types', 'infer'],
+		description:
+			'Intercept runtime object operations with JavaScript Proxy and Reflect traps, and synthesize compile-time APIs with TypeScript mapped and conditional types.'
+	},
 
 	// ==========================================
 	// Track 4: Rendering, Serialisation & Security
@@ -255,7 +265,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'rendering-strategies',
 		href: '/rendering/strategies',
 		track: 'Rendering & Architecture',
-		title: '14. Rendering Strategies: SSG, SSR, Hybrid & CSR',
+		title: '15. Rendering Strategies: SSG, SSR, Hybrid & CSR',
 		category: 'Rendering Strategies',
 		tech: [
 			'Prerendering (SSG)',
@@ -271,7 +281,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'rendering-hydration-serialization',
 		href: '/rendering/hydration-serialization',
 		track: 'Rendering & Architecture',
-		title: '15. Hydration Engines & Data Serialisation',
+		title: '16. Hydration Engines & Data Serialisation',
 		category: 'Hydration & Serialisation',
 		tech: [
 			'Hydration Pipeline',
@@ -288,7 +298,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'rendering-csp-transitions',
 		href: '/rendering/csp-transitions',
 		track: 'Rendering & Architecture',
-		title: '16. Security: Strict CSP, Nonces & View Transitions',
+		title: '17. Security: Strict CSP, Nonces & View Transitions',
 		category: 'Web Security & Transitions',
 		tech: [
 			'Strict CSP',
@@ -308,7 +318,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'api-schema-rpc',
 		href: '/apis/schema-rpc',
 		track: 'APIs & Data Architecture',
-		title: '17. Schema Validation & Type-Safe RPC',
+		title: '18. Schema Validation & Type-Safe RPC',
 		category: 'API Architecture & RPC',
 		tech: [
 			'@standard-schema/spec',
@@ -324,7 +334,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'api-realtime-webhooks',
 		href: '/apis/realtime-webhooks',
 		track: 'APIs & Data Architecture',
-		title: '18. Real-Time Streaming & Webhook Signatures',
+		title: '19. Real-Time Streaming & Webhook Signatures',
 		category: 'Real-Time & Streaming',
 		tech: [
 			'Server-Sent Events (SSE)',
@@ -340,7 +350,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-databases-orm',
 		href: '/infra/databases-orm',
 		track: 'APIs & Data Architecture',
-		title: '19. Database Engines: Neon, Turso, libSQL, SQLite, PostgreSQL & postgres.js',
+		title: '20. Database Engines: Neon, Turso, libSQL, SQLite, PostgreSQL & postgres.js',
 		category: 'Backend & Data',
 		tech: [
 			'Neon Serverless',
@@ -357,7 +367,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-redis-ratelimit',
 		href: '/infra/redis-ratelimit',
 		track: 'APIs & Data Architecture',
-		title: '20. Edge Caching & Sliding Window Rate Limiting',
+		title: '21. Edge Caching & Sliding Window Rate Limiting',
 		category: 'Backend & Data',
 		tech: [
 			'@upstash/redis',
@@ -373,7 +383,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-better-auth',
 		href: '/infra/better-auth',
 		track: 'APIs & Data Architecture',
-		title: '21. Modern Authentication, Passkeys & Better Auth',
+		title: '22. Modern Authentication, Passkeys & Better Auth',
 		category: 'Auth & Security',
 		tech: [
 			'Better Auth',
@@ -389,7 +399,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'infra-storage-s3-r2',
 		href: '/infra/storage-s3-r2',
 		track: 'APIs & Data Architecture',
-		title: '22. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads',
+		title: '23. Object Storage: S3 Client, Cloudflare R2 & Presigned Uploads',
 		category: 'Object Storage & R2',
 		tech: [
 			'@aws-sdk/client-s3',
@@ -410,7 +420,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'cloud-platforms-deploy',
 		href: '/cloud/platforms-deployment',
 		track: 'Cloud, Operations & Licences',
-		title: '23. Cloud Platforms: Cloudflare Workers, Vercel & Netlify',
+		title: '24. Cloud Platforms: Cloudflare Workers, Vercel & Netlify',
 		category: 'Cloud & Deployment',
 		tech: [
 			'Cloudflare Workers / Pages',
@@ -426,7 +436,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'operations-testing',
 		href: '/operations/testing',
 		track: 'Cloud, Operations & Licences',
-		title: '24. Modern Testing Architecture: Vitest & Playwright',
+		title: '25. Modern Testing Architecture: Vitest & Playwright',
 		category: 'Testing & Quality',
 		tech: [
 			'Vitest',
@@ -442,7 +452,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'operations-seo-analytics',
 		href: '/operations/seo-analytics',
 		track: 'Cloud, Operations & Licences',
-		title: '25. SEO, Metadata & Privacy-First Web Analytics',
+		title: '26. SEO, Metadata & Privacy-First Web Analytics',
 		category: 'SEO & Analytics',
 		tech: [
 			'HTML5 <head> Meta',
@@ -458,7 +468,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'business-monetization',
 		href: '/business/monetization',
 		track: 'Cloud, Operations & Licences',
-		title: '26. Site & Project Monetisation Models',
+		title: '27. Site & Project Monetisation Models',
 		category: 'Monetisation & Billing',
 		tech: [
 			'Polar.sh MoR',
@@ -474,7 +484,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'business-software-licenses',
 		href: '/business/software-licenses',
 		track: 'Cloud, Operations & Licences',
-		title: '27. Software Licence Types & Open Source Matrix',
+		title: '28. Software Licence Types & Open Source Matrix',
 		category: 'Software Licences',
 		tech: [
 			'MIT / Apache 2.0 / BSD',
@@ -490,7 +500,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'cloud-containers-iac',
 		href: '/cloud/containers-iac',
 		track: 'Cloud, Operations & Licences',
-		title: '28. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform',
+		title: '29. Containers, Orchestration & IaC: Podman, Docker, OCI, ECS & Terraform',
 		category: 'Containers & IaC',
 		tech: [
 			'Podman Rootless',
@@ -508,7 +518,7 @@ export const curriculum: CurriculumModule[] = [
 		href: '/operations/dev-environments',
 		track: 'Cloud, Operations & Licences',
 		title:
-			'29. Developer Workstations: Windows 11 WSL2 vs Fedora 44, VS Code vs VSCodium & Node 26',
+			'30. Developer Workstations: Windows 11 WSL2 vs Fedora 44, VS Code vs VSCodium & Node 26',
 		category: 'Developer Workstations',
 		tech: [
 			'Windows 11 WSL2',
@@ -530,7 +540,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'security-defensive-headers',
 		href: '/security/defensive-headers',
 		track: 'Security, Privacy & EU Regulations',
-		title: '30. Modern Web Security: Strict CSP Level 3, Nonces & Isolation',
+		title: '31. Modern Web Security: Strict CSP Level 3, Nonces & Isolation',
 		category: 'Defensive Web Security',
 		tech: [
 			'Strict CSP Level 3',
@@ -547,7 +557,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'security-privacy-fingerprinting',
 		href: '/security/privacy-fingerprinting',
 		track: 'Security, Privacy & EU Regulations',
-		title: '31. Web Privacy Engineering, Tracking Defenses & Anti-Fingerprinting',
+		title: '32. Web Privacy Engineering, Tracking Defenses & Anti-Fingerprinting',
 		category: 'Privacy & Tracking Defense',
 		tech: [
 			'Global Privacy Control (GPC)',
@@ -564,7 +574,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'security-anonymity-oblivious',
 		href: '/security/anonymity-oblivious',
 		track: 'Security, Privacy & EU Regulations',
-		title: '32. Web Anonymity: Oblivious HTTP (OHTTP) & Private State Tokens',
+		title: '33. Web Anonymity: Oblivious HTTP (OHTTP) & Private State Tokens',
 		category: 'Oblivious Protocols & Anonymity',
 		tech: [
 			'Oblivious HTTP (RFC 9458)',
@@ -581,7 +591,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'security-bots-crawlers-scraping',
 		href: '/security/bots-crawlers-scraping',
 		track: 'Security, Privacy & EU Regulations',
-		title: '33. Robots, AI Web Scrapers & Bot Mitigation Architecture',
+		title: '34. Robots, AI Web Scrapers & Bot Mitigation Architecture',
 		category: 'Bot Governance & Anti-Scraping',
 		tech: [
 			'RFC 9309 Robots Protocol',
@@ -598,7 +608,7 @@ export const curriculum: CurriculumModule[] = [
 		id: 'compliance-eu-regulations',
 		href: '/compliance/eu-regulations',
 		track: 'Security, Privacy & EU Regulations',
-		title: '34. EU Data Regulations: GDPR, ePrivacy, DMA/DSA & EU AI Act',
+		title: '35. EU Data Regulations: GDPR, ePrivacy, DMA/DSA & EU AI Act',
 		category: 'EU Compliance & Governance',
 		tech: [
 			'GDPR DSAR Automation',

@@ -23,6 +23,11 @@ export const GET = createSitemapHandler({
 			loc: '/theme',
 			changefreq: 'monthly' as const,
 			priority: 0.6
+		},
+		{
+			loc: '/roadmap',
+			changefreq: 'monthly' as const,
+			priority: 0.7
 		}
 	],
 	dynamicRoutes: async () => {

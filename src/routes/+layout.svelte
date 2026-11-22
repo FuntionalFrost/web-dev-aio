@@ -17,6 +17,7 @@
 		curriculum.find((m) => cleanPath(m.href) === cleanPath(page.url.pathname))
 	);
 	let isThemeStudio = $derived(cleanPath(page.url.pathname) === '/theme');
+	let isRoadmap = $derived(cleanPath(page.url.pathname) === '/roadmap');
 	let mobileDrawerOpen = $state(false);
 
 	let breadcrumbItems = $derived(
@@ -25,16 +26,21 @@
 					{ label: 'Home', href: '/', icon: 'home' },
 					{ label: 'Theme Studio', icon: 'sparkles' }
 				]
-			: activeModule
+			: isRoadmap
 				? [
 						{ label: 'Home', href: '/', icon: 'home' },
-						{
-							label: activeModule.track,
-							href: `/?track=${encodeURIComponent(activeModule.track)}`
-						},
-						{ label: activeModule.title }
+						{ label: 'Skill Roadmap', icon: 'sparkles' }
 					]
-				: [{ label: 'Home', href: '/', icon: 'home' }]
+				: activeModule
+					? [
+							{ label: 'Home', href: '/', icon: 'home' },
+							{
+								label: activeModule.track,
+								href: `/?track=${encodeURIComponent(activeModule.track)}`
+							},
+							{ label: activeModule.title }
+						]
+					: [{ label: 'Home', href: '/', icon: 'home' }]
 	);
 
 	useShortcuts({
@@ -112,20 +118,30 @@
 						</div>
 					{/each}
 
-					<!-- Tools / Theme Studio Link -->
+					<!-- Tools / Theme Studio & Roadmap Links -->
 					<div class="space-y-1.5 pt-2">
 						<span
 							class="block px-2 font-mono text-sm font-bold tracking-wider text-slate-400 uppercase dark:text-slate-500"
 						>
-							Design System
+							Learning Tools
 						</span>
 						<a
-							href="/theme"
-							class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
+							href="/roadmap"
+							class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition {isRoadmap
 								? 'bg-primary-50 font-bold text-primary-950 shadow-xs dark:bg-primary-950/60 dark:text-primary-200'
 								: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 						>
-							<span>🎨 Theme Studio</span>
+							<Icon name="sparkles" size="sm" class="shrink-0 text-primary-500" />
+							<span>Skill Roadmap</span>
+						</a>
+						<a
+							href="/theme"
+							class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
+								? 'bg-primary-50 font-bold text-primary-950 shadow-xs dark:bg-primary-950/60 dark:text-primary-200'
+								: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
+						>
+							<Icon name="palette" size="sm" class="shrink-0 text-primary-500" />
+							<span>Theme Studio</span>
 						</a>
 					</div>
 				</nav>
@@ -231,16 +247,27 @@
 					<span
 						class="block font-mono text-sm font-bold tracking-wider text-slate-400 uppercase dark:text-slate-500"
 					>
-						Design System
+						Learning Tools
 					</span>
 					<a
-						href="/theme"
+						href="/roadmap"
 						onclick={() => (mobileDrawerOpen = false)}
-						class="block rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
+						class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition {isRoadmap
 							? 'bg-primary-50 font-bold text-primary-950 dark:bg-primary-950/60 dark:text-primary-200'
 							: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
 					>
-						🎨 Theme Studio
+						<Icon name="sparkles" size="sm" class="shrink-0 text-primary-500" />
+						<span>Skill Roadmap</span>
+					</a>
+					<a
+						href="/theme"
+						onclick={() => (mobileDrawerOpen = false)}
+						class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition {isThemeStudio
+							? 'bg-primary-50 font-bold text-primary-950 dark:bg-primary-950/60 dark:text-primary-200'
+							: 'text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-100'}"
+					>
+						<Icon name="palette" size="sm" class="shrink-0 text-primary-500" />
+						<span>Theme Studio</span>
 					</a>
 				</div>
 			</nav>

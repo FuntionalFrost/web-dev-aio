@@ -42,7 +42,7 @@
 
 		<p class="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
 			{curriculum.length} production-grade engineering modules covering Svelte 5 Universal Runes & Async
-			streaming, SvelteKit 2 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 24 / Bun / Deno runtimes,
+			streaming, SvelteKit 3 routing & adapters, Nuxt 4, Nitro & Hono engines, Node 26 / Bun / Deno runtimes,
 			SSG/SSR rendering strategies, strict CSP security, and software licence architectures.
 		</p>
 	</div>

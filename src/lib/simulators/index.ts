@@ -13,6 +13,7 @@ import MathAndMaps from './MathAndMaps.svelte';
 import BinaryStreams from './BinaryStreams.svelte';
 import DiscreteTransitions from './DiscreteTransitions.svelte';
 import ResourceScopes from './ResourceScopes.svelte';
+import Metaprogramming from './Metaprogramming.svelte';
 import Strategies from './Strategies.svelte';
 import HydrationSerialization from './HydrationSerialization.svelte';
 import CspTransitions from './CspTransitions.svelte';
@@ -49,6 +50,7 @@ export const simulators: Record<string, Component> = {
 	'binary-streams': BinaryStreams,
 	'discrete-transitions': DiscreteTransitions,
 	'resource-scopes': ResourceScopes,
+	metaprogramming: Metaprogramming,
 	strategies: Strategies,
 	'hydration-serialization': HydrationSerialization,
 	'csp-transitions': CspTransitions,

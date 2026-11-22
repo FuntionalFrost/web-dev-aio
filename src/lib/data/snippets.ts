@@ -189,7 +189,7 @@ jobs:
 	// ==========================================
 	'runtimes/engines': {
 		lang: 'typescript',
-		code: `// Modern Runtimes Comparison: Node.js 24 vs Bun 1.2 vs Deno 2.2
+		code: `// Modern Runtimes Comparison: Node.js 26 vs Bun 1.2 vs Deno 2.2
 
 // 1. Native Web Standards (Universal across all runtimes)
 const response = new Response(JSON.stringify({ runtime: 'Universal' }), {
@@ -206,8 +206,8 @@ const response = new Response(JSON.stringify({ runtime: 'Universal' }), {
 // Deno 2: Native permission sandbox
 // Deno.serve({ port: 3000 }, () => new Response("Deno 2 Zero-Config Server"));
 
-// Node.js 24: Native TypeScript execution without loaders
-// node --experimental-strip-types app.ts`
+// Node.js 26: Native TypeScript execution without loaders or flags
+// node app.ts`
 	},
 
 	'runtimes/vite-packaging': {
@@ -219,8 +219,11 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   plugins: [tailwindcss()],
   build: {
-    target: 'es2026',
-    cssMinify: 'lightningcss'
+    target: 'baseline-widely-available',
+    cssMinify: 'lightningcss',
+    rolldownOptions: {
+      output: { manualChunks: undefined }
+    }
   }
 });
 
@@ -374,6 +377,36 @@ function executeOrder() {
 // 2. Promise.withResolvers() Decoupling
 const { promise, resolve, reject } = Promise.withResolvers<string>();
 setTimeout(() => resolve('Async pipeline ready'), 1000);`
+	},
+
+	'ecmascript/metaprogramming': {
+		lang: 'typescript',
+		code: `// 1. Runtime JS Proxy Trap with Reflect forwarding
+export function createValidatedProxy<T extends object>(target: T): T {
+  return new Proxy(target, {
+    get(obj, prop, receiver) {
+      if (typeof prop === 'string' && !(prop in obj)) {
+        return () => \`[Virtual Call] \${prop}()\`;
+      }
+      return Reflect.get(obj, prop, receiver);
+    },
+    set(obj, prop, value, receiver) {
+      if (prop === 'age' && typeof value !== 'number') {
+        throw new TypeError('age must be numeric');
+      }
+      return Reflect.set(obj, prop, value, receiver);
+    }
+  });
+}
+
+// 2. Compile-Time TS Mapped Type with Key Remapping & Conditional Filter
+type Getters<T> = {
+  [K in keyof T as \`get\${Capitalize<string & K>}\`]: () => T[K];
+};
+
+type StringKeysOnly<T> = {
+  [K in keyof T as T[K] extends string ? K : never]: T[K];
+};`
 	},
 
 	// ==========================================

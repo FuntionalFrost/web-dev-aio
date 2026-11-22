@@ -66,7 +66,7 @@
 		{
 			id: 'msg-2',
 			role: 'assistant',
-			content: `I retrieved the site specification from \`/llms.txt\` and validated crawler directives:\n\n- **Site:** Web Engine 2026\n- **Permission:** Allowed (RFC 9309)\n- **Available Tracks:** 7 Tracks covering 34 engineering modules\n- **Core Stack:** Svelte 5 (Runes), yaxa-svelte v2.10.1, Tailwind CSS v4`,
+			content: `I retrieved the site specification from \`/llms.txt\` and validated crawler directives:\n\n- **Site:** Web Engine 2026\n- **Permission:** Allowed (RFC 9309)\n- **Available Tracks:** 7 Tracks covering 35 engineering modules\n- **Core Stack:** Svelte 5 (Runes), yaxa-svelte v2.10.1, Tailwind CSS v4`,
 			thought: {
 				duration: 0.9,
 				text: 'Parsing HTTP headers, validating robots.txt directives, checking TDM opt-out flag...',
@@ -81,7 +81,7 @@
 					name: 'fetch_llms_txt',
 					status: 'success',
 					args: { endpoint: '/llms.txt', format: 'markdown' },
-					result: { status: 200, tracksFound: 7, modulesCount: 34 }
+					result: { status: 200, tracksFound: 7, modulesCount: 35 }
 				}
 			]
 		}
@@ -265,7 +265,7 @@
 				assistantName={botProfiles[selectedBot].name}
 				placeholder="Prompt the crawler agent or ask about /llms.txt..."
 				onsend={handleSendMessage}
-				class="h-[360px] rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
+				class="h-90 rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900"
 			/>
 		</div>
 

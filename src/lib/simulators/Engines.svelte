@@ -52,13 +52,13 @@
 		},
 		node: {
 			name: 'Node.js',
-			version: '24 LTS',
+			version: '26 LTS',
 			engine: 'V8 + C++',
 			coldStartMs: 32.0,
 			installSpeedSec: 2.4,
 			securityModel: 'Permission flags (--permission, --allow-fs-read)',
 			highlights: [
-				'Native TypeScript stripping (--experimental-strip-types)',
+				'Native TypeScript execution by default (zero-flag type stripping)',
 				'Universal enterprise ecosystem compatibility',
 				'Built-in SQLite module & test runner'
 			],
@@ -81,8 +81,8 @@
 			{ output: '34 passed | 0 failed (78ms)' }
 		],
 		node: [
-			{ prompt: '~/app $', command: 'node --experimental-strip-types app.ts' },
-			{ output: '[Node 24 LTS] Native TypeScript type-stripping completed in 32ms' },
+			{ prompt: '~/app $', command: 'node app.ts' },
+			{ output: '[Node 26 LTS] Native TypeScript type-stripping completed in 32ms' },
 			{ prompt: '~/app $', command: 'node --test' },
 			{ output: '✔ all test suites passed (114ms)' }
 		]

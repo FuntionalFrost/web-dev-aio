@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = defineSiteConfig({
 			'Web Standards',
 			'Nitro',
 			'Hono',
-			'Vite 6',
+			'Vite 8',
 			'Bun',
 			'Deno',
 			'Node 26',

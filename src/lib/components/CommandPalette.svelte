@@ -24,6 +24,19 @@
 			}
 		})),
 		{
+			id: 'tool-roadmap',
+			label: 'Skill Roadmap',
+			description:
+				'Interactive prerequisite skill tree tracking mastery across web engineering labs',
+			group: 'Learning Tools',
+			icon: 'sparkles',
+			href: '/roadmap',
+			onSelect: () => {
+				isOpen = false;
+				goto('/roadmap');
+			}
+		},
+		{
 			id: 'tool-theme-studio',
 			label: 'Theme Studio',
 			description: 'Customize design tokens, palettes, radius scale & export Tailwind CSS v4',
@@ -64,15 +77,17 @@
 <!-- Prominent Navbar Search Trigger -->
 <button
 	onclick={() => (isOpen = true)}
-	class="flex h-10 w-48 items-center justify-between rounded-xl border border-slate-200 bg-slate-100/80 px-3.5 font-mono text-sm text-slate-600 transition hover:border-slate-300 hover:bg-slate-200/60 sm:w-72 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800/80"
+	class="flex h-10 w-44 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-100/80 px-3.5 font-mono text-sm text-slate-600 transition hover:border-slate-300 hover:bg-slate-200/60 sm:w-80 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800/80"
 	aria-label="Open search command palette"
 >
-	<span class="flex items-center gap-2.5">
-		<span>🔍</span>
-		<span class="hidden sm:inline">Search labs & theme...</span>
-		<span class="sm:hidden">Search...</span>
+	<span class="flex min-w-0 items-center gap-2.5">
+		<span class="shrink-0">🔍</span>
+		<span class="hidden truncate whitespace-nowrap sm:inline">Search labs & theme...</span>
+		<span class="whitespace-nowrap sm:hidden">Search...</span>
 	</span>
-	<Kbd combo={['meta', 'k']} size="sm" />
+	<span class="shrink-0">
+		<Kbd combo={['meta', 'k']} size="sm" />
+	</span>
 </button>
 
 <YaxaCommandPalette

@@ -11,7 +11,7 @@
 		const steps = [
 			'✓ Checkout Repository (actions/checkout@v4)',
 			'✓ Setup PNPM with cache (pnpm/action-setup@v4)',
-			'✓ Setup Node.js 24 LTS (actions/setup-node@v4)',
+			'✓ Setup Node.js 26 LTS (actions/setup-node@v4)',
 			'✓ Install Dependencies: pnpm install --frozen-lockfile (1.2s)',
 			'✓ Type Check: pnpm check (0 errors)',
 			'✓ Lint & Format: prettier & eslint (passed)',
