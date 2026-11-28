@@ -72,7 +72,7 @@
 			{ prompt: '~/app $', command: 'bun test --coverage' },
 			{ output: '✓ 34 test suites passed in 12.4ms (100% statement coverage)' },
 			{ prompt: '~/app $', command: 'bun add yaxa-svelte@latest' },
-			{ output: '+ yaxa-svelte@2.10.1 [saved 4 pkgs in 21ms]' }
+			{ output: '+ yaxa-svelte@2.13.0 [saved 4 pkgs in 21ms]' }
 		],
 		deno: [
 			{ prompt: '~/app $', command: 'deno task check' },

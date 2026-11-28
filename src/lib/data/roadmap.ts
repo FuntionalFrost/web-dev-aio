@@ -1,3 +1,5 @@
+import { curriculum } from '#lib/data/curriculum.js';
+
 export interface RoadmapResource {
 	title: string;
 	url: string;
@@ -16,7 +18,7 @@ export interface TreeNode {
 	resources: RoadmapResource[];
 }
 
-export const treeData: TreeNode[] = [
+const rawTreeData: Omit<TreeNode, 'labTitle'>[] = [
 	{
 		id: 'html-semantics',
 		title: 'HTML & Semantics',
@@ -27,7 +29,6 @@ export const treeData: TreeNode[] = [
 		col: 1,
 		prerequisites: [],
 		labHref: '/foundations/html5',
-		labTitle: '01. Modern HTML5, Semantics & Web APIs',
 		resources: [
 			{
 				title: 'MDN: HTML Elements Reference',
@@ -46,7 +47,6 @@ export const treeData: TreeNode[] = [
 		col: 0,
 		prerequisites: ['html-semantics'],
 		labHref: '/foundations/styling-assets',
-		labTitle: '02. Tailwind CSS v4, Styling & Asset Architecture',
 		resources: [
 			{
 				title: 'MDN: CSS Grid Layout',
@@ -65,7 +65,6 @@ export const treeData: TreeNode[] = [
 		col: 2,
 		prerequisites: ['html-semantics'],
 		labHref: '/ecmascript/metaprogramming',
-		labTitle: 'Metaprogramming: Proxy Traps & Type Transforms',
 		resources: [
 			{
 				title: 'MDN: JavaScript Guide',
@@ -84,7 +83,6 @@ export const treeData: TreeNode[] = [
 		col: 0,
 		prerequisites: ['css-layouts'],
 		labHref: '/foundations/styling-assets',
-		labTitle: '02. Tailwind CSS v4, Styling & Asset Architecture',
 		resources: [{ title: 'Tailwind CSS Documentation', url: 'https://tailwindcss.com/docs' }]
 	},
 	{
@@ -97,7 +95,6 @@ export const treeData: TreeNode[] = [
 		col: 2,
 		prerequisites: ['javascript-core'],
 		labHref: '/foundations/typescript',
-		labTitle: '03. TypeScript 6 & Strict Typing',
 		resources: [
 			{
 				title: 'TypeScript Handbook',
@@ -115,7 +112,6 @@ export const treeData: TreeNode[] = [
 		col: 1,
 		prerequisites: ['tailwind-design', 'typescript'],
 		labHref: '/rendering/hydration-serialization',
-		labTitle: '15. Hydration Engines & Data Serialisation',
 		resources: [{ title: 'Svelte 5 Docs', url: 'https://svelte.dev/docs/svelte/overview' }]
 	},
 	{
@@ -128,7 +124,12 @@ export const treeData: TreeNode[] = [
 		col: 1,
 		prerequisites: ['svelte-runes'],
 		labHref: '/runtimes/project-structures',
-		labTitle: '09. Modern Project Types & Directory Structures',
 		resources: [{ title: 'SvelteKit Docs', url: 'https://svelte.dev/docs/kit/introduction' }]
 	}
 ];
+
+// Derive lab titles from the curriculum so numbering never drifts out of sync.
+export const treeData: TreeNode[] = rawTreeData.map((node) => ({
+	...node,
+	labTitle: curriculum.find((m) => m.href === node.labHref)?.title
+}));

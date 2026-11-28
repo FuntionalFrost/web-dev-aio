@@ -31,11 +31,12 @@ export const GET = createSitemapHandler({
 		}
 	],
 	dynamicRoutes: async () => {
+		const lastmod = new Date().toISOString().split('T')[0];
 		return curriculum.map((l) => {
 			const parts = l.href.replace(/^\//, '').split('/');
 			return {
 				loc: l.href,
-				lastmod: '2026-09-30',
+				lastmod,
 				changefreq: 'weekly' as const,
 				priority: 0.8,
 				images: [
